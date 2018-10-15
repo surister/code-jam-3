@@ -1,0 +1,14 @@
+# You shouldn't need to edit this file!
+
+image: python:latest
+
+before_script:
+  # Print out Python information for debugging and install pipenv
+  - python -V
+  - pip install pipenv
+
+test:
+  script:
+  # Sync the development dependencies (flake8 & plugins) and run our lint task (see Pipfile)
+  - pipenv sync --dev
+  - pipenv run lint
