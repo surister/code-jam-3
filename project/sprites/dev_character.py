@@ -30,7 +30,7 @@ class Character(pygame.sprite.Sprite):
         if self.key[pygame.K_RIGHT] or self.key[pygame.K_d]:
             self.acc.x = 1
 
-        #self.acc += self.vel * self.friction
+        # self.acc += self.vel * self.friction
 
         self.vel += self.acc
 
@@ -42,7 +42,7 @@ class Character(pygame.sprite.Sprite):
             self.vel.x = -10
         if self.vel.y < -10:
             self.vel.y = -10
-        print(self.vel)
+
         self.pos += self.vel  # plus something, friction?
 
         self.rect.midbottom = self.pos
@@ -56,4 +56,3 @@ class Character(pygame.sprite.Sprite):
         if self.pos.x < 0:
             self.pos.x = WIDTH
 
-        print(f'Vel: {self.vel} - Acc {self.acc}')
