@@ -1,4 +1,4 @@
-from game import Game
+from project.game import Game
 from pygame import quit
 
 if __name__ == '__main__':
