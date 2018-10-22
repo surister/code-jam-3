@@ -16,3 +16,6 @@ class PlayerCharacter(Character):
             self.acc.x = -1
         if self.key[pygame.K_RIGHT] or self.key[pygame.K_d]:
             self.acc.x = 1
+
+        super.update()
+        

@@ -1,6 +1,6 @@
 import pygame
 from constants import Color, FPS, HEIGHT, WIDTH
-from sprites import dev_character
+from project.sprites.player_character import PlayerCharacter
 
 
 class Game:
@@ -23,7 +23,7 @@ class Game:
         Every time a new game starts
         """
         self.all_sprites = pygame.sprite.Group()
-        self.devchar = dev_character.Character(self)
+        self.devchar = PlayerCharacter(self, 10, 2, 3, 200, 200)
 
         self._run()
 
