@@ -1,5 +1,5 @@
 import pygame
-from project.contants import WIDTH, HEIGHT, FPS
+from project.contants import FPS, HEIGHT, WIDTH
 
 
 class Game:
@@ -34,7 +34,9 @@ class Game:
         """
         Every event will be registered here
         """
-        pass
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                self.running = self.playing = False
 
     def _update(self):
         """
@@ -49,4 +51,3 @@ class Game:
         Don't forget that we always draw first then -> pygame.display.flip()
         """
         pass
-
