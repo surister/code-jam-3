@@ -22,7 +22,7 @@ class Physics:
             self.friction = 1
     """
 
-    def __init__(self):
+    def __init__(self, friction):
         super().__init__()
         self.friction = 0.1
 
