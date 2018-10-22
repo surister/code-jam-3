@@ -1,9 +1,8 @@
+from game import Game
 from pygame import quit
-from sprites import game
-
 
 if __name__ == '__main__':
-        a = game.Game()
+        a = Game()
         while a.running:
             a.new()
 quit()
