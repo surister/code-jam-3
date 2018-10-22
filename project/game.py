@@ -1,8 +1,7 @@
 import pygame
-
 from project.constants import Color, FPS, HEIGHT, WIDTH
-from project.sprites import dev_character
 from project.menus.home import Home
+from project.sprites import dev_character
 
 
 class Game:
