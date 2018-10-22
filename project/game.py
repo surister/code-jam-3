@@ -1,13 +1,15 @@
 import pygame
-from project.menus.home import Home
+
 from project.constants import Color, FPS, HEIGHT, WIDTH
 from project.sprites import dev_character
+from project.menus.home import Home
 
 
 class Game:
     """
     Main Game class
     """
+
     def __init__(self):
         self.running = True
         self.playing = True
