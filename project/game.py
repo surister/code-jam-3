@@ -1,5 +1,5 @@
 import pygame
-from constants import FPS, HEIGHT, WIDTH, Color
+from constants import Color, FPS, HEIGHT, WIDTH
 
 
 class Game:

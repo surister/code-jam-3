@@ -1,6 +1,5 @@
-from pygame import quit
 from game import Game
-
+from pygame import quit
 
 if __name__ == '__main__':
         a = Game()
