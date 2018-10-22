@@ -1,6 +1,6 @@
 # Code Jam 3
 
-In a survery we recently ocnducted, we asked what theme people wanted to see for this code jam. The most popular option, 
+In a survery we recently conducted, we asked what theme people wanted to see for this code jam. The most popular option, 
 with 26/115 votes, was **The world ends in 10 minutes**. Thus, the task for this code jam involves creating a game under that theme.
 
 This task is a little more freeform than the other code jams we've had so far - we're happy to accept games in any form, 
