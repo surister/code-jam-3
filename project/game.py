@@ -1,5 +1,6 @@
 import pygame
 from constants import Color, FPS, HEIGHT, WIDTH
+from sprites import dev_character
 
 
 class Game:
@@ -21,6 +22,9 @@ class Game:
         """
         Every time a new game starts
         """
+        self.all_sprites = pygame.sprite.Group()
+        self.devchar = dev_character.Character(self)
+
         self._run()
 
     def _run(self)-> None:
@@ -35,6 +39,11 @@ class Game:
         """
         Every event will be registered here
         """
+        key = pygame.key.get_pressed()
+
+        if key[pygame.K_ESCAPE]:
+            self.running = self.playing = False
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.running = self.playing = False
@@ -43,7 +52,7 @@ class Game:
         """
         Every sprite's update will be registered here
         """
-        pass
+        self.all_sprites.update()
 
     def _draw(self)-> None:
         """
@@ -51,7 +60,10 @@ class Game:
 
         Don't forget that we always draw first then -> pygame.display.flip()
         """
-        self._draw_text(50, 'TEST ONE TWO THREE', Color.white, (HEIGHT/2, WIDTH/7))
+        #  self._draw_text(50, 'TEST ONE TWO THREE', Color.white, (HEIGHT/2, WIDTH/7))
+        self.screen.fill(Color.white)
+        self.all_sprites.draw(self.screen)
+
         pygame.display.flip()
 
     def _draw_text(self, size: int, text: str, color: Color, cords: tuple):
