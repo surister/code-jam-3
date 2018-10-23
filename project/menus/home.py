@@ -13,8 +13,8 @@ class Home:
     def draw(self, x: int, y: int):
         self.screen.fill(Color.dark_blue)
 
-        in_horizontal = self.start_button.left + self.start_button.width < x > self.start_button.left
-        in_vertical = self.start_button.top + self.start_button.height < y > self.start_button.top
+        in_horizontal = self.start_button.left + self.start_button.width > x > self.start_button.left
+        in_vertical = self.start_button.top + self.start_button.height > y > self.start_button.top
 
         if in_horizontal and in_vertical:
             self._draw_start_button(hover=True)
