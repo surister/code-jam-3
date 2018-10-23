@@ -13,13 +13,10 @@ class Character(Physics, Sprite):
         game,
         health_points: int,
         defense: int,
-        position_x: int,
-        position_y: int,
-        acceleration_x: int=0,
-        acceleration_y: int=0,
-        velocity_x: int=0,
-        velocity_y: int=0,
-        weapons: list =None,
+        pos: Vector2=None,
+        acc: Vector2=None,
+        vel: Vector2=None,
+        weapons: list=None,
         friction: int=0.1,
         image: Surface=None
     ):
@@ -38,9 +35,18 @@ class Character(Physics, Sprite):
             self.weapons = []
         else:
             self.weapons = weapons
-        self.pos = Vector2(position_x, position_y)
-        self.acc = Vector2(acceleration_x, acceleration_y)
-        self.vel = Vector2(velocity_x, velocity_y)
+        if pos is None:
+            self.pos = Vector2(0, 0)
+        else:
+            self.pos = pos
+        if acc is None:
+            self.acc = Vector2(0, 0)
+        else:
+            self.acc = acc
+        if vel is None:
+            self.vel = Vector2(0, 0)
+        else:
+            self.vel = vel
         self.friction = friction
 
         self.image.set_colorkey(Color.green)
