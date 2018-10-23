@@ -34,7 +34,7 @@ class Game:
         self.player_character = PlayerCharacter(self, 15, 10)
 
         """ test enemies """
-        Structure(self, 100, 10, pygame.Vector2(100, 200), pygame.Vector2(100, 100), pygame.Vector2(WIDTH, 520))
+        Structure(self, 100, 10, pygame.Vector2(100, 100), pygame.Vector2(1, 1), pygame.Vector2(HEIGHT, 100))
 
         self._run()
 

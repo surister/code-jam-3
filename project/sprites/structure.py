@@ -1,5 +1,7 @@
 from project.sprites.non_player_character import NonPlayerCharacter
+
 from pygame import Vector2
+from pygame.sprite import Sprite
 
 
 class Structure(NonPlayerCharacter):
@@ -20,9 +22,7 @@ class Structure(NonPlayerCharacter):
 
     def update(self):
         """ Move to towards destination if not already there, otherwise shoot at the player """
-        print("update")
         if not self.arrived:
-            print("update")
             self.pos.x = self.pos.x - self.vel.x
             self.pos.y = self.pos.y - self.vel.y
 
@@ -31,3 +31,5 @@ class Structure(NonPlayerCharacter):
         else:
             # TODO implement once projectiles are added to the game
             pass
+        self.rect.midbottom = self.pos
+        # Sprite.update(self)
