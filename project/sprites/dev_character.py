@@ -1,5 +1,3 @@
-from math import sqrt
-
 import pygame
 
 from project.constants import Color, HEIGHT, WIDTH
@@ -31,7 +29,7 @@ class Physics:
 
     def update(self) -> None:
 
-        # self.acc += self.vel * self.friction        
+        # self.acc += self.vel * self.friction
 
         if self.vel.x > self.max_speed:
             self.vel.x = self.max_speed
@@ -43,7 +41,7 @@ class Physics:
             self.vel.y = -self.max_speed
 
         self.acc = self.acc / self.friction
-        self.vel += self.acc # / self.friction ** 2
+        self.vel += self.acc
 
         self.pos += self.vel  # plus something, friction?
 

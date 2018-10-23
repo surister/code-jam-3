@@ -1,8 +1,5 @@
 from project.sprites.non_player_character import NonPlayerCharacter
 
-from pygame import Vector2
-from pygame.sprite import Sprite
-
 
 class Structure(NonPlayerCharacter):
     """ Structures slow move from off screen to their fixed position and then start firing at the player. """
@@ -13,8 +10,8 @@ class Structure(NonPlayerCharacter):
         health_points: int,
         defense: int,
         destination: int,
-        vel: Vector2,
-        pos: Vector2
+        vel,
+        pos
     ):
         super().__init__(game, health_points, defense, vel=vel, pos=pos)
         self.destination = destination
