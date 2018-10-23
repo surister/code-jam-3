@@ -1,13 +1,14 @@
-import menus.home
 import pygame
-from constants import Color, FPS, HEIGHT, WIDTH
-from sprites import dev_character
+from project.constants import Color, FPS, HEIGHT, WIDTH
+from project.menus.home import Home
+from project.sprites import dev_character
 
 
 class Game:
     """
     Main Game class
     """
+
     def __init__(self):
         self.running = True
         self.playing = True
@@ -67,7 +68,7 @@ class Game:
         Don't forget that we always draw first then -> pygame.display.flip()
         """
 
-        homepage = menus.home.Home(self.screen)
+        homepage = Home(self.screen)
         homepage.draw(self.mouse_x, self.mouse_y)
         # self.screen.fill(Color.white)
         self.all_sprites.draw(self.screen)

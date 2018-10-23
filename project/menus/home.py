@@ -1,5 +1,5 @@
 import pygame
-from constants import Color, HEIGHT, WIDTH
+from project.constants import Color, HEIGHT, WIDTH
 
 
 class Home:
