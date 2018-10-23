@@ -10,14 +10,14 @@ class Fighter(NonPlayerCharacter):
     def update(self):
         player_pos = self.game.player_character.pos
         if player_pos.x > self.pos.x:
-            self.acc.x += 0.5
+            self.acc.x += abs(player_pos.x - self.pos.x)/100
         else:
-            self.acc.x -= 0.5
+            self.acc.x -= abs(player_pos.x - self.pos.x)/100
 
         if player_pos.y > self.pos.y:
-            self.acc.y += 0.5
+            self.acc.y += abs(player_pos.y - self.pos.y)/100
         else:
-            self.acc.y -= 0.5
+            self.acc.y -= abs(player_pos.y - self.pos.y)/100
         super().update()
 
         # print(f"pp:{player_pos}, fp: {self.pos}")

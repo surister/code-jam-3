@@ -36,7 +36,7 @@ class Game:
 
         # Testing enemies
         Structure(self, 100, 10, WIDTH - 500, pygame.Vector2(1, 1), pygame.Vector2(WIDTH, 500))
-        Fighter(200, self, 100, 10, vel=pygame.Vector2(0, 0), pos=pygame.Vector2(WIDTH, 500), friction=4)
+        Fighter(200, self, 100, 10, vel=pygame.Vector2(0, 0), pos=pygame.Vector2(WIDTH, 500), friction=5)
 
         self._run()
 
