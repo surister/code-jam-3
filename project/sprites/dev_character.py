@@ -59,6 +59,7 @@ class Character(Physics, pygame.sprite.Sprite):
     """
     Sprite made for the sake of testing.
     """
+
     def __init__(self, game):
         super().__init__()
         self.game = game

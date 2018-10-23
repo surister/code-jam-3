@@ -1,5 +1,7 @@
 import pygame
-from constants import Color, FPS, HEIGHT, WIDTH
+
+from project.constants import Color, FPS, HEIGHT, WIDTH
+from project.menus.home import Home
 from project.sprites.player_character import PlayerCharacter
 
 
@@ -7,6 +9,7 @@ class Game:
     """
     Main Game class
     """
+
     def __init__(self):
         self.running = True
         self.playing = True
@@ -14,6 +17,9 @@ class Game:
         self.screen = pygame.display.set_mode((WIDTH, HEIGHT))
         self.clock = pygame.time.Clock()
         self.font = pygame.font.get_default_font()
+
+        self.mouse_x = 0
+        self.mouse_y = 0
 
         pygame.init()
         pygame.display.set_caption('Game in development')
@@ -48,6 +54,8 @@ class Game:
             if event.type == pygame.QUIT:
                 self.running = self.playing = False
 
+            self.mouse_x, self.mouse_y = pygame.mouse.get_pos()
+
     def _update(self)-> None:
         """
         Every sprite's update will be registered here
@@ -60,8 +68,10 @@ class Game:
 
         Don't forget that we always draw first then -> pygame.display.flip()
         """
-        #  self._draw_text(50, 'TEST ONE TWO THREE', Color.white, (HEIGHT/2, WIDTH/7))
-        self.screen.fill(Color.white)
+
+        homepage = Home(self.screen)
+        homepage.draw(self.mouse_x, self.mouse_y)
+        # self.screen.fill(Color.white)
         self.all_sprites.draw(self.screen)
 
         pygame.display.flip()
