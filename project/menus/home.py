@@ -55,7 +55,7 @@ class Home:
     def play_button(self, x: int, y: int)-> bool:
 
         self.play_button_rect.top = self.segment * 4
-
+        self.play_button_rect.left = self.space
         hovered = self._hovered(x, y, self.play_button_rect)
 
         if hovered:
@@ -89,10 +89,7 @@ class Home:
         return hovered, button
 
     def _hovered(self, x: int, y: int, button: object)-> bool:
-        in_horizontal = x > button.left and x < button.left + button.width
-        in_vertical = y > button.top and y < button.top + button.height
-
-        return in_horizontal and in_vertical
+        return button.collidepoint(x, y)
 
     def _draw_text(self, size: int, text: str, color: Color, rect: pygame.Rect)->None:
         font = pygame.font.Font(pygame.font.get_default_font(), size)
