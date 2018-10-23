@@ -21,6 +21,13 @@ class Home:
         else:
             self._draw_start_button()
 
+    def _draw_text(self, size: int, text: str, color: Color, cords: tuple):
+        font = pygame.font.Font(self.font, size)
+        text_surface = font.render(text, True, color)
+        text_rect = text_surface.get_rect()
+        text_rect.midtop = cords
+        self.screen.blit(text_surface, text_rect)
+
     def _draw_start_button(self, hover=False)->None:
 
         color = Color.dark_yellow

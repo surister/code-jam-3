@@ -15,10 +15,6 @@ class Physics:
             self.rect = self.image.get_rect()
             self.image.set_colorkey(Color.green)
 
-            self.acc = pygame.Vector2(0, 0)
-            self.vel = pygame.Vector2(0, 0)
-            self.pos = pygame.Vector2(200, 200)
-
             self.friction = 1
     """
 
