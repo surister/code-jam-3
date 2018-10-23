@@ -11,3 +11,4 @@ class Color:
     dark_yellow = (109, 94, 10)
     red = (255, 0, 0)
     green = (106, 0, 100)
+    light_green = (20, 211, 136)
