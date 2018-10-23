@@ -31,4 +31,3 @@ class Structure(NonPlayerCharacter):
             # TODO implement once projectiles are added to the game
             pass
         self.rect.midbottom = self.pos
-        Sprite.update(self)

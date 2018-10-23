@@ -1,3 +1,5 @@
+from math import sqrt
+
 import pygame
 
 from project.constants import Color, HEIGHT, WIDTH
@@ -29,9 +31,7 @@ class Physics:
 
     def update(self) -> None:
 
-        # self.acc += self.vel * self.friction
-
-        self.vel += self.acc * self.friction
+        # self.acc += self.vel * self.friction        
 
         if self.vel.x > 10:
             self.vel.x = 10
@@ -41,6 +41,9 @@ class Physics:
             self.vel.x = -10
         if self.vel.y < -10:
             self.vel.y = -10
+
+        self.acc = self.acc / self.friction
+        self.vel += self.acc # / self.friction ** 2
 
         self.pos += self.vel  # plus something, friction?
 

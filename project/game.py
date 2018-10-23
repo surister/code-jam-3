@@ -4,6 +4,7 @@ from project.constants import Color, FPS, HEIGHT, WIDTH
 from project.menus.home import Home
 from project.sprites.player_character import PlayerCharacter
 from project.sprites.structure import Structure
+from project.sprites.fighter import Fighter
 
 
 class Game:
@@ -31,10 +32,11 @@ class Game:
         """
         self.all_sprites = pygame.sprite.Group()
         self.enemy_sprites = pygame.sprite.Group()
-        self.player_character = PlayerCharacter(self, 15, 10)
+        self.player_character = PlayerCharacter(self, 15, 10, friction=3)
 
-        """ test enemies """
+        # Testing enemies
         Structure(self, 100, 10, WIDTH - 500, pygame.Vector2(1, 1), pygame.Vector2(WIDTH, 500))
+        Fighter(200, self, 100, 10, vel=pygame.Vector2(0, 0), pos=pygame.Vector2(WIDTH, 500), friction = 4)
 
         self._run()
 
