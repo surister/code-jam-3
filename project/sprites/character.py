@@ -13,12 +13,12 @@ class Character(Physics, Sprite):
         game,
         health_points: int,
         defense: int,
-        pos: Vector2=None,
-        acc: Vector2=None,
-        vel: Vector2=None,
-        weapons: list=None,
-        friction: int=0.1,
-        image: Surface=None
+        pos: Vector2 = None,
+        acc: Vector2 = None,
+        vel: Vector2 = None,
+        weapons: list = None,
+        friction: int = 0.1,
+        image: Surface = None
     ):
 
         super().__init__(friction)
