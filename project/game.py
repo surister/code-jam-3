@@ -89,4 +89,3 @@ class Game:
                     waiting = self.running = False
                 if event.type == pygame.MOUSEBUTTONUP and self.homepage.in_horizontal and self.homepage.in_vertical:
                     waiting = False
-
