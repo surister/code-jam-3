@@ -7,43 +7,95 @@ class Home:
 
     def __init__(self, screen: object):
         self.screen = screen
-        self.start_button = pygame.Rect(0, 0, 400, 100)
-        self.start_button.midtop = (WIDTH/2, HEIGHT/7)
-        self.start_button_text = "START"
-        self.in_horizontal = False
-        self.in_vertical = False
+
+        # SCREEN: 1280x720px = WxH
+        # devided by 5 parts horizontally - W/5 = 256px (slice)
+        # devided by 8 parts vertically - H/8 = 90px (segment)
+
+        self.slice = WIDTH // 5     # 256px
+        self.segment = HEIGHT // 8  # 90px
+        self.air = 10    # px
+        self.shift = 20  # px
+        self.space = 10  # px
+
+        # LOGO: 768x360px
+        # horizontal - logo takes 3 parts out of 5 - W/5 * 3 = 768px
+        # vertical - logo takes half of H - H/2 = 360px
+        self.logo_rect = pygame.Rect(self.slice, 0, self.slice * 3, HEIGHT / 2)
+        self.logo_image = pygame.image.load("project/assets/images/logo_placeholder.png").convert_alpha()
+
+        # PLAY BUTTON (larger) 384x70px
+        # horizontal - one part and half of 5 = W/5 * 1.5 = 384px
+        # vertical - 7 parts of 9 (of the segment) = S/9 * 7 = 70px
+        # (10px for the air on top and the bottom)
+        self.play_button_rect = pygame.Rect(self.space, self.segment * 4 + self.air,
+                                            self.slice * 1.5,
+                                            self.segment - (self.air * 2))
+
+        # other buttons 320*70px
+        # horizontal - one part and quarter of 5 = W/5 * 1.25 = 320px
+        # vertical - 7 parts of 9 (of the segment) = S/9 * 7 = 70px
+        # (10px for the air on top and the bottom)
+        self.other_button_rect = pygame.Rect(self.space, self.segment * 5,
+                                             self.slice * 1.25,
+                                             self.segment - (self.air * 2))
+
+        self.buttons_dict = {"options": 5, "about": 6, "exit": 7}
 
     def draw(self, x: int, y: int)-> None:
+
         self.screen.fill(Color.dark_blue)
+        self.screen.blit(self.logo_image, self.logo_rect)
 
-        self.in_horizontal = self.start_button.left + self.start_button.width > x > self.start_button.left
-        self.in_vertical = self.start_button.top + self.start_button.height > y > self.start_button.top
+        self.play_button(x, y)
+        for key in self.buttons_dict.keys():
+            self._draw_other_buttons(x, y, key)
+        pygame.display.update()
 
-        if self.in_horizontal and self.in_vertical:
-            self._draw_start_button(hover=True)
+    def play_button(self, x: int, y: int)-> bool:
+
+        self.play_button_rect.top = self.segment * 4
+
+        hovered = self._hovered(x, y, self.play_button_rect)
+
+        if hovered:
+            self.play_button_rect.left = self.shift
+            pygame.draw.rect(self.screen, Color.light_green, self.play_button_rect)
         else:
-            self._draw_start_button()
-        pygame.display.flip()
+            self.play_button_rect.left = self.space
+            pygame.draw.rect(self.screen, Color.light_green, self.play_button_rect)
 
-    def _draw_text(self, size: int, text: str, color: Color, cords: tuple):
-        font = pygame.font.Font(self.font, size)
+        self._draw_text(50, "PLAY", Color.white, self.play_button_rect)
+
+        return hovered
+
+    def _draw_other_buttons(self, x: int, y: int, button: str)-> tuple:
+        """
+            Returns tuple of if it is hovored (bool) and the name of the button
+        """
+
+        self.other_button_rect.top = self.segment * self.buttons_dict[button]
+        hovered = self._hovered(x, y, self.other_button_rect)
+
+        if hovered:
+            self.other_button_rect.left = self.shift
+            pygame.draw.rect(self.screen, Color.light_green, self.other_button_rect)
+        else:
+            self.other_button_rect.left = self.space
+            pygame.draw.rect(self.screen, Color.light_green, self.other_button_rect)
+
+        self._draw_text(40, button.upper(), Color.white, self.other_button_rect)
+
+        return hovered, button
+
+    def _hovered(self, x: int, y: int, button: object)-> bool:
+        in_horizontal = x > button.left and x < button.left + button.width
+        in_vertical = y > button.top and y < button.top + button.height
+
+        return in_horizontal and in_vertical
+
+    def _draw_text(self, size: int, text: str, color: Color, rect: pygame.Rect)->None:
+        font = pygame.font.Font(pygame.font.get_default_font(), size)
         text_surface = font.render(text, True, color)
-        text_rect = text_surface.get_rect()
-        text_rect.midtop = cords
-        self.screen.blit(text_surface, text_rect)
-
-    def _draw_start_button(self, hover=False)-> None:
-
-        color = Color.dark_yellow
-
-        if hover:
-            color = Color.red
-
-        font = pygame.font.Font(pygame.font.get_default_font(), 60)
-        text_surface = font.render(self.start_button_text, True, Color.white)
-        text_rect = text_surface.get_rect()
-        text_rect.midtop = (WIDTH/2, HEIGHT/7)
-        text_rect.top += 20
-
-        pygame.draw.rect(self.screen, color, self.start_button)
-        self.screen.blit(text_surface, text_rect)
+        rect.top += self.air
+        self.screen.blit(text_surface, rect)
