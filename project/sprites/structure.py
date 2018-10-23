@@ -12,7 +12,7 @@ class Structure(NonPlayerCharacter):
         game,
         health_points: int,
         defense: int,
-        destination: Vector2,
+        destination: int,
         vel: Vector2,
         pos: Vector2
     ):
@@ -21,15 +21,14 @@ class Structure(NonPlayerCharacter):
         self.arrived = False
 
     def update(self):
-        """ Move to towards destination if not already there, otherwise shoot at the player """
+        """ Move left untill destination passed if not already there, otherwise shoot at the player """
         if not self.arrived:
             self.pos.x = self.pos.x - self.vel.x
-            self.pos.y = self.pos.y - self.vel.y
 
-            if self.pos == self.destination:
+            if self.pos.x < self.destination:
                 self.arrived = True
         else:
             # TODO implement once projectiles are added to the game
             pass
         self.rect.midbottom = self.pos
-        # Sprite.update(self)
+        Sprite.update(self)
