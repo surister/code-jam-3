@@ -1,4 +1,5 @@
 import pygame
+
 from project.constants import Color, HEIGHT, WIDTH
 
 
@@ -22,23 +23,11 @@ class Physics:
             self.friction = 1
     """
 
-    def __init__(self):
+    def __init__(self, friction):
         super().__init__()
         self.friction = 0.1
 
     def update(self) -> None:
-
-        self.key = pygame.key.get_pressed()
-        # Can't detect UP and Down key??
-        self.acc.y = self.acc.x = 0
-        if self.key[pygame.KEYUP] or self.key[pygame.K_w]:
-            self.acc.y = -1
-        if self.key[pygame.KEYDOWN] or self.key[pygame.K_s]:
-            self.acc.y = 1
-        if self.key[pygame.K_LEFT] or self.key[pygame.K_a]:
-            self.acc.x = -1
-        if self.key[pygame.K_RIGHT] or self.key[pygame.K_d]:
-            self.acc.x = 1
 
         # self.acc += self.vel * self.friction
 
