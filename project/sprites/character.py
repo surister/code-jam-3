@@ -35,18 +35,22 @@ class Character(Physics, Sprite):
             self.weapons = []
         else:
             self.weapons = weapons
+
         if pos is None:
             self.pos = Vector2(0, 0)
         else:
             self.pos = pos
+
         if acc is None:
             self.acc = Vector2(0, 0)
         else:
             self.acc = acc
+
         if vel is None:
             self.vel = Vector2(0, 0)
         else:
             self.vel = vel
+
         self.friction = friction
 
         self.image.set_colorkey(Color.green)

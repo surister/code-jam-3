@@ -29,7 +29,7 @@ class Game:
         Every time a new game starts
         """
         self.all_sprites = pygame.sprite.Group()
-        self.devchar = PlayerCharacter(self, 10, 2, 3, 200, 200)
+        self.devchar = PlayerCharacter(self, 15, 10)
 
         self._run()
 
