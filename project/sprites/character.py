@@ -59,3 +59,12 @@ class Character(Physics, Sprite):
     def update(self):
         # print(f"acc: {self.acc}, vel: {self.vel}, pos: {self.pos}, friction:{self.friction}")
         super().update()
+
+    def take_damage(self, amount, penetration=0):
+        damage = amount
+        if self.defense > penetration:
+            damage = amount / (self.defense - penetration)
+
+        self.health_points -= damage
+        if self.health_points <= 0:
+            self.kill()

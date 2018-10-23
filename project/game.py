@@ -3,6 +3,7 @@ import pygame
 from project.constants import Color, FPS, HEIGHT, WIDTH
 from project.menus.home import Home
 from project.sprites.player_character import PlayerCharacter
+from project.sprites.structure import Structure
 
 
 class Game:
@@ -29,7 +30,11 @@ class Game:
         Every time a new game starts
         """
         self.all_sprites = pygame.sprite.Group()
-        self.devchar = PlayerCharacter(self, 15, 10)
+        self.enemy_sprites = pygame.sprite.Group()
+        self.player_character = PlayerCharacter(self, 15, 10)
+
+        """ test enemies """
+        Structure(self, 100, 10, pygame.Vector2(100, 200), pygame.Vector2(100, 100), pygame.Vector2(WIDTH, 520))
 
         self._run()
 
