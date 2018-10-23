@@ -1,4 +1,5 @@
 import pygame
+
 from project.constants import Color, HEIGHT, WIDTH
 
 
