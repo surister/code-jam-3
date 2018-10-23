@@ -53,8 +53,6 @@ class Game:
             if event.type == pygame.QUIT:
                 self.running = self.playing = False
 
-            self.mouse_x, self.mouse_y = pygame.mouse.get_pos()
-
     def _update(self)-> None:
         """
         Every sprite's update will be registered here
@@ -67,10 +65,28 @@ class Game:
 
         Don't forget that we always draw first then -> pygame.display.flip()
         """
-
-        homepage = Home(self.screen)
-        homepage.draw(self.mouse_x, self.mouse_y)
-        # self.screen.fill(Color.white)
+        self.screen.fill(Color.white)
         self.all_sprites.draw(self.screen)
 
         pygame.display.flip()
+
+    def show_start_screen(self):
+
+        self.screen.fill(Color.light_green)
+        self.homepage = Home(self.screen)
+        self.homepage.draw(self.mouse_x, self.mouse_y)
+        self._wait_for_input()
+
+    def _wait_for_input(self):
+        waiting = True
+        while waiting:
+            self.mouse_x, self.mouse_y = pygame.mouse.get_pos()
+            self.homepage.draw(self.mouse_x, self.mouse_y)
+
+            self.clock.tick(FPS/2)
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    waiting = self.running = False
+                if event.type == pygame.MOUSEBUTTONUP and self.homepage.in_horizontal and self.homepage.in_vertical:
+                    waiting = False
+
