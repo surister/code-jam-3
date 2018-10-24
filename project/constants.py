@@ -12,3 +12,4 @@ class Color:
     red = (255, 0, 0)
     green = (106, 0, 100)
     light_green = (20, 211, 136)
+    black = (0, 0, 0)

@@ -19,9 +19,9 @@ class Physics:
             self.friction = 1
     """
 
-    def __init__(self, friction):
+    def __init__(self, friction: int = None):
         super().__init__()
-        self.friction = 0.1
+        self.friction = 1 if friction is None else friction
         self.acc = pygame.Vector2(0, 0)
         self.vel = pygame.Vector2(0, 0)
         self.pos = pygame.Vector2(200, 200)
@@ -54,6 +54,7 @@ class Physics:
             self.pos.x = 0
         if self.pos.x < 0:
             self.pos.x = WIDTH
+        #  print(f'Acc: {self.acc} Vel: {self.vel}')
 
 
 class Character(Physics, pygame.sprite.Sprite):
@@ -68,5 +69,3 @@ class Character(Physics, pygame.sprite.Sprite):
         self.image = pygame.Surface((50, 50))
         self.rect = self.image.get_rect()
         self.image.set_colorkey(Color.green)
-
-        self.friction = 1
