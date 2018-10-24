@@ -24,9 +24,9 @@ class Physics:
         self.friction = 1 if friction is None else friction
         # Note that without friction (1), any object will move perpetually.
 
-        self.acc = pygame.math.Vector2(0, 0)
-        self.vel = pygame.math.Vector2(0, 0)
-        self.pos = pygame.math.Vector2(200, 200)
+        # self.acc = pygame.math.Vector2(0, 0)
+        # self.vel = pygame.math.Vector2(0, 0)
+        # self.pos = pygame.math.Vector2(200, 200)
         self.max_speed = MAX_SPEED
 
     def update(self) -> None:
