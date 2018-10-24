@@ -20,6 +20,7 @@ class Mine(pg.sprite.Sprite):
 
         if image is None:
             self.image = pg.Surface((60, 60))
+            self.image.fill(Color.red)
         else:
             self.image = image
         self.rect = self.image.get_rect()
@@ -28,8 +29,7 @@ class Mine(pg.sprite.Sprite):
         self.add(self.game.enemy_sprites)
 
         self.image.set_colorkey(Color.black)
-        self.image.fill(Color.red)
-
+        
     def update(self):
         """ Move left untill off screen """
         self.pos.x = self.pos.x - self.vel.x

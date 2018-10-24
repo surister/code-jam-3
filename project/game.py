@@ -2,7 +2,8 @@ from pathlib import PurePath
 
 import pygame as pg
 
-from project.constants import CHARACTER_IMAGE_NAME, Color, FIGHTER_IMAGE_NAME, FPS, HEIGHT, PATH_IMAGES, STRUCTURE_IMAGE_NAME, WIDTH
+from project.constants import CHARACTER_IMAGE_NAME, Color, FIGHTER_IMAGE_NAME, FPS, \
+    HEIGHT, MINE_IMAGE_NAME, PATH_IMAGES, STRUCTURE_IMAGE_NAME, WIDTH
 from project.menus.home import Home
 from project.sprites.background import Background
 from project.sprites.character import Character
@@ -44,7 +45,9 @@ class Game:
         
         fighter_image = pg.image.load(str(PurePath(PATH_IMAGES).joinpath(FIGHTER_IMAGE_NAME)))
         Fighter(self, 200, vel=pg.Vector2(0, 0), pos=pg.Vector2(WIDTH, 500), friction=-0.06, image=fighter_image)
-        Mine(self, pg.Vector2(0.5, 0.5), pg.Vector2(WIDTH, 200))
+        
+        mine_image = pg.image.load(str(PurePath(PATH_IMAGES).joinpath(MINE_IMAGE_NAME)))
+        Mine(self, pg.Vector2(0.5, 0.5), pg.Vector2(WIDTH, 200), image=mine_image)
 
         self.others = pg.sprite.Group()  # Find a better name? Projectiles will be stored here for now
 
