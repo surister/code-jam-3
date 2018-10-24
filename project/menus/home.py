@@ -3,7 +3,7 @@ from pathlib import PurePath
 import pygame
 from pygame.image import load
 
-from project.constants import Color, HEIGHT, PATH_ASSETS, WIDTH
+from project.constants import Color, HEIGHT, PATH_IMAGES, WIDTH
 
 
 class Home:
@@ -22,16 +22,17 @@ class Home:
         self.space = 10  # px
 
         self.buttons_hover_states = {"play": False, "options": False, "about": False, "exit": False}
-        self.buttons_sprites = {"play": load("project/assets/images/btn_play3.png").convert_alpha(),
-                                "options": load("project/assets/images/btn_opt.png").convert_alpha(),
-                                "about": load("project/assets/images/btn_about.png").convert_alpha(),
-                                "exit": load("project/assets/images/btn_exit.png").convert_alpha()}
+        self.buttons_sprites = {
+            "play": load(str(PurePath(PATH_IMAGES).joinpath("btn_play3.png"))).convert_alpha(),
+            "options": load(str(PurePath(PATH_IMAGES).joinpath("btn_opt.png"))).convert_alpha(),
+            "about": load(str(PurePath(PATH_IMAGES).joinpath("btn_about.png"))).convert_alpha(),
+            "exit": load(str(PurePath(PATH_IMAGES).joinpath("btn_exit.png"))).convert_alpha()}
+
         # LOGO: 768x360px
         # horizontal - logo takes 3 parts out of 5 - W/5 * 3 = 768px
         # vertical - logo takes half of H - H/2 = 360px
         self.logo_rect = pygame.Rect(self.slice, 0, self.slice * 3, HEIGHT / 2)
-        self.logo_image = pygame.image.load(str(PurePath(PATH_ASSETS).
-                                                joinpath("images/logo_placeholder.png"))).convert_alpha()
+        self.logo_image = load(str(PurePath(PATH_IMAGES).joinpath("logo_placeholder.png"))).convert_alpha()
 
         # PLAY BUTTON (larger) 384x70px
         # horizontal - one part and half of 5 = W/5 * 1.5 = 384px
