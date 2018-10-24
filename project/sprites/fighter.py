@@ -30,12 +30,12 @@ class Fighter(Physics, pg.sprite.Sprite):
 
         if image is None:
             self.image = pg.Surface((40, 40))
+            self.image.fill(Color.light_green)
         else:
             self.image = image
         self.rect = self.image.get_rect()
 
         self.image.set_colorkey(Color.red)
-        self.image.fill(Color.light_green)
 
     def update(self):
         player_pos = self.game.devchar.pos

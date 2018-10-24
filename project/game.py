@@ -2,15 +2,13 @@ from pathlib import PurePath
 
 import pygame as pg
 
-from project.constants import Color, FPS, HEIGHT, PATH_IMAGES, WIDTH
+from project.constants import CHARACTER_IMAGE_NAME, Color, FIGHTER_IMAGE_NAME, FPS, HEIGHT, PATH_IMAGES, STRUCTURE_IMAGE_NAME, WIDTH
 from project.menus.home import Home
 from project.sprites.background import Background
 from project.sprites.character import Character
 from project.sprites.fighter import Fighter
 from project.sprites.mine import Mine
 from project.sprites.structure import Structure
-
-CHARACTER_IMAGE_NAME = "dino-spaceship-scaled.png"
 
 
 class Game:
@@ -41,8 +39,11 @@ class Game:
         self.enemy_sprites = pg.sprite.Group()
 
         # Testing enemies
-        Structure(self, WIDTH - 250, pg.Vector2(1, 1), pg.Vector2(WIDTH, 500))
-        Fighter(self, 200, vel=pg.Vector2(0, 0), pos=pg.Vector2(WIDTH, 500), friction=-0.06)
+        structure_image = pg.image.load(str(PurePath(PATH_IMAGES).joinpath(STRUCTURE_IMAGE_NAME)))
+        Structure(self, WIDTH - 250, pg.Vector2(1, 1), pg.Vector2(WIDTH, 500), image=structure_image)
+        
+        fighter_image = pg.image.load(str(PurePath(PATH_IMAGES).joinpath(FIGHTER_IMAGE_NAME)))
+        Fighter(self, 200, vel=pg.Vector2(0, 0), pos=pg.Vector2(WIDTH, 500), friction=-0.06, image=fighter_image)
         Mine(self, pg.Vector2(0.5, 0.5), pg.Vector2(WIDTH, 200))
 
         self.others = pg.sprite.Group()  # Find a better name? Projectiles will be stored here for now
