@@ -1,9 +1,8 @@
-import sys
-
 import pygame as pg
 
 from project.constants import Color, FPS, HEIGHT, WIDTH
 from project.menus.home import Home
+from project.sprites.background import Background
 from project.sprites.character import Character
 from project.sprites.fighter import Fighter
 from project.sprites.mine import Mine
@@ -22,6 +21,7 @@ class Game:
         self.screen = pg.display.set_mode((WIDTH, HEIGHT))
         self.clock = pg.time.Clock()
         self.font = pg.font.get_default_font()
+        self.backgroud = Background("stars2.png", self.screen, 5)
 
         self.mouse_x = 0
         self.mouse_y = 0
@@ -79,7 +79,7 @@ class Game:
 
         Don't forget that we always draw first then -> pg.display.flip()
         """
-        self.screen.fill(Color.white)
+        self.backgroud.draw()
         self.all_sprites.draw(self.screen)
 
         pg.display.flip()
@@ -88,7 +88,6 @@ class Game:
 
         self.screen.fill(Color.light_green)
         self.homepage = Home(self.screen)
-        self.homepage.draw(self.mouse_x, self.mouse_y)
         self._wait_for_input()
 
     def _wait_for_input(self):
@@ -104,5 +103,4 @@ class Game:
                 if event.type == pg.MOUSEBUTTONUP and self.homepage.buttons_hover_states["play"]:
                     waiting = False
                 if event.type == pg.MOUSEBUTTONUP and self.homepage.buttons_hover_states["exit"]:
-                    pg.quit()
-                    sys.exit()
+                    self.running = self.playing = waiting = False

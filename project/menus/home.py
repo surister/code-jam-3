@@ -17,9 +17,8 @@ class Home:
 
         self.slice = WIDTH // 5     # 256px
         self.segment = HEIGHT // 8  # 90px
-        self.air = 10    # px
-        self.shift = 20  # px
-        self.space = 10  # px
+        self.air = self.space = 10    # px
+        self.shift = 20               # px
 
         self.buttons_hover_states = {"play": False, "options": False, "about": False, "exit": False}
         self.buttons_sprites = {
