@@ -22,4 +22,5 @@ class Color:
 PATH_PROJECT = pathlib.PurePath(__file__).parent
 PATH_SPRITES = pathlib.PurePath(PATH_PROJECT).joinpath('sprites/')
 PATH_ASSETS = pathlib.PurePath(PATH_PROJECT).joinpath('assets/')
+PATH_IMAGES = pathlib.PurePath(PATH_PROJECT).joinpath('assets/images')
 PATH_MENUS = pathlib.PurePath(PATH_PROJECT).joinpath('menus/')
