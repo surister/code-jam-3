@@ -43,8 +43,9 @@ class Fighter(Physics, pg.sprite.Sprite):
         angle = math.atan2(player_pos.x - self.pos.x, self.pos.y - player_pos.y)
         if angle < 0:
             angle += math.tau
-        """
-        self.acc.y -= math.cos(angle/math.tau*360) / math.tau
-        self.acc.x += math.sin(angle/math.tau*360) / math.tau
-        """
+
+        self.acc.x = self.acc.y = 0
+        self.acc.y -= math.cos(angle/math.tau*360)
+        self.acc.x += math.sin(angle/math.tau*360)
+
         super().update()

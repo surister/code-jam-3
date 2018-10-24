@@ -35,7 +35,7 @@ class Game:
 
         # Testing enemies
         Structure(self, WIDTH - 250, pg.Vector2(1, 1), pg.Vector2(WIDTH, 500))
-        Fighter(self, 200, vel=pg.Vector2(5, -10), pos=pg.Vector2(WIDTH, 500), friction=-0.6)
+        Fighter(self, 200, vel=pg.Vector2(0, 0), pos=pg.Vector2(WIDTH, 500), friction=-0.06)
 
         self.others = pg.sprite.Group()  # Find a better name? Projectiles will be stored here for now
         self.devchar = Character(self, 10, 10, friction=-0.052)

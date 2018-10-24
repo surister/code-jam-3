@@ -36,7 +36,6 @@ class Structure(pg.sprite.Sprite):
     def update(self):
         """ Move left untill destination passed if not already there, otherwise shoot at the player """
         if not self.arrived:
-            print(self.pos)
             self.pos.x = self.pos.x - self.vel.x
 
             if self.pos.x < self.destination:
