@@ -89,5 +89,5 @@ class Game:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     waiting = self.running = False
-                if event.type == pygame.MOUSEBUTTONUP and self.homepage.in_horizontal and self.homepage.in_vertical:
+                if event.type == pygame.MOUSEBUTTONUP and self.homepage.play_button(self.mouse_x, self.mouse_y):
                     waiting = False
