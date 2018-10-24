@@ -1,12 +1,16 @@
+from pathlib import PurePath
+
 import pygame as pg
 
-from project.constants import Color, FPS, HEIGHT, WIDTH
+from project.constants import Color, FPS, HEIGHT, PATH_IMAGES, WIDTH
 from project.menus.home import Home
 from project.sprites.background import Background
 from project.sprites.character import Character
 from project.sprites.fighter import Fighter
 from project.sprites.mine import Mine
 from project.sprites.structure import Structure
+
+CHARACTER_IMAGE_NAME = "dino-spaceship-scaled.png"
 
 
 class Game:
@@ -42,7 +46,10 @@ class Game:
         Mine(self, pg.Vector2(0.5, 0.5), pg.Vector2(WIDTH, 200))
 
         self.others = pg.sprite.Group()  # Find a better name? Projectiles will be stored here for now
-        self.devchar = Character(self, 10, 10, friction=-0.052)
+
+        char_image = pg.image.load(str(PurePath(PATH_IMAGES).joinpath(CHARACTER_IMAGE_NAME)))
+        char_image.convert_alpha()
+        self.devchar = Character(self, 10, 10, friction=-0.052, image=char_image)
 
         self._run()
 

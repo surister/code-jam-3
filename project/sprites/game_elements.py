@@ -15,7 +15,7 @@ class Projectile(Physics, pg.sprite.Sprite):
         self.image = pg.Surface((15, 15))
         self.rect = self.image.get_rect()
         self.image.fill(Color.green)
-        self.pos = pg.Vector2(owner.pos)
+        self.pos = pg.Vector2(owner.rect.midright)
 
     def update(self):
         # TODO BULLET LIFE TIME

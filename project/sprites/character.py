@@ -62,7 +62,7 @@ class Character(Physics, pg.sprite.Sprite):
         self.friction = friction
 
         self.image.set_colorkey(Color.green)
-        self.image.fill(Color.white)
+        # self.image.fill(Color.white)
         self.pos = pg.Vector2(500, 500)
 
     def _shot(self):
