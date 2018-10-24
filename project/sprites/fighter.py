@@ -1,3 +1,5 @@
+import math
+
 from project.sprites.non_player_character import NonPlayerCharacter
 
 
@@ -9,16 +11,11 @@ class Fighter(NonPlayerCharacter):
 
     def update(self):
         player_pos = self.game.player_character.pos
-        if player_pos.x > self.pos.x:
-            self.acc.x += abs(player_pos.x - self.pos.x)/100
-        else:
-            self.acc.x -= abs(player_pos.x - self.pos.x)/100
 
-        if player_pos.y > self.pos.y:
-            self.acc.y += abs(player_pos.y - self.pos.y)/100
-        else:
-            self.acc.y -= abs(player_pos.y - self.pos.y)/100
+        angle = math.atan2(player_pos.x - self.pos.x, self.pos.y - player_pos.y)
+        if angle < 0:
+            angle += math.tau
+
+        self.acc.y -= math.cos(angle)
+        self.acc.x += math.sin(angle)
         super().update()
-
-        # print(f"pp:{player_pos}, fp: {self.pos}")
-        # TODO add firing projectiles

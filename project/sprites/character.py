@@ -56,10 +56,6 @@ class Character(Physics, Sprite):
         self.image.set_colorkey(Color.green)
         self.add(self.game.all_sprites)
 
-    def update(self):
-        # print(f"acc: {self.acc}, vel: {self.vel}, pos: {self.pos}, friction:{self.friction}")
-        super().update()
-
     def take_damage(self, amount, penetration=0):
         damage = amount
         if self.defense > penetration:
