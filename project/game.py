@@ -18,7 +18,7 @@ class Game:
         self.screen = pygame.display.set_mode((WIDTH, HEIGHT))
         self.clock = pygame.time.Clock()
         self.font = pygame.font.get_default_font()
-        self.backgroud = Background("test.png", self.screen, 5)
+        self.backgroud = Background("stars2.png", self.screen, 5)
 
         self.mouse_x = 0
         self.mouse_y = 0
