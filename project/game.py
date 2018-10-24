@@ -1,3 +1,5 @@
+import sys
+
 import pygame
 
 from project.constants import Color, FPS, HEIGHT, WIDTH
@@ -93,3 +95,4 @@ class Game:
                     waiting = False
                 if event.type == pygame.MOUSEBUTTONUP and self.homepage.buttons_hover_states["exit"]:
                     pygame.quit()
+                    sys.exit()
