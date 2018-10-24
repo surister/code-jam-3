@@ -88,5 +88,7 @@ class Game:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     waiting = self.running = False
-                if event.type == pygame.MOUSEBUTTONUP and self.homepage.play_button(self.mouse_x, self.mouse_y):
+                if event.type == pygame.MOUSEBUTTONUP and self.homepage.buttons_hover_states["play"]:
                     waiting = False
+                if event.type == pygame.MOUSEBUTTONUP and self.homepage.buttons_hover_states["exit"]:
+                    pygame.quit()
