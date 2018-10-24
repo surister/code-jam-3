@@ -1,5 +1,6 @@
 import pygame
 
+from pygame.math import Vector2 as Vec
 from project.constants import Color, HEIGHT, MAX_SPEED, WIDTH
 
 
@@ -24,9 +25,9 @@ class Physics:
         self.friction = 1 if friction is None else friction
         # Note that without friction (1), any object will move perpetually.
 
-        self.acc = pygame.math.Vector2(0, 0)
-        self.vel = pygame.math.Vector2(0, 0)
-        self.pos = pygame.math.Vector2(200, 200)
+        self.acc = Vec(0, 0)
+        self.vel = Vec(0, 0)
+        self.pos = Vec()
         self.max_speed = MAX_SPEED
 
     def update(self) -> None:
@@ -52,14 +53,15 @@ class Physics:
 
         self.rect.midbottom = self.pos
 
-        if self.pos.y > HEIGHT:
-            self.pos.y = 0
-        if self.pos.y < 0:
-            self.pos.y = HEIGHT
-        if self.pos.x > WIDTH:
-            self.pos.x = 0
-        if self.pos.x < 0:
-            self.pos.x = WIDTH
+        # This is for dev purposses, TODO delete once not needed or substituted
+        # if self.pos.y > HEIGHT:
+        #     self.pos.y = 0
+        # if self.pos.y < 0:
+        #     self.pos.y = HEIGHT
+        # if self.pos.x > WIDTH:
+        #     self.pos.x = 0
+        # if self.pos.x < 0:
+        #     self.pos.x = WIDTH
         # print(f'Acc: {self.acc} Vel: {self.vel}')
 
 
