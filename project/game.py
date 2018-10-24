@@ -3,8 +3,8 @@ import pygame
 from project.constants import Color, FPS, HEIGHT, WIDTH
 from project.menus.home import Home
 from project.sprites.fighter import Fighter
-from project.sprites.player_character import PlayerCharacter
 from project.sprites.structure import Structure
+from project.sprites.character import Character
 
 
 class Game:
@@ -32,11 +32,13 @@ class Game:
         """
         self.all_sprites = pygame.sprite.Group()
         self.enemy_sprites = pygame.sprite.Group()
-        self.player_character = PlayerCharacter(self, 15, 10, friction=3)
 
         # Testing enemies
         Structure(self, 100, 10, WIDTH - 500, pygame.Vector2(1, 1), pygame.Vector2(WIDTH, 500))
-        Fighter(200, self, 100, 10, vel=pygame.Vector2(0, 0), pos=pygame.Vector2(WIDTH, 500), friction=5)
+        Fighter(200, self, 100, 10, vel=pygame.Vector2(0, 0), pos=pygame.Vector2(WIDTH, 500), friction=-0.07)
+
+        self.others = pygame.sprite.Group()  # Find a better name? Projectiles will be stored here for now
+        self.devchar = Character(self, 10, 10, friction=-0.052)
 
         self._run()
 
