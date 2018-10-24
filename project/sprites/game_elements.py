@@ -6,7 +6,7 @@ from project.sprites.physics import Physics
 
 class Projectile(Physics, pg.sprite.Sprite):
     """Basic Projectile Sprite"""
-    def __init__(self, game, owner, direction= None):
+    def __init__(self, game, owner, direction=None):
         super().__init__()
         self.game = game
         self.add(self.game.all_sprites, self.game.others)

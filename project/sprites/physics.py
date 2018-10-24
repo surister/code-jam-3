@@ -1,7 +1,7 @@
 import pygame
-
 from pygame.math import Vector2 as Vec
-from project.constants import Color, HEIGHT, MAX_SPEED, WIDTH
+
+from project.constants import Color, MAX_SPEED
 
 
 class Physics:
