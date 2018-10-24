@@ -9,6 +9,7 @@ class Projectile(Physics, pg.sprite.Sprite):
     def __init__(self, game, owner, direction=None, image=None):
         super().__init__()
         self.game = game
+        self.add(self.game.all_sprites, self.game.others)
 
         self.damage: int = 2
 
@@ -18,8 +19,8 @@ class Projectile(Physics, pg.sprite.Sprite):
         else:
             self.image = image
 
-        self.rect = self.image.get_rect()
         self.pos = pg.Vector2(owner.rect.midright)
+        self.rect = self.image.get_rect(center=self.pos)
 
     def update(self):
         # TODO BULLET LIFE TIME
