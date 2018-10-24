@@ -30,7 +30,7 @@ class Game:
         """
         self.all_sprites = pygame.sprite.Group()
         self.others = pygame.sprite.Group()  # Find a better name? Projectiles will be stored here for now
-        self.devchar = Character(self, 10, 10)
+        self.devchar = Character(self, 10, 10, friction=-0.052)
 
         self._run()
 

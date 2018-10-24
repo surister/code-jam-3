@@ -1,8 +1,12 @@
+import pathlib
 
 WIDTH = 1280
 HEIGHT = 720
 
 FPS = 60
+
+# Char consts
+MAX_SPEED = 10
 
 
 class Color:
@@ -13,3 +17,9 @@ class Color:
     green = (106, 0, 100)
     light_green = (20, 211, 136)
     black = (0, 0, 0)
+
+
+PATH_PROJECT = pathlib.PurePath(__file__).parent
+PATH_SPRITES = pathlib.PurePath(PATH_PROJECT).joinpath('sprites/')
+PATH_ASSETS = pathlib.PurePath(PATH_PROJECT).joinpath('assets/')
+PATH_MENUS = pathlib.PurePath(PATH_PROJECT).joinpath('menus/')

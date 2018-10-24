@@ -1,10 +1,11 @@
 from collections import deque
+from typing import Union
 
 import pygame as pg
 
 from project.constants import Color
-from project.sprites.physics import Physics
 from project.sprites.game_elements import Projectile
+from project.sprites.physics import Physics
 
 
 class Character(Physics, pg.sprite.Sprite):
@@ -19,11 +20,11 @@ class Character(Physics, pg.sprite.Sprite):
         acc: pg.Vector2 = None,
         vel: pg.Vector2 = None,
         weapons: list = None,
-        friction: int = 0.1,
+        friction: Union[int, float] = 1,
         image: pg.Surface = None
     ):
 
-        super().__init__(friction)
+        super().__init__()
         self.game = game
         self.add(self.game.all_sprites)
 
@@ -61,23 +62,25 @@ class Character(Physics, pg.sprite.Sprite):
         self.friction = friction
 
         self.image.set_colorkey(Color.green)
+        self.pos = pg.Vector2(500, 500)
 
     def _shot(self):
         self.projectiles.append(Projectile(self.game, self))
 
     def update(self) -> None:
-        super().update()
+
         self.key = pg.key.get_pressed()
 
         self.acc.y = self.acc.x = 0
         if self.key[pg.K_UP] or self.key[pg.K_w]:
-            self.acc.y = -1
+            self.acc.y = -1.5
         if self.key[pg.K_DOWN] or self.key[pg.K_s]:
-            self.acc.y = 1
+            self.acc.y = 1.5
         if self.key[pg.K_LEFT] or self.key[pg.K_a]:
-            self.acc.x = -1
+            self.acc.x = -1.5
         if self.key[pg.K_RIGHT] or self.key[pg.K_d]:
-            self.acc.x = 1
+            self.acc.x = 1.5
         if self.key[pg.K_SPACE]:
             self._shot()
 
+        super().update()

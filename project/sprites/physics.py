@@ -1,6 +1,6 @@
 import pygame
 
-from project.constants import Color, HEIGHT, WIDTH
+from project.constants import Color, HEIGHT, MAX_SPEED, WIDTH
 
 
 class Physics:
@@ -22,16 +22,22 @@ class Physics:
     def __init__(self, friction: int = None):
         super().__init__()
         self.friction = 1 if friction is None else friction
-        self.acc = pygame.Vector2(0, 0)
-        self.vel = pygame.Vector2(0, 0)
-        self.pos = pygame.Vector2(200, 200)
-        self.max_speed = 10
+        # Note that without friction (1), any object will move perpetually.
+
+        self.acc = pygame.math.Vector2(0, 0)
+        self.vel = pygame.math.Vector2(0, 0)
+        self.pos = pygame.math.Vector2(200, 200)
+        self.max_speed = MAX_SPEED
 
     def update(self) -> None:
+        if self.friction > 1:  # dev stuff, TODO delete on final product
+            print('friction should be negative and really small eg; -0.05.')
 
-        # self.acc += self.vel * self.friction
+        # Friction
+        self.acc += self.vel * self.friction
 
-        self.vel += self.acc * self.friction
+        # Basic motion
+        self.vel += self.acc
 
         if self.vel.x > self.max_speed:
             self.vel.x = self.max_speed
@@ -42,7 +48,7 @@ class Physics:
         if self.vel.y < -self.max_speed:
             self.vel.y = -self.max_speed
 
-        self.pos += self.vel  # plus something, friction?
+        self.pos += self.vel + 0.5 * self.acc  # plus something, friction?
 
         self.rect.midbottom = self.pos
 
@@ -54,7 +60,7 @@ class Physics:
             self.pos.x = 0
         if self.pos.x < 0:
             self.pos.x = WIDTH
-        #  print(f'Acc: {self.acc} Vel: {self.vel}')
+        # print(f'Acc: {self.acc} Vel: {self.vel}')
 
 
 class Character(Physics, pygame.sprite.Sprite):

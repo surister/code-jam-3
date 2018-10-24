@@ -1,7 +1,7 @@
 import pygame as pg
 
-from project.sprites.physics import Physics
 from project.constants import Color
+from project.sprites.physics import Physics
 
 
 class Projectile(Physics, pg.sprite.Sprite):
@@ -14,9 +14,11 @@ class Projectile(Physics, pg.sprite.Sprite):
         self.damage: int = 2
         self.image = pg.Surface((15, 15))
         self.rect = self.image.get_rect()
-        self.image.fill(Color.dark_blue)
+        self.image.fill(Color.green)
+        self.first_pos = self.player.pos
+        self.rect.midbottom = self.first_pos
 
     def update(self):
-        self.rect.midbottom = self.player.pos
-
-        self.acc.x = 10
+        super().update()
+        self.acc.x = 1
+        self.max_speed = 20
