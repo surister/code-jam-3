@@ -4,11 +4,9 @@ from typing import Union
 
 import pygame as pg
 
-from project.constants import Color, PATH_IMAGES
+from project.constants import Color, PATH_IMAGES, PROJECTILE_IMAGE_NAME
 from project.sprites.game_elements import Projectile
 from project.sprites.physics import Physics
-
-PROJECTILE_IMAGE_NAME = "shot_0003_Layer-8-scaled.png"
 
 
 class Character(Physics, pg.sprite.Sprite):

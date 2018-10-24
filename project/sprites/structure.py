@@ -26,6 +26,7 @@ class Structure(pg.sprite.Sprite):
             self.image.fill(Color.red)
         else:
             self.image = image
+
         self.rect = self.image.get_rect()
 
         self.add(self.game.all_sprites)
