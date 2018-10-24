@@ -1,11 +1,14 @@
 from collections import deque
+from pathlib import PurePath
 from typing import Union
 
 import pygame as pg
 
-from project.constants import Color
+from project.constants import Color, PATH_IMAGES
 from project.sprites.game_elements import Projectile
 from project.sprites.physics import Physics
+
+PROJECTILE_IMAGE_NAME = "shot_0003_Layer-8-scaled.png"
 
 
 class Character(Physics, pg.sprite.Sprite):
@@ -35,6 +38,7 @@ class Character(Physics, pg.sprite.Sprite):
 
         if image is None:
             self.image = pg.Surface((50, 50))
+            self.image.fill(Color.white)
         else:
             self.image = image
         self.rect = self.image.get_rect()
@@ -62,11 +66,11 @@ class Character(Physics, pg.sprite.Sprite):
         self.friction = friction
 
         self.image.set_colorkey(Color.green)
-        # self.image.fill(Color.white)
         self.pos = pg.Vector2(500, 500)
 
     def _shot(self):
-        self.projectiles.append(Projectile(self.game, self))
+        image = pg.image.load(str(PurePath(PATH_IMAGES).joinpath(PROJECTILE_IMAGE_NAME)))
+        self.projectiles.append(Projectile(self.game, self, image=image))
 
     def update(self) -> None:
 

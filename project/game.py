@@ -48,7 +48,6 @@ class Game:
         self.others = pg.sprite.Group()  # Find a better name? Projectiles will be stored here for now
 
         char_image = pg.image.load(str(PurePath(PATH_IMAGES).joinpath(CHARACTER_IMAGE_NAME)))
-        char_image.convert_alpha()
         self.devchar = Character(self, 10, 10, friction=-0.052, image=char_image)
 
         self._run()
