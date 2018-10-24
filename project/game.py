@@ -2,7 +2,7 @@ import pygame
 
 from project.constants import Color, FPS, HEIGHT, WIDTH
 from project.menus.home import Home
-from project.sprites.player_character import PlayerCharacter
+from project.sprites.character import Character
 
 
 class Game:
@@ -29,7 +29,8 @@ class Game:
         Every time a new game starts
         """
         self.all_sprites = pygame.sprite.Group()
-        self.devchar = PlayerCharacter(self, 15, 10)
+        self.others = pygame.sprite.Group()  # Find a better name? Projectiles will be stored here for now
+        self.devchar = Character(self, 10, 10, friction=-0.052)
 
         self._run()
 
