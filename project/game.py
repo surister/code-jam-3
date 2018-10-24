@@ -1,3 +1,5 @@
+import sys
+
 import pygame as pg
 
 from project.constants import Color, FPS, HEIGHT, WIDTH
@@ -97,5 +99,8 @@ class Game:
             for event in pg.event.get():
                 if event.type == pg.QUIT:
                     waiting = self.running = False
-                if event.type == pg.MOUSEBUTTONUP and self.homepage.play_button(self.mouse_x, self.mouse_y):
+                if event.type == pg.MOUSEBUTTONUP and self.homepage.buttons_hover_states["play"]:
                     waiting = False
+                if event.type == pg.MOUSEBUTTONUP and self.homepage.buttons_hover_states["exit"]:
+                    pg.quit()
+                    sys.exit()
