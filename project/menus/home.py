@@ -61,7 +61,7 @@ class Home:
             self._draw_other_buttons(x, y, key)
         pygame.display.update()
 
-    def _draw_play_button(self, x: int, y: int)-> bool:
+    def _draw_play_button(self, x: int, y: int)-> None:
 
         self.play_button_rect.top = self.segment * 4
         self.play_button_rect.left = self.space
@@ -80,7 +80,7 @@ class Home:
 
         # self._draw_text(50, "PLAY", Color.white, self.play_button_rect)
 
-    def _draw_other_buttons(self, x: int, y: int, button: str)-> tuple:
+    def _draw_other_buttons(self, x: int, y: int, button: str)-> None:
 
         self.other_button_rect.top = self.segment * self.buttons_dict[button]
         hovered = self._hovered(x, y, self.other_button_rect)
