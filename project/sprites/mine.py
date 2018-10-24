@@ -29,7 +29,7 @@ class Mine(pg.sprite.Sprite):
         self.add(self.game.enemy_sprites)
 
         self.image.set_colorkey(Color.black)
-        
+
     def update(self):
         """ Move left untill off screen """
         self.pos.x = self.pos.x - self.vel.x
