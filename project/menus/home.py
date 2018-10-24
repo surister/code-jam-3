@@ -1,4 +1,5 @@
 import pygame
+from pygame.image import load
 
 from project.constants import Color, HEIGHT, WIDTH
 
@@ -19,6 +20,10 @@ class Home:
         self.space = 10  # px
 
         self.buttons_hover_states = {"play": False, "options": False, "about": False, "exit": False}
+        self.buttons_sprites = {"play": load("project/assets/images/btn_play3.png").convert_alpha(),
+                                "options": load("project/assets/images/btn_opt.png").convert_alpha(),
+                                "about": load("project/assets/images/btn_about.png").convert_alpha(),
+                                "exit": load("project/assets/images/btn_exit.png").convert_alpha()}
         # LOGO: 768x360px
         # horizontal - logo takes 3 parts out of 5 - W/5 * 3 = 768px
         # vertical - logo takes half of H - H/2 = 360px
@@ -62,13 +67,15 @@ class Home:
         if hovered:
             self.buttons_hover_states["play"] = True
             self.play_button_rect.left = self.shift
-            pygame.draw.rect(self.screen, Color.light_green, self.play_button_rect)
+            self.screen.blit(self.buttons_sprites["play"], self.play_button_rect)
+            # pygame.draw.rect(self.screen, Color.light_green, self.play_button_rect)
         else:
             self.buttons_hover_states["play"] = False
             self.play_button_rect.left = self.space
-            pygame.draw.rect(self.screen, Color.light_green, self.play_button_rect)
+            self.screen.blit(self.buttons_sprites["play"], self.play_button_rect)
+            # pygame.draw.rect(self.screen, Color.light_green, self.play_button_rect)
 
-        self._draw_text(50, "PLAY", Color.white, self.play_button_rect)
+        # self._draw_text(50, "PLAY", Color.white, self.play_button_rect)
 
     def _draw_other_buttons(self, x: int, y: int, button: str)-> tuple:
 
@@ -78,13 +85,14 @@ class Home:
         if hovered:
             self.buttons_hover_states[button] = True
             self.other_button_rect.left = self.shift
-            pygame.draw.rect(self.screen, Color.light_green, self.other_button_rect)
+            self.screen.blit(self.buttons_sprites[button], self.other_button_rect)
+            # pygame.draw.rect(self.screen, Color.light_green, self.other_button_rect)
         else:
             self.buttons_hover_states[button] = False
             self.other_button_rect.left = self.space
-            pygame.draw.rect(self.screen, Color.light_green, self.other_button_rect)
+            self.screen.blit(self.buttons_sprites[button], self.other_button_rect)
 
-        self._draw_text(40, button.upper(), Color.white, self.other_button_rect)
+        # self._draw_text(40, button.upper(), Color.white, self.other_button_rect)
 
     def _draw_text(self, size: int, text: str, color: Color, rect: pygame.Rect)->None:
         font = pygame.font.Font(pygame.font.get_default_font(), size)
