@@ -96,7 +96,6 @@ class Game:
 
     def show_start_screen(self):
 
-        self.screen.fill(Color.light_green)
         self.homepage = Home(self.screen)
         self._wait_for_input()
 
