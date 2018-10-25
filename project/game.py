@@ -4,12 +4,13 @@ import pygame as pg
 
 from project.constants import CHARACTER_IMAGE_NAME, FIGHTER_IMAGE_NAME, FPS, \
     HEIGHT, MINE_IMAGE_NAME, PATH_IMAGES, STRUCTURE_IMAGE_NAME, WIDTH
-from project.menus.home import Home
-from project.sprites.background import Background
 from project.sprites.character import Character
 from project.sprites.fighter import Fighter
 from project.sprites.mine import Mine
 from project.sprites.structure import Structure
+from project.ui.background import Background
+from project.ui.character_interface import Healthbar
+from project.ui.main_menu import Home
 
 
 class Game:
@@ -24,7 +25,7 @@ class Game:
         self.screen = pg.display.set_mode((WIDTH, HEIGHT))
         self.clock = pg.time.Clock()
         self.font = pg.font.get_default_font()
-        self.backgroud = Background("stars2.png", self.screen, 5)
+        self.background = Background("stars2.png", self.screen, 5)
 
         self.mouse_x = 0
         self.mouse_y = 0
@@ -38,7 +39,7 @@ class Game:
         """
         self.all_sprites = pg.sprite.Group()
         self.enemy_sprites = pg.sprite.Group()
-
+        self.others = pg.sprite.Group()  # Find a better name? Projectiles will be stored here for now
         # Testing enemies
         structure_image = pg.image.load(str(PurePath(PATH_IMAGES).joinpath(STRUCTURE_IMAGE_NAME)))
         Structure(self, WIDTH - 250, pg.Vector2(1, 1), pg.Vector2(WIDTH, 500), image=structure_image)
@@ -49,11 +50,10 @@ class Game:
         mine_image = pg.image.load(str(PurePath(PATH_IMAGES).joinpath(MINE_IMAGE_NAME)))
         Mine(self, pg.Vector2(0.5, 0.5), pg.Vector2(WIDTH, 200), image=mine_image)
 
-        self.others = pg.sprite.Group()  # Find a better name? Projectiles will be stored here for now
-
         char_image = pg.image.load(str(PurePath(PATH_IMAGES).joinpath(CHARACTER_IMAGE_NAME)))
-        self.devchar = Character(self, 10, 10, friction=-0.052, image=char_image)
-
+        self.devchar = Character(self, 100, 10, friction=-0.052, image=char_image)
+        self.healthbar = Healthbar(self, self.devchar, self.screen, 100, 200, 200, )
+        # TODO WITH SPREADSHEET IMAGE LOAD WON'T BE HERE, BUT IN EVERY SPRITE CLASS
         self._run()
 
     def _run(self)-> None:
@@ -89,7 +89,8 @@ class Game:
 
         Don't forget that we always draw first then -> pg.display.flip()
         """
-        self.backgroud.draw()
+        self.background.draw()
+        self.healthbar.draw(self.devchar.health_points, self.devchar.shield_points)
         self.all_sprites.draw(self.screen)
 
         pg.display.flip()

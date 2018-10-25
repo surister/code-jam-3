@@ -7,7 +7,7 @@ import pygame as pg
 
 from project.constants import Color, PATH_IMAGES, PLAYER_ACC, PROJECTILE_IMAGE_NAME, SHOOT_RATE
 from project.sprites.game_elements import Projectile
-from project.sprites.physics import Physics
+from project.sprites.sprite_internals import Physics
 
 
 class Character(Physics, pg.sprite.Sprite):
@@ -40,6 +40,7 @@ class Character(Physics, pg.sprite.Sprite):
             self.shoot_rate -= 20
 
         self.health_points = health_points
+        self.shield_points = 50
         self.defense = defense
 
         self.last_update = 0
@@ -99,14 +100,20 @@ class Character(Physics, pg.sprite.Sprite):
             self.acc.x = self.player_acc
         if self.key[pg.K_SPACE]:
             self._shot()
+            self._take_damage(10)
 
         super().update()
 
-    def take_damage(self, amount, penetration=0):
+    def _take_damage(self, amount, penetration=0):
         damage = amount
         if self.defense > penetration:
             damage = amount / (self.defense - penetration)
+        if self.shield_points != 0:
+            if self.shield_points < 0:
+                self.shield_points = 0
+            self.shield_points -= damage
+        else:
 
-        self.health_points -= damage
-        if self.health_points <= 0:
-            self.kill()
+            if self.health_points < 0:
+                self.health_points = 0
+            self.health_points -= damage
