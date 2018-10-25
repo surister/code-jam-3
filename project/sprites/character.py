@@ -2,9 +2,10 @@ from collections import deque
 from pathlib import PurePath
 from typing import Union
 
+
 import pygame as pg
 
-from project.constants import Color, PATH_IMAGES, PROJECTILE_IMAGE_NAME, SHOOT_RATE, PLAYER_ACC
+from project.constants import Color, PATH_IMAGES, PLAYER_ACC, PROJECTILE_IMAGE_NAME, SHOOT_RATE
 from project.sprites.game_elements import Projectile
 from project.sprites.physics import Physics
 
