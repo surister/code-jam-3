@@ -8,7 +8,7 @@ FPS = 60
 # Char consts
 MAX_SPEED = 10
 PLAYER_ACC = 1.5
-SHOOT_RATE = 250  # interval between shots: milliseconds
+FIRE_RATE = 250  # interval between shots: milliseconds
 
 
 class Color:

@@ -51,8 +51,8 @@ class Game:
         Mine(self, pg.Vector2(0.5, 0.5), pg.Vector2(WIDTH, 200), image=mine_image)
 
         char_image = pg.image.load(str(PurePath(PATH_IMAGES).joinpath(CHARACTER_IMAGE_NAME)))
-        self.devchar = Character(self, 100, 10, friction=-0.052, image=char_image)
-        self.healthbar = Healthbar(self, self.devchar, self.screen, 100, 200, 200, )
+        self.devchar = Character(self, 100, 10, friction=-0.052, image=char_image, shield=50)
+        self.healthbar = Healthbar(self, self.devchar, self.screen, 100, 200, 200)
         # TODO WITH SPREADSHEET IMAGE LOAD WON'T BE HERE, BUT IN EVERY SPRITE CLASS
         self._run()
 
@@ -83,6 +83,19 @@ class Game:
         """
         self.all_sprites.update()
 
+        """# collide projectiles with enemies
+        for projectile in self.devchar.projectiles:
+            for enemy in self.enemy_sprites:
+                if projectile.collideswith(enemy):
+                    enemy.damage(projectile)
+        """
+
+        for enemy in self.enemy_sprites:
+            projectiles = pg.sprite.spritecollide(enemy, self.others, False)
+            for projectile in projectiles:
+                enemy.damage(projectile)
+                projectile.kill()
+
     def _draw(self)-> None:
         """
         Everything we draw to the screen will be done here
@@ -90,7 +103,7 @@ class Game:
         Don't forget that we always draw first then -> pg.display.flip()
         """
         self.background.draw()
-        self.healthbar.draw(self.devchar.health_points, self.devchar.shield_points)
+        self.healthbar.draw(self.devchar.health, self.devchar.shield)
         self.all_sprites.draw(self.screen)
 
         pg.display.flip()
