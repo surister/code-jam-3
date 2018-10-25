@@ -25,7 +25,7 @@ PATH_PROJECT = pathlib.PurePath(__file__).parent
 PATH_SPRITES = pathlib.PurePath(PATH_PROJECT).joinpath('sprites/')
 PATH_ASSETS = pathlib.PurePath(PATH_PROJECT).joinpath('assets/')
 PATH_IMAGES = pathlib.PurePath(PATH_PROJECT).joinpath('assets/images')
-PATH_MENUS = pathlib.PurePath(PATH_PROJECT).joinpath('menus/')
+PATH_MENUS = pathlib.PurePath(PATH_PROJECT).joinpath('ui/')
 
 CHARACTER_IMAGE_NAME = "dino-spaceship-scaled.png"
 STRUCTURE_IMAGE_NAME = "structure.png"

@@ -4,7 +4,7 @@ import pygame as pg
 
 from project.constants import CHARACTER_IMAGE_NAME, Color, FIGHTER_IMAGE_NAME, FPS, \
     HEIGHT, MINE_IMAGE_NAME, PATH_IMAGES, STRUCTURE_IMAGE_NAME, WIDTH
-from project.menus.home import Home
+from project.ui.home import Home
 from project.sprites.background import Background
 from project.sprites.character import Character
 from project.sprites.fighter import Fighter
@@ -24,7 +24,7 @@ class Game:
         self.screen = pg.display.set_mode((WIDTH, HEIGHT))
         self.clock = pg.time.Clock()
         self.font = pg.font.get_default_font()
-        self.backgroud = Background("stars2.png", self.screen, 5)
+        self.background = Background("stars2.png", self.screen, 5)
 
         self.mouse_x = 0
         self.mouse_y = 0
@@ -89,7 +89,7 @@ class Game:
 
         Don't forget that we always draw first then -> pg.display.flip()
         """
-        self.backgroud.draw()
+        self.background.draw()
         self.all_sprites.draw(self.screen)
 
         pg.display.flip()
