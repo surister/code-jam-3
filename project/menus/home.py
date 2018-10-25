@@ -4,7 +4,7 @@ from pathlib import PurePath
 import pygame
 from pygame.image import load
 
-from project.constants import Color, HEIGHT, PATH_IMAGES, WIDTH
+from project.constants import Color, GIT_LAB_LINK, HEIGHT, PATH_IMAGES, WIDTH
 
 
 class Home:
@@ -111,4 +111,4 @@ class Home:
         return button.collidepoint(x, y)
 
     def open_gitlab(self)->None:
-        wb.open("https://gitlab.com/JannesJ/code-jam-3")
+        wb.open(GIT_LAB_LINK)

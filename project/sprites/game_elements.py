@@ -6,16 +6,21 @@ from project.sprites.physics import Physics
 
 class Projectile(Physics, pg.sprite.Sprite):
     """Basic Projectile Sprite"""
-    def __init__(self, game, owner, direction=None):
+    def __init__(self, game, owner, direction=None, image=None):
         super().__init__()
         self.game = game
         self.add(self.game.all_sprites, self.game.others)
 
         self.damage: int = 2
-        self.image = pg.Surface((15, 15))
-        self.rect = self.image.get_rect()
-        self.image.fill(Color.green)
-        self.pos = pg.Vector2(owner.pos)
+
+        if image is None:
+            self.image = pg.Surface((15, 15))
+            self.image.fill(Color.green)
+        else:
+            self.image = image
+
+        self.pos = pg.Vector2(owner.rect.midright)
+        self.rect = self.image.get_rect(center=self.pos)
 
     def update(self):
         # TODO BULLET LIFE TIME

@@ -51,7 +51,7 @@ class Physics:
 
         self.pos += self.vel + 0.5 * self.acc  # plus something, friction?
 
-        self.rect.midbottom = self.pos
+        self.rect.center = self.pos
 
         # This is for dev purposses, TODO delete once not needed or substituted
         # if self.pos.y > HEIGHT:
