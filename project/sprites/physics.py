@@ -53,7 +53,7 @@ class Physics:
 
         self.rect.center = self.pos
 
-        print(f'Acc: {self.acc} Vel: {self.vel}')
+        # print(f'Acc: {self.acc} Vel: {self.vel}')
 
 
 class Character(Physics, pygame.sprite.Sprite):
