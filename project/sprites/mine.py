@@ -1,9 +1,10 @@
 import pygame as pg
 
 from project.constants import Color
+from project.sprites.combat import Combat
 
 
-class Mine(pg.sprite.Sprite):
+class Mine(Combat, pg.sprite.Sprite):
     """ Mines slowly move to the astroid, exploding on impact of asteroid or player. """
 
     def __init__(
@@ -13,7 +14,8 @@ class Mine(pg.sprite.Sprite):
         pos,
         image: pg.Surface= None
     ):
-        super().__init__()
+        Combat.__init__(self, 30)
+        pg.sprite.Sprite.__init__(self)
         self.game = game
         self.vel = vel
         self.pos = pos

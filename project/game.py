@@ -83,6 +83,18 @@ class Game:
         """
         self.all_sprites.update()
 
+        """# collide projectiles with enemies
+        for projectile in self.devchar.projectiles:
+            for enemy in self.enemy_sprites:
+                if projectile.collideswith(enemy):
+                    enemy.damage(projectile)
+        """
+
+        for enemy in self.enemy_sprites:
+            projectile = pg.sprite.spritecollide(enemy, self.others, False)
+            for hit in projectile:
+                enemy.damage(hit)
+
     def _draw(self)-> None:
         """
         Everything we draw to the screen will be done here

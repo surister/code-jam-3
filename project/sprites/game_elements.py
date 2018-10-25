@@ -6,7 +6,7 @@ from project.sprites.physics import Physics
 
 class Projectile(Physics, pg.sprite.Sprite):
     """Basic Projectile Sprite"""
-    def __init__(self, game, owner, direction: int=1, image=None):
+    def __init__(self, game, owner, damage: int=2, penetration: int=0, direction: int=1, image=None):
         super().__init__()
         self.game = game
         self.owner = owner
@@ -15,8 +15,9 @@ class Projectile(Physics, pg.sprite.Sprite):
         if direction not in (1, -1):
             print('Direction should be only to mark negative or positive direction.')
         self.direction = direction
-        self.damage: int = 2
-
+        self.damage = damage
+        self.penetration = penetration
+        
         if image is None:
             self.image = pg.Surface((15, 15))
             self.image.fill(Color.green)
@@ -46,3 +47,7 @@ class Projectile(Physics, pg.sprite.Sprite):
         if self.pos.x < 0:
             self.kill()
             self.owner.projectiles.pop()
+
+
+class Item(pg.sprite.Sprite):
+    """Represents items such as drops"""

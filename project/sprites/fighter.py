@@ -3,10 +3,11 @@ import math
 import pygame as pg
 
 from project.constants import Color
+from project.sprites.combat import Combat
 from project.sprites.physics import Physics
 
 
-class Fighter(Physics, pg.sprite.Sprite):
+class Fighter(Combat, Physics, pg.sprite.Sprite):
     """ Fighters circle around the player and rapidly shoot weak projectiles at him """
     def __init__(
         self,
@@ -17,8 +18,9 @@ class Fighter(Physics, pg.sprite.Sprite):
         pos: pg.Vector2,
         image: pg.Surface= None
     ):
+        Combat.__init__(self, 15)
         Physics.__init__(self, friction)
-        pg.sprite.Sprite.__init__(self)
+        # pg.sprite.Sprite.__init__(self)
         self.radius = radius
         self.pos = pos
         self.vel = vel
