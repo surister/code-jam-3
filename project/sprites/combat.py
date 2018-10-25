@@ -12,6 +12,7 @@ class Combat:
         health: int,
         defence: int=0,
         armor: int=0,
+        shield: int=0,
         points: int=0,
         fire_rate: int=250,
         drops: List[Tuple[Item, int]]=None
@@ -19,7 +20,8 @@ class Combat:
         """Class to handle combat for sprites that need it"""
         self.health = health
         self.defence = defence
-        self.points = points,
+        self.points = points
+        self.shield = shield
         self.fire_rate = fire_rate
         self.armor = armor
 

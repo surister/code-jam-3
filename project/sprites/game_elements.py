@@ -1,7 +1,7 @@
 import pygame as pg
 
 from project.constants import Color, HEIGHT, WIDTH
-from project.sprites.physics import Physics
+from project.sprites.sprite_internals import Physics
 
 
 class Projectile(Physics, pg.sprite.Sprite):
@@ -17,7 +17,7 @@ class Projectile(Physics, pg.sprite.Sprite):
         self.direction = direction
         self.damage = damage
         self.penetration = penetration
-        
+
         if image is None:
             self.image = pg.Surface((15, 15))
             self.image.fill(Color.green)

@@ -1,4 +1,4 @@
-import pygame
+import pygame as pg
 from pygame.math import Vector2 as Vec
 
 from project.constants import Color, MAX_SPEED
@@ -56,7 +56,7 @@ class Physics:
         # print(f'Acc: {self.acc} Vel: {self.vel}')
 
 
-class Character(Physics, pygame.sprite.Sprite):
+class Character(Physics, pg.sprite.Sprite):
     """
     Sprite made for the sake of testing.
     """
@@ -65,6 +65,6 @@ class Character(Physics, pygame.sprite.Sprite):
         super().__init__()
         self.game = game
         self.add(self.game.all_sprites)
-        self.image = pygame.Surface((50, 50))
+        self.image = pg.Surface((50, 50))
         self.rect = self.image.get_rect()
         self.image.set_colorkey(Color.green)

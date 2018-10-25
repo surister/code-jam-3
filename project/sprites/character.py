@@ -5,10 +5,10 @@ from typing import Union
 
 import pygame as pg
 
-from project.constants import Color, PATH_IMAGES, PLAYER_ACC, PROJECTILE_IMAGE_NAME, SHOOT_RATE
+from project.constants import Color, FIRE_RATE, PATH_IMAGES, PLAYER_ACC, PROJECTILE_IMAGE_NAME
 from project.sprites.combat import Combat
-# from project.sprites.game_elements import Projectile
-from project.sprites.physics import Physics
+from project.sprites.sprite_internals import Physics
+
 
 CHARACTER_PROJECTILE_IMAGE = pg.image.load(str(PurePath(PATH_IMAGES).joinpath(PROJECTILE_IMAGE_NAME)))
 
@@ -21,6 +21,7 @@ class Character(Combat, Physics, pg.sprite.Sprite):
         game,
         health: int,
         defence: int,
+        shield: int = 50,
         pos: pg.Vector2 = None,
         acc: pg.Vector2 = None,
         vel: pg.Vector2 = None,
@@ -30,20 +31,21 @@ class Character(Combat, Physics, pg.sprite.Sprite):
     ):
 
         Physics.__init__(self, friction)
-        Combat.__init__(self, health, defence)
+        Combat.__init__(self, health, defence, shield=shield)
         # pg.sprite.Sprite.__init__(self)
+        print(self.shield)
         super().__init__(health, defence)
         self.game = game
         self.add(self.game.all_sprites)
 
         self.player_acc = PLAYER_ACC
-        self.shoot_rate = SHOOT_RATE
+        self.fire_rate = FIRE_RATE
 
         self.projectiles = deque()
 
         self.rapid_fire = True
         if self.rapid_fire:
-            self.shoot_rate -= 20
+            self.fire_rate -= 20
 
         if image is None:
             self.image = pg.Surface((50, 50))
@@ -93,14 +95,20 @@ class Character(Combat, Physics, pg.sprite.Sprite):
             self.acc.x = self.player_acc
         if self.key[pg.K_SPACE]:
             self._shot()
+            # self._take_damage(10)
 
         super().update()
 
-    def take_damage(self, amount, penetration=0):
+    def _take_damage(self, amount, penetration=0):
         damage = amount
         if self.defense > penetration:
             damage = amount / (self.defense - penetration)
+        if self.shield != 0:
+            if self.shield < 0:
+                self.shield = 0
+            self.shield -= damage
+        else:
 
-        self.health_points -= damage
-        if self.health_points <= 0:
-            self.kill()
+            if self.health < 0:
+                self.health = 0
+            self.health -= damage
