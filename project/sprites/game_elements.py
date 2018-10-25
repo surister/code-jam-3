@@ -1,7 +1,7 @@
 import pygame as pg
 
 from project.constants import Color, HEIGHT, WIDTH
-from project.sprites.physics import Physics
+from project.sprites.sprite_internals import Physics
 
 
 class Projectile(Physics, pg.sprite.Sprite):
