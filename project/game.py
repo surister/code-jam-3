@@ -91,9 +91,10 @@ class Game:
         """
 
         for enemy in self.enemy_sprites:
-            projectile = pg.sprite.spritecollide(enemy, self.others, False)
-            for hit in projectile:
-                enemy.damage(hit)
+            projectiles = pg.sprite.spritecollide(enemy, self.others, False)
+            for projectile in projectiles:
+                enemy.damage(projectile)
+                projectile.kill()
 
     def _draw(self)-> None:
         """
