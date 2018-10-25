@@ -7,6 +7,7 @@ FPS = 60
 
 # Char consts
 MAX_SPEED = 10
+SHOOT_RATE = 250  # interval between shots: milliseconds
 
 
 class Color:
