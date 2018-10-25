@@ -2,9 +2,10 @@ from collections import deque
 from pathlib import PurePath
 from typing import Union
 
+
 import pygame as pg
 
-from project.constants import Color, PATH_IMAGES, PROJECTILE_IMAGE_NAME
+from project.constants import Color, PATH_IMAGES, PLAYER_ACC, PROJECTILE_IMAGE_NAME, SHOOT_RATE
 from project.sprites.game_elements import Projectile
 from project.sprites.physics import Physics
 
@@ -29,10 +30,19 @@ class Character(Physics, pg.sprite.Sprite):
         self.game = game
         self.add(self.game.all_sprites)
 
+        self.player_acc = PLAYER_ACC
+        self.shoot_rate = SHOOT_RATE
+
         self.projectiles = deque()
+
+        self.rapid_fire = True
+        if self.rapid_fire:
+            self.shoot_rate -= 20
 
         self.health_points = health_points
         self.defense = defense
+
+        self.last_update = 0
 
         if image is None:
             self.image = pg.Surface((50, 50))
@@ -67,8 +77,12 @@ class Character(Physics, pg.sprite.Sprite):
         self.pos = pg.Vector2(500, 500)
 
     def _shot(self):
-        image = pg.image.load(str(PurePath(PATH_IMAGES).joinpath(PROJECTILE_IMAGE_NAME)))
-        self.projectiles.append(Projectile(self.game, self, image=image))
+        now = pg.time.get_ticks()
+        if now - self.last_update > self.shoot_rate:
+            self.last_update = now
+            image = pg.image.load(str(PurePath(PATH_IMAGES).joinpath(PROJECTILE_IMAGE_NAME)))
+            # TODO we load the image in every shot? hmhm that doesn't sound efficient
+            self.projectiles.append(Projectile(self.game, self, image=image))
 
     def update(self) -> None:
 
@@ -76,13 +90,13 @@ class Character(Physics, pg.sprite.Sprite):
 
         self.acc.y = self.acc.x = 0
         if self.key[pg.K_UP] or self.key[pg.K_w]:
-            self.acc.y = -1.5
+            self.acc.y = -self.player_acc
         if self.key[pg.K_DOWN] or self.key[pg.K_s]:
-            self.acc.y = 1.5
+            self.acc.y = self.player_acc
         if self.key[pg.K_LEFT] or self.key[pg.K_a]:
-            self.acc.x = -1.5
+            self.acc.x = -self.player_acc
         if self.key[pg.K_RIGHT] or self.key[pg.K_d]:
-            self.acc.x = 1.5
+            self.acc.x = self.player_acc
         if self.key[pg.K_SPACE]:
             self._shot()
 

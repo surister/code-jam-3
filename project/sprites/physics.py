@@ -53,15 +53,6 @@ class Physics:
 
         self.rect.center = self.pos
 
-        # This is for dev purposses, TODO delete once not needed or substituted
-        # if self.pos.y > HEIGHT:
-        #     self.pos.y = 0
-        # if self.pos.y < 0:
-        #     self.pos.y = HEIGHT
-        # if self.pos.x > WIDTH:
-        #     self.pos.x = 0
-        # if self.pos.x < 0:
-        #     self.pos.x = WIDTH
         # print(f'Acc: {self.acc} Vel: {self.vel}')
 
 

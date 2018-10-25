@@ -6,11 +6,15 @@ from project.sprites.physics import Physics
 
 class Projectile(Physics, pg.sprite.Sprite):
     """Basic Projectile Sprite"""
-    def __init__(self, game, owner, direction=None, image=None):
+    def __init__(self, game, owner, direction: int=1, image=None):
         super().__init__()
         self.game = game
+        self.owner = owner
         self.add(self.game.all_sprites, self.game.others)
 
+        if direction not in (1, -1):
+            print('Direction should be only to mark negative or positive direction.')
+        self.direction = direction
         self.damage: int = 2
 
         if image is None:
@@ -26,15 +30,19 @@ class Projectile(Physics, pg.sprite.Sprite):
         # TODO BULLET LIFE TIME
         self.friction = 0.012
         super().update()
-        self.acc.x = 0.12
+        self.vel.x = 10 * self.direction
 
         self.max_speed = 20
 
         if self.pos.y > HEIGHT:
             self.kill()
+            self.owner.projectiles.pop()
         if self.pos.y < 0:
             self.kill()
+            self.owner.projectiles.pop()
         if self.pos.x > WIDTH:
             self.kill()
+            self.owner.projectiles.pop()
         if self.pos.x < 0:
             self.kill()
+            self.owner.projectiles.pop()
