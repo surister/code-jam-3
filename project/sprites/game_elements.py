@@ -6,7 +6,7 @@ from project.sprites.sprite_internals import Physics
 
 class Projectile(Physics, pg.sprite.Sprite):
     """Basic Projectile Sprite"""
-    def __init__(self, game, owner, damage: int=2, penetration: int=0, direction: int=1, image=None):
+    def __init__(self, game, owner, damage: int=2, penetration: int=0, direction: int=1, spawn_point=None, image=None):
         super().__init__()
         self.game = game
         self.owner = owner
@@ -28,7 +28,11 @@ class Projectile(Physics, pg.sprite.Sprite):
         else:
             self.image = image
 
-        self.pos = pg.Vector2(owner.rect.midright)
+        if spawn_point is None:
+            self.pos = owner.rect.midright
+        else:
+            self.pos = spawn_point
+
         self.rect = self.image.get_rect(center=self.pos)
 
     def update(self):

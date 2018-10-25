@@ -41,6 +41,7 @@ class Fighter(Combat, Physics, pg.sprite.Sprite):
             self.image.fill(Color.light_green)
         else:
             self.image = image
+
         self.rect = self.image.get_rect()
 
         self.image.set_colorkey(Color.red)
@@ -60,5 +61,5 @@ class Fighter(Combat, Physics, pg.sprite.Sprite):
         self.acc.y -= math.cos(angle/math.tau*360)
         self.acc.x += math.sin(angle/math.tau*360)
 
-        self._shot(-1)
+        self._shot(-1, self.rect.midleft)
         super().update()

@@ -45,7 +45,7 @@ class Structure(Combat, pg.sprite.Sprite):
         self.projectile_image = STRUCTURE_PROJECTILE_IMAGE
         self.evil = True
 
-    def update(self):
+    def update(self) -> None:
         """ Move left untill destination passed if not already there, otherwise shoot at the player """
         if not self.arrived:
             self.pos.x = self.pos.x - self.vel.x
@@ -54,7 +54,7 @@ class Structure(Combat, pg.sprite.Sprite):
                 self.arrived = True
         else:
             # Fires straight to the left
-            self._shot(-1)
+            self._shot(-1, self.rect.midleft)
 
         self.rect.midbottom = self.pos
         super().update()
