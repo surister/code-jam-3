@@ -1,11 +1,15 @@
 import math
+from collections import deque
+from pathlib import PurePath
 from typing import Union
 
 import pygame as pg
 
-from project.constants import Color
+from project.constants import Color, PATH_IMAGES, PROJECTILE_IMAGE_NAME
 from project.sprites.combat import Combat
 from project.sprites.sprite_internals import Physics
+
+FIGHTER_PROJECTILE_IMAGE = pg.image.load(str(PurePath(PATH_IMAGES).joinpath(PROJECTILE_IMAGE_NAME)))
 
 
 class Fighter(Combat, Physics, pg.sprite.Sprite):
@@ -17,9 +21,10 @@ class Fighter(Combat, Physics, pg.sprite.Sprite):
         friction: Union[int, float],
         vel: pg.Vector2,
         pos: pg.Vector2,
+        points: int=50,
         image: pg.Surface= None
     ):
-        Combat.__init__(self, 15)
+        Combat.__init__(self, 15, points=points)
         Physics.__init__(self, friction)
         # pg.sprite.Sprite.__init__(self)
         self.radius = radius
@@ -40,6 +45,10 @@ class Fighter(Combat, Physics, pg.sprite.Sprite):
 
         self.image.set_colorkey(Color.red)
 
+        self.projectiles = deque()
+        self.projectile_image = FIGHTER_PROJECTILE_IMAGE
+        self.evil = True
+
     def update(self):
         player_pos = self.game.devchar.pos
 
@@ -51,4 +60,5 @@ class Fighter(Combat, Physics, pg.sprite.Sprite):
         self.acc.y -= math.cos(angle/math.tau*360)
         self.acc.x += math.sin(angle/math.tau*360)
 
+        self._shot(-1)
         super().update()

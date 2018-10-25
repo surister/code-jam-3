@@ -36,11 +36,12 @@ class Combat:
     def damage(self, projectile: Projectile) -> None:
         self.health -= max(projectile.damage - max(self.armor - projectile.penetration, 0), 0)
         if self.health <= 0:
-            self.destroy()
+            self._destroy()
 
-    def destroy(self) -> None:
+    def _destroy(self) -> None:
         """Overwrite this in the sprite class if non-default behaviour is needed"""
-        self.game.devchar.points += self.points
+        self.game.score += self.points
+        print(self.game.score)
         self._generate_drops()
         self.kill()
 
@@ -49,8 +50,8 @@ class Combat:
             if drop[1] < randint(100):
                 drop[0].spawn(self.pos)
 
-    def _shot(self) -> None:
+    def _shot(self, direction: int=1) -> None:
         now = pg.time.get_ticks()
         if now - self.last_update > self.fire_rate:
             self.last_update = now
-            self.projectiles.append(Projectile(self.game, self, image=self.projectile_image))
+            self.projectiles.append(Projectile(self.game, self, direction=direction, image=self.projectile_image))

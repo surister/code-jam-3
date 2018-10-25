@@ -1,7 +1,12 @@
+from collections import deque
+from pathlib import PurePath
+
 import pygame as pg
 
-from project.constants import Color
+from project.constants import Color, PATH_IMAGES, PROJECTILE_IMAGE_NAME
 from project.sprites.combat import Combat
+
+STRUCTURE_PROJECTILE_IMAGE = pg.image.load(str(PurePath(PATH_IMAGES).joinpath(PROJECTILE_IMAGE_NAME)))
 
 
 class Structure(Combat, pg.sprite.Sprite):
@@ -13,9 +18,10 @@ class Structure(Combat, pg.sprite.Sprite):
         destination: int,
         vel,
         pos,
+        points: int=200,
         image: pg.Surface= None
     ):
-        Combat.__init__(self, 20)
+        Combat.__init__(self, 20, points=points)
         pg.sprite.Sprite.__init__(self)
         self.destination = destination
         self.arrived = False
@@ -35,6 +41,9 @@ class Structure(Combat, pg.sprite.Sprite):
         self.add(self.game.enemy_sprites)
 
         self.image.set_colorkey(Color.black)
+        self.projectiles = deque()
+        self.projectile_image = STRUCTURE_PROJECTILE_IMAGE
+        self.evil = True
 
     def update(self):
         """ Move left untill destination passed if not already there, otherwise shoot at the player """
@@ -44,7 +53,8 @@ class Structure(Combat, pg.sprite.Sprite):
             if self.pos.x < self.destination:
                 self.arrived = True
         else:
-            # TODO implement once projectiles are added to the game
-            pass
+            # Fires straight to the left
+            self._shot(-1)
+
         self.rect.midbottom = self.pos
         super().update()

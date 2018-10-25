@@ -30,6 +30,8 @@ class Game:
         self.mouse_x = 0
         self.mouse_y = 0
 
+        self.score = 0
+
         pg.init()
         pg.display.set_caption('Game in development')
 
@@ -40,6 +42,8 @@ class Game:
         self.all_sprites = pg.sprite.Group()
         self.enemy_sprites = pg.sprite.Group()
         self.others = pg.sprite.Group()  # Find a better name? Projectiles will be stored here for now
+        self.enemy_projectiles = pg.sprite.Group()
+
         # Testing enemies
         structure_image = pg.image.load(str(PurePath(PATH_IMAGES).joinpath(STRUCTURE_IMAGE_NAME)))
         Structure(self, WIDTH - 250, pg.Vector2(1, 1), pg.Vector2(WIDTH, 500), image=structure_image)
@@ -48,7 +52,7 @@ class Game:
         Fighter(self, 200, vel=pg.Vector2(0, 0), pos=pg.Vector2(WIDTH, 500), friction=-0.06, image=fighter_image)
 
         mine_image = pg.image.load(str(PurePath(PATH_IMAGES).joinpath(MINE_IMAGE_NAME)))
-        Mine(self, pg.Vector2(0.5, 0.5), pg.Vector2(WIDTH, 200), image=mine_image)
+        Mine(self, pg.Vector2(1.5, 1.5), pg.Vector2(WIDTH, 200), image=mine_image)
 
         char_image = pg.image.load(str(PurePath(PATH_IMAGES).joinpath(CHARACTER_IMAGE_NAME)))
         self.devchar = Character(self, 100, 10, friction=-0.052, image=char_image, shield=50)
@@ -96,6 +100,11 @@ class Game:
                 enemy.damage(projectile)
                 projectile.kill()
 
+        enemy_projectiles = pg.sprite.spritecollide(self.devchar, self.enemy_projectiles, False)
+        for projectile in enemy_projectiles:
+            self.devchar.damage(projectile)
+            projectile.kill()
+
     def _draw(self)-> None:
         """
         Everything we draw to the screen will be done here
@@ -107,6 +116,10 @@ class Game:
         self.all_sprites.draw(self.screen)
 
         pg.display.flip()
+
+    def _destroy(self):
+        self.kill()
+        # TODO show end screen
 
     def show_start_screen(self):
 

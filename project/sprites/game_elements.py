@@ -10,7 +10,11 @@ class Projectile(Physics, pg.sprite.Sprite):
         super().__init__()
         self.game = game
         self.owner = owner
-        self.add(self.game.all_sprites, self.game.others)
+
+        if owner.evil:
+            self.add(self.game.all_sprites, self.game.enemy_projectiles)
+        else:
+            self.add(self.game.all_sprites, self.game.others)
 
         if direction not in (1, -1):
             print('Direction should be only to mark negative or positive direction.')

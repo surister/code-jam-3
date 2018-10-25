@@ -42,6 +42,7 @@ class Character(Combat, Physics, pg.sprite.Sprite):
         self.fire_rate = FIRE_RATE
 
         self.projectiles = deque()
+        self.evil = False
 
         self.rapid_fire = True
         if self.rapid_fire:
