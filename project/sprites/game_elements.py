@@ -12,6 +12,7 @@ class Projectile(Physics, pg.sprite.Sprite):
         self.owner = owner
         self.add(self.game.all_sprites, self.game.others)
 
+        self.direction = direction
         self.damage: int = 2
 
         if image is None:
@@ -27,7 +28,7 @@ class Projectile(Physics, pg.sprite.Sprite):
         # TODO BULLET LIFE TIME
         self.friction = 0.012
         super().update()
-        self.acc.x = 0.12
+        self.vel.x = 10
 
         self.max_speed = 20
 
