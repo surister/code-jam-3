@@ -85,3 +85,4 @@ class Character(Physics, pg.sprite.Sprite):
             self._shot()
 
         super().update()
+        print(len(self.projectiles))

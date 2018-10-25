@@ -9,6 +9,7 @@ class Projectile(Physics, pg.sprite.Sprite):
     def __init__(self, game, owner, direction=None):
         super().__init__()
         self.game = game
+        self.owner = owner
         self.add(self.game.all_sprites, self.game.others)
 
         self.damage: int = 2
@@ -27,9 +28,13 @@ class Projectile(Physics, pg.sprite.Sprite):
 
         if self.pos.y > HEIGHT:
             self.kill()
+            self.owner.projectiles.pop()
         if self.pos.y < 0:
             self.kill()
+            self.owner.projectiles.pop()
         if self.pos.x > WIDTH:
             self.kill()
+            self.owner.projectiles.pop()
         if self.pos.x < 0:
             self.kill()
+            self.owner.projectiles.pop()
