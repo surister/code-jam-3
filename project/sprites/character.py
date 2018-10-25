@@ -4,7 +4,7 @@ from typing import Union
 
 import pygame as pg
 
-from project.constants import Color, PATH_IMAGES, PROJECTILE_IMAGE_NAME
+from project.constants import Color, PATH_IMAGES, PROJECTILE_IMAGE_NAME, SHOOT_RATE
 from project.sprites.game_elements import Projectile
 from project.sprites.physics import Physics
 
@@ -33,6 +33,7 @@ class Character(Physics, pg.sprite.Sprite):
 
         self.health_points = health_points
         self.defense = defense
+        self.last_update = 0
 
         if image is None:
             self.image = pg.Surface((50, 50))
@@ -67,8 +68,12 @@ class Character(Physics, pg.sprite.Sprite):
         self.pos = pg.Vector2(500, 500)
 
     def _shot(self):
-        image = pg.image.load(str(PurePath(PATH_IMAGES).joinpath(PROJECTILE_IMAGE_NAME)))
-        self.projectiles.append(Projectile(self.game, self, image=image))
+        now = pg.time.get_ticks()
+        if now - self.last_update > SHOOT_RATE:
+            self.last_update = now
+            image = pg.image.load(str(PurePath(PATH_IMAGES).joinpath(PROJECTILE_IMAGE_NAME)))
+            # TODO we load the image in every shot? hmhm that doesn't sound efficient
+            self.projectiles.append(Projectile(self.game, self, image=image))
 
     def update(self) -> None:
 
@@ -87,9 +92,8 @@ class Character(Physics, pg.sprite.Sprite):
             self._shot()
 
         super().update()
-<<<<<<< HEAD
+
         print(len(self.projectiles))
-=======
 
     def take_damage(self, amount, penetration=0):
         damage = amount
@@ -99,4 +103,3 @@ class Character(Physics, pg.sprite.Sprite):
         self.health_points -= damage
         if self.health_points <= 0:
             self.kill()
->>>>>>> de26ecff257c02a0149f6ed5cd385b19f8b36d69
