@@ -1,9 +1,10 @@
 import math
+from typing import Union
 
 import pygame as pg
 
 from project.constants import Color
-from project.sprites.physics import Physics
+from project.sprites.sprite_internals import Physics
 
 
 class Fighter(Physics, pg.sprite.Sprite):
@@ -12,7 +13,7 @@ class Fighter(Physics, pg.sprite.Sprite):
         self,
         game,
         radius: int,
-        friction: int,
+        friction: Union[int, float],
         vel: pg.Vector2,
         pos: pg.Vector2,
         image: pg.Surface= None
