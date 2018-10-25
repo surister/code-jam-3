@@ -1,3 +1,4 @@
+import webbrowser as wb
 from pathlib import PurePath
 
 import pygame
@@ -20,12 +21,14 @@ class Home:
         self.air = self.space = 10    # px
         self.shift = 20               # px
 
-        self.buttons_hover_states = {"play": False, "options": False, "about": False, "exit": False}
+        self.buttons_hover_states = {"play": False, "options": False, "about": False, "exit": False, "gitlab": False}
         self.buttons_sprites = {
             "play": load(str(PurePath(PATH_IMAGES).joinpath("btn_play3.png"))).convert_alpha(),
             "options": load(str(PurePath(PATH_IMAGES).joinpath("btn_opt.png"))).convert_alpha(),
             "about": load(str(PurePath(PATH_IMAGES).joinpath("btn_about.png"))).convert_alpha(),
-            "exit": load(str(PurePath(PATH_IMAGES).joinpath("btn_exit.png"))).convert_alpha()}
+            "exit": load(str(PurePath(PATH_IMAGES).joinpath("btn_exit.png"))).convert_alpha(),
+            "gitlab": load(str(PurePath(PATH_IMAGES).joinpath("btn_gitlab.png"))).convert_alpha(),
+            "gitlab_h": load(str(PurePath(PATH_IMAGES).joinpath("btn_h_gitlab.png"))).convert_alpha()}
 
         # LOGO: 768x360px
         # horizontal - logo takes 3 parts out of 5 - W/5 * 3 = 768px
@@ -49,6 +52,7 @@ class Home:
                                              self.slice * 1.25,
                                              self.segment - (self.air * 2))
 
+        self.gitlab_button_rect = pygame.Rect(WIDTH - 100 - 20, HEIGHT - 100 - 20, 200, 200)
         self.buttons_dict = {"options": 5, "about": 6, "exit": 7}
 
     def draw(self, x: int, y: int)-> None:
@@ -57,6 +61,8 @@ class Home:
         self.screen.blit(self.logo_image, self.logo_rect)
 
         self._draw_play_button(x, y)
+        self._draw_gitlab_button(x, y)
+
         for key in self.buttons_dict.keys():
             self._draw_other_buttons(x, y, key)
         pygame.display.update()
@@ -71,14 +77,10 @@ class Home:
             self.buttons_hover_states["play"] = True
             self.play_button_rect.left = self.shift
             self.screen.blit(self.buttons_sprites["play"], self.play_button_rect)
-            # pygame.draw.rect(self.screen, Color.light_green, self.play_button_rect)
         else:
             self.buttons_hover_states["play"] = False
             self.play_button_rect.left = self.space
             self.screen.blit(self.buttons_sprites["play"], self.play_button_rect)
-            # pygame.draw.rect(self.screen, Color.light_green, self.play_button_rect)
-
-        # self._draw_text(50, "PLAY", Color.white, self.play_button_rect)
 
     def _draw_other_buttons(self, x: int, y: int, button: str)-> None:
 
@@ -89,19 +91,24 @@ class Home:
             self.buttons_hover_states[button] = True
             self.other_button_rect.left = self.shift
             self.screen.blit(self.buttons_sprites[button], self.other_button_rect)
-            # pygame.draw.rect(self.screen, Color.light_green, self.other_button_rect)
         else:
             self.buttons_hover_states[button] = False
             self.other_button_rect.left = self.space
             self.screen.blit(self.buttons_sprites[button], self.other_button_rect)
 
-        # self._draw_text(40, button.upper(), Color.white, self.other_button_rect)
+    def _draw_gitlab_button(self, x: int, y: int)-> None:
 
-    def _draw_text(self, size: int, text: str, color: Color, rect: pygame.Rect)->None:
-        font = pygame.font.Font(pygame.font.get_default_font(), size)
-        text_surface = font.render(text, True, color)
-        rect.top += self.air
-        self.screen.blit(text_surface, rect)
+        hovered = self._hovered(x, y, self.gitlab_button_rect)
+
+        if hovered:
+            self.buttons_hover_states["gitlab"] = True
+            self.screen.blit(self.buttons_sprites["gitlab_h"], self.gitlab_button_rect)
+        else:
+            self.buttons_hover_states["gitlab"] = False
+            self.screen.blit(self.buttons_sprites["gitlab"], self.gitlab_button_rect)
 
     def _hovered(self, x: int, y: int, button: object)-> bool:
         return button.collidepoint(x, y)
+
+    def open_gitlab(self)->None:
+        wb.open("https://gitlab.com/JannesJ/code-jam-3")

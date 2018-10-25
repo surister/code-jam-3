@@ -92,5 +92,7 @@ class Game:
                     waiting = self.running = False
                 if event.type == pygame.MOUSEBUTTONUP and self.homepage.buttons_hover_states["play"]:
                     waiting = False
+                if event.type == pygame.MOUSEBUTTONUP and self.homepage.buttons_hover_states["gitlab"]:
+                    self.homepage.open_gitlab()
                 if event.type == pygame.MOUSEBUTTONUP and self.homepage.buttons_hover_states["exit"]:
                     self.running = self.playing = waiting = False
