@@ -4,7 +4,7 @@ import pygame as pg
 
 from project.constants import CHARACTER_IMAGE_NAME, Color, FIGHTER_IMAGE_NAME, FPS, \
     HEIGHT, MINE_IMAGE_NAME, PATH_IMAGES, STRUCTURE_IMAGE_NAME, WIDTH
-from project.ui.home import Home
+from project.ui.main_menu import Home
 from project.sprites.background import Background
 from project.sprites.character import Character
 from project.sprites.fighter import Fighter
