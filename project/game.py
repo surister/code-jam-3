@@ -2,7 +2,7 @@ from pathlib import PurePath
 
 import pygame as pg
 
-from project.constants import CHARACTER_IMAGE_NAME, Color, FIGHTER_IMAGE_NAME, FPS, \
+from project.constants import CHARACTER_IMAGE_NAME, FIGHTER_IMAGE_NAME, FPS, \
     HEIGHT, MINE_IMAGE_NAME, PATH_IMAGES, STRUCTURE_IMAGE_NAME, WIDTH
 from project.menus.home import Home
 from project.sprites.background import Background
@@ -109,7 +109,6 @@ class Game:
 
     def show_start_screen(self):
 
-        self.screen.fill(Color.light_green)
         self.homepage = Home(self.screen)
         self._wait_for_input()
 
@@ -125,5 +124,7 @@ class Game:
                     waiting = self.running = False
                 if event.type == pg.MOUSEBUTTONUP and self.homepage.buttons_hover_states["play"]:
                     waiting = False
+                if event.type == pg.MOUSEBUTTONUP and self.homepage.buttons_hover_states["gitlab"]:
+                    self.homepage.open_gitlab()
                 if event.type == pg.MOUSEBUTTONUP and self.homepage.buttons_hover_states["exit"]:
                     self.running = self.playing = waiting = False
