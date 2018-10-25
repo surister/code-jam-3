@@ -2,7 +2,7 @@ from pathlib import PurePath
 
 import pygame as pg
 
-from project.constants import CHARACTER_IMAGE_NAME, Color, FIGHTER_IMAGE_NAME, FPS, \
+from project.constants import CHARACTER_IMAGE_NAME, FIGHTER_IMAGE_NAME, FPS, \
     HEIGHT, MINE_IMAGE_NAME, PATH_IMAGES, STRUCTURE_IMAGE_NAME, WIDTH
 from project.menus.home import Home
 from project.sprites.background import Background
