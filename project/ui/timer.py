@@ -5,7 +5,7 @@ from project.constants import Color
 
 class Timer:
 
-    def __init__(self, screen: pg.Surface, time: int, x, y, font, font_size):
+    def __init__(self, screen: pg.Surface, time: int, x: int, y: int, font: str, font_size:str):
         self.screen = screen
 
         self.x = x
@@ -26,5 +26,5 @@ class Timer:
 
         self.screen.blit(self.text, (self.x, self.y))
 
-    def min_sec(self, sec)->str:
+    def min_sec(self, sec: int)->str:
         return f"{int((sec - sec % 60) / 60)}:{sec % 60:02}"
