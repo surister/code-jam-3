@@ -61,5 +61,5 @@ class Fighter(Combat, Physics, pg.sprite.Sprite):
         self.acc.y -= math.cos(angle/math.tau*360)
         self.acc.x += math.sin(angle/math.tau*360)
 
-        self._shot(-1, self.rect.midleft)
+        self._shot(0.5*math.tau, self.rect.midleft)
         super().update()

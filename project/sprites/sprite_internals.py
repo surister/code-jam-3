@@ -52,7 +52,7 @@ class Physics:
         self.pos += self.vel + 0.5 * self.acc  # plus something, friction?
 
         self.rect.center = self.pos
-        
+
 
 class Character(Physics, pg.sprite.Sprite):
     """
