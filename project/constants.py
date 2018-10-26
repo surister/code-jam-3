@@ -23,9 +23,11 @@ PATH_PROJECT = pathlib.PurePath(__file__).parent
 PATH_SPRITES = pathlib.PurePath(PATH_PROJECT).joinpath('sprites/')
 PATH_ASSETS = pathlib.PurePath(PATH_PROJECT).joinpath('assets/')
 PATH_IMAGES = pathlib.PurePath(PATH_PROJECT).joinpath('assets/images')
+PATH_BUTTONS = pathlib.PurePath(PATH_PROJECT).joinpath('assets/gui/buttons')
+PATH_CURSORS = pathlib.PurePath(PATH_PROJECT).joinpath('assets/gui/cursors')
 PATH_MENUS = pathlib.PurePath(PATH_PROJECT).joinpath('menus/')
 
-CHARACTER_IMAGE_NAME = "dino-spaceship-scaled.png"
+CHARACTER_IMAGE_NAME = "ufo3.png"
 STRUCTURE_IMAGE_NAME = "structure.png"
 PROJECTILE_IMAGE_NAME = "shot_0003_Layer-8-scaled.png"
 FIGHTER_IMAGE_NAME = "fighter.png"

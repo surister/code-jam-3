@@ -24,7 +24,7 @@ class Game:
         self.screen = pg.display.set_mode((WIDTH, HEIGHT))
         self.clock = pg.time.Clock()
         self.font = pg.font.get_default_font()
-        self.backgroud = Background("stars2.png", self.screen, 5)
+        self.backgroud = Background("stars2.png", self.screen, 1)
 
         self.mouse_x = 0
         self.mouse_y = 0
@@ -89,10 +89,10 @@ class Game:
 
         Don't forget that we always draw first then -> pg.display.flip()
         """
+
         self.backgroud.draw()
         self.all_sprites.draw(self.screen)
-
-        pg.display.flip()
+        pg.display.update()
 
     def show_start_screen(self):
 
@@ -102,7 +102,7 @@ class Game:
     def _wait_for_input(self):
         waiting = True
         while waiting:
-            self.mouse_x, self.mouse_y = pg.mouse.get_pos()
+            self.mouse_x, self.mouse_y = pg.mouse.get_pos()           
             self.homepage.draw(self.mouse_x, self.mouse_y)
 
             self.clock.tick(FPS/2)
