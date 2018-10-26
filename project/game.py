@@ -56,7 +56,7 @@ class Game:
         self.devchar = Character(self, 100, 10, friction=-0.052, image=char_image, shield=50)
         self.healthbar = Healthbar(self, self.devchar, self.screen, 100, 200, 200)
 
-        self.timer = Timer(self.screen, 30, WIDTH // 2 - 70, 25, "Ariel", 80)
+        self.timer = Timer(self.screen, 600, WIDTH // 2 - 70, 25, "Ariel", 80)
         # TODO WITH SPREADSHEET IMAGE LOAD WON'T BE HERE, BUT IN EVERY SPRITE CLASS
         self._run()
 
