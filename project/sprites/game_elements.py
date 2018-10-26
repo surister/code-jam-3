@@ -42,8 +42,8 @@ class Projectile(Physics, pg.sprite.Sprite):
         self.friction = 0.012
         super().update()
 
-        self.vel.y = -10 * math.sin(self.angle)  # / math.tau)
-        self.vel.x = 10 * math.cos(self.angle)  # / math.tau)
+        self.vel.y = -10 * math.sin(self.angle)
+        self.vel.x = 10 * math.cos(self.angle)
 
         self.max_speed = 20
 

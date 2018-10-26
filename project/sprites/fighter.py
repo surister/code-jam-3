@@ -52,14 +52,12 @@ class Fighter(Combat, Physics, pg.sprite.Sprite):
 
     def update(self):
         player_pos = self.game.devchar.pos
+        print(f"{player_pos}    {self.pos}")
+        angle = math.atan2(self.pos.y - player_pos.y, -(self.pos.x - player_pos.x))
 
-        angle = math.atan2(player_pos.x - self.pos.x, self.pos.y - player_pos.y)
-        if angle < 0:
-            angle += math.tau
-
-        self.acc.x = self.acc.y = 0
-        self.acc.y -= math.cos(angle/math.tau*360)
-        self.acc.x += math.sin(angle/math.tau*360)
+        # self.acc.x = self.acc.y = 0
+        self.acc.y = -math.sin(angle)
+        self.acc.x = math.cos(angle)
 
         self._shot(0.5*math.tau, self.rect.midleft)
         super().update()
