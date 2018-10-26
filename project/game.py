@@ -116,7 +116,7 @@ class Game:
     def _wait_for_input(self):
         waiting = True
         while waiting:
-            self.mouse_x, self.mouse_y = pg.mouse.get_pos()           
+            self.mouse_x, self.mouse_y = pg.mouse.get_pos()
             self.homepage.draw(self.mouse_x, self.mouse_y)
 
             self.clock.tick(FPS/2)
