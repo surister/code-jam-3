@@ -11,6 +11,7 @@ from project.sprites.structure import Structure
 from project.ui.background import Background
 from project.ui.character_interface import Healthbar
 from project.ui.main_menu import Home
+from project.ui.timer import Timer
 
 
 class Game:
@@ -54,6 +55,8 @@ class Game:
         char_image = pg.image.load(str(PurePath(PATH_IMAGES).joinpath(CHARACTER_IMAGE_NAME)))
         self.devchar = Character(self, 100, 10, friction=-0.052, image=char_image, shield=50)
         self.healthbar = Healthbar(self, self.devchar, self.screen, 100, 200, 200)
+
+        self.timer = Timer(self.screen, 30, WIDTH // 2 - 70, 25, "Ariel", 80)
         # TODO WITH SPREADSHEET IMAGE LOAD WON'T BE HERE, BUT IN EVERY SPRITE CLASS
         self._run()
 
@@ -106,6 +109,7 @@ class Game:
         self.background.draw()
         self.healthbar.draw(self.devchar.health, self.devchar.shield)
         self.all_sprites.draw(self.screen)
+        self.timer.draw()
         pg.display.update()
 
     def show_start_screen(self):
