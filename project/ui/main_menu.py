@@ -4,7 +4,7 @@ from pathlib import PurePath
 import pygame
 from pygame.image import load
 
-from project.constants import Color, GIT_LAB_LINK, HEIGHT, PATH_IMAGES, WIDTH
+from project.constants import GIT_LAB_LINK, HEIGHT, PATH_BUTTONS, PATH_CURSORS, PATH_IMAGES, WIDTH
 
 
 class Home:
@@ -21,14 +21,16 @@ class Home:
         self.air = self.space = 10    # px
         self.shift = 20               # px
 
+        self.background = load(str(PurePath(PATH_IMAGES).joinpath("background4.png"))).convert_alpha()
+
         self.buttons_hover_states = {"play": False, "options": False, "about": False, "exit": False, "gitlab": False}
         self.buttons_sprites = {
-            "play": load(str(PurePath(PATH_IMAGES).joinpath("btn_play3.png"))).convert_alpha(),
-            "options": load(str(PurePath(PATH_IMAGES).joinpath("btn_opt.png"))).convert_alpha(),
-            "about": load(str(PurePath(PATH_IMAGES).joinpath("btn_about.png"))).convert_alpha(),
-            "exit": load(str(PurePath(PATH_IMAGES).joinpath("btn_exit.png"))).convert_alpha(),
-            "gitlab": load(str(PurePath(PATH_IMAGES).joinpath("btn_gitlab.png"))).convert_alpha(),
-            "gitlab_h": load(str(PurePath(PATH_IMAGES).joinpath("btn_h_gitlab.png"))).convert_alpha()}
+            "play": load(str(PurePath(PATH_BUTTONS).joinpath("btn_play3.png"))).convert_alpha(),
+            "options": load(str(PurePath(PATH_BUTTONS).joinpath("btn_opt.png"))).convert_alpha(),
+            "about": load(str(PurePath(PATH_BUTTONS).joinpath("btn_about.png"))).convert_alpha(),
+            "exit": load(str(PurePath(PATH_BUTTONS).joinpath("btn_exit.png"))).convert_alpha(),
+            "gitlab": load(str(PurePath(PATH_BUTTONS).joinpath("btn_gitlab.png"))).convert_alpha(),
+            "gitlab_h": load(str(PurePath(PATH_BUTTONS).joinpath("btn_h_gitlab.png"))).convert_alpha()}
 
         # LOGO: 768x360px
         # horizontal - logo takes 3 parts out of 5 - W/5 * 3 = 768px
@@ -55,9 +57,12 @@ class Home:
         self.gitlab_button_rect = pygame.Rect(WIDTH - 100 - 20, HEIGHT - 100 - 20, 200, 200)
         self.buttons_dict = {"options": 5, "about": 6, "exit": 7}
 
+        self.cursor = load(str(PurePath(PATH_CURSORS).joinpath("cur.png"))).convert_alpha()
+        self.cursor2 = load(str(PurePath(PATH_CURSORS).joinpath("hov.png"))).convert_alpha()
+
     def draw(self, x: int, y: int)-> None:
 
-        self.screen.fill(Color.dark_blue)
+        self.screen.blit(self.background, (0, 0))
         self.screen.blit(self.logo_image, self.logo_rect)
 
         self._draw_play_button(x, y)
@@ -65,6 +70,11 @@ class Home:
 
         for key in self.buttons_dict.keys():
             self._draw_other_buttons(x, y, key)
+
+        if any(self.buttons_hover_states.values()):
+            self.screen.blit(self.cursor2, (x, y))
+        else:
+            self.screen.blit(self.cursor, (x, y))
         pygame.display.update()
 
     def _draw_play_button(self, x: int, y: int)-> None:
