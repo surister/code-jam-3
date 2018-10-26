@@ -32,16 +32,15 @@ class Character(Combat, Physics, pg.sprite.Sprite):
 
         Physics.__init__(self, friction)
         Combat.__init__(self, health, defence, shield=shield)
-        # pg.sprite.Sprite.__init__(self)
-        print(self.shield)
-        super().__init__(health, defence)
         self.game = game
+        print(shield)
         self.add(self.game.all_sprites)
 
         self.player_acc = PLAYER_ACC
         self.fire_rate = FIRE_RATE
 
         self.projectiles = deque()
+        self.evil = False
 
         self.rapid_fire = True
         if self.rapid_fire:
