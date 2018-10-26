@@ -32,6 +32,7 @@ class Game:
 
         pg.init()
         pg.display.set_caption('Game in development')
+        pg.mouse.set_cursor((8, 8), (0, 0), ((0,) * 8), ((0,) * 8))
 
     def new(self):
         """
@@ -105,8 +106,7 @@ class Game:
         self.background.draw()
         self.healthbar.draw(self.devchar.health, self.devchar.shield)
         self.all_sprites.draw(self.screen)
-
-        pg.display.flip()
+        pg.display.update()
 
     def show_start_screen(self):
 
