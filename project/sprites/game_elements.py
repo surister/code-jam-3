@@ -28,6 +28,8 @@ class Projectile(Physics, pg.sprite.Sprite):
         else:
             self.image = image
 
+        self.image = pg.transform.rotate(self.image, angle * 180 / math.pi)
+
         if spawn_point is None:
             self.pos = owner.rect.midright
         else:
