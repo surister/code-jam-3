@@ -5,6 +5,7 @@ import pygame
 from pygame.image import load
 
 from project.constants import GIT_LAB_LINK, HEIGHT, PATH_BUTTONS, PATH_CURSORS, PATH_IMAGES, WIDTH
+from project.sprites.sheet import Sheet
 
 
 class Home:
@@ -21,16 +22,18 @@ class Home:
         self.air = self.space = 10    # px
         self.shift = 20               # px
 
+        self.sheet = Sheet(str(PurePath(PATH_BUTTONS).joinpath("buttonsheet.png")))
+
         self.background = load(str(PurePath(PATH_IMAGES).joinpath("background4.png"))).convert_alpha()
 
         self.buttons_hover_states = {"play": False, "options": False, "about": False, "exit": False, "gitlab": False}
         self.buttons_sprites = {
-            "play": load(str(PurePath(PATH_BUTTONS).joinpath("btn_play3.png"))).convert_alpha(),
-            "options": load(str(PurePath(PATH_BUTTONS).joinpath("btn_opt.png"))).convert_alpha(),
-            "about": load(str(PurePath(PATH_BUTTONS).joinpath("btn_about.png"))).convert_alpha(),
-            "exit": load(str(PurePath(PATH_BUTTONS).joinpath("btn_exit.png"))).convert_alpha(),
-            "gitlab": load(str(PurePath(PATH_BUTTONS).joinpath("btn_gitlab.png"))).convert_alpha(),
-            "gitlab_h": load(str(PurePath(PATH_BUTTONS).joinpath("btn_h_gitlab.png"))).convert_alpha()}
+            "play": self.sheet.get_image(0, 0, 384, 70, True),
+            "options": self.sheet.get_image(0, 70, 320, 70, True),
+            "about": self.sheet.get_image(0, 140, 320, 70, True),
+            "exit": self.sheet.get_image(0, 210, 320, 70, True),
+            "gitlab": self.sheet.get_image(320, 70, 100, 100, True),
+            "gitlab_h": self.sheet.get_image(320, 170, 100, 100, True)}
 
         # LOGO: 768x360px
         # horizontal - logo takes 3 parts out of 5 - W/5 * 3 = 768px
