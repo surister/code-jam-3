@@ -13,6 +13,21 @@ from project.ui.character_interface import Healthbar
 from project.ui.main_menu import Home
 
 
+class CustomGroup:
+    def __init__(self):
+        self.elements = []
+
+    def add(self, element):
+        if hasattr(element, 'draw'):
+            self.elements.append(element)
+        else:
+            raise AttributeError(f'{element.__class__.__name__} has no attribute draw')
+
+    def draw(self):
+        for element in self.elements:
+            element.draw()
+
+
 class Game:
     """
     Main Game class
@@ -25,7 +40,7 @@ class Game:
         self.screen = pg.display.set_mode((WIDTH, HEIGHT))
         self.clock = pg.time.Clock()
         self.font = pg.font.get_default_font()
-        self.background = Background("stars2.png", self.screen, 5)
+
 
         self.mouse_x = 0
         self.mouse_y = 0
@@ -38,10 +53,13 @@ class Game:
         """
         Every time a new game starts
         """
+
         self.all_sprites = pg.sprite.Group()
         self.enemy_sprites = pg.sprite.Group()
         self.others = pg.sprite.Group()  # Find a better name? Projectiles will be stored here for now
+        self.nonsprite = CustomGroup()
         # Testing enemies
+        self.background = Background("stars2.png", self, 5)
         structure_image = pg.image.load(str(PurePath(PATH_IMAGES).joinpath(STRUCTURE_IMAGE_NAME)))
         Structure(self, WIDTH - 250, pg.Vector2(1, 1), pg.Vector2(WIDTH, 500), image=structure_image)
 
@@ -103,10 +121,12 @@ class Game:
 
         Don't forget that we always draw first then -> pg.display.flip()
         """
-        self.background.draw()
+
+
+        self.nonsprite.draw()
         self.healthbar.draw(self.devchar.health, self.devchar.shield)
         self.all_sprites.draw(self.screen)
-        pg.display.update()
+        pg.display.flip()
 
     def show_start_screen(self):
 
