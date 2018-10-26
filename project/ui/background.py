@@ -8,8 +8,10 @@ from project.constants import PATH_IMAGES, WIDTH
 
 class Background:
 
-    def __init__(self, image_name: str, screen: pg.Surface, speed: int):
-        self.screen = screen
+    def __init__(self, image_name: str, game, speed: int):
+        self.game = game
+        self.screen = game.screen
+        self.game.nonsprite.add(self)
         self.image = load(str(PurePath(PATH_IMAGES).joinpath(image_name))).convert_alpha()
         self.x = 0
         self.x1 = WIDTH
