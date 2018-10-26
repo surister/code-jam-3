@@ -51,3 +51,4 @@ class Projectile(Physics, pg.sprite.Sprite):
 
 class Item(pg.sprite.Sprite):
     """Represents items such as drops"""
+    pass
