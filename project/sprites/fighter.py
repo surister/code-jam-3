@@ -42,9 +42,11 @@ class Fighter(Combat, Physics, pg.sprite.Sprite):
         else:
             self.image = image
 
+        self.base_image = self.image
+
         self.rect = self.image.get_rect()
 
-        self.image.set_colorkey(Color.red)
+        # self.image.set_colorkey(Color.red)
 
         self.projectiles = deque()
         self.projectile_image = FIGHTER_PROJECTILE_IMAGE
@@ -54,6 +56,9 @@ class Fighter(Combat, Physics, pg.sprite.Sprite):
         player_pos = self.game.devchar.pos
         print(f"{player_pos}    {self.pos}")
         angle = math.atan2(self.pos.y - player_pos.y, -(self.pos.x - player_pos.x))
+
+        # -90 extra becasue of how the image is aligned
+        self.image = pg.transform.rotate(self.base_image, angle * 180 / math.pi + -90)
 
         # self.acc.x = self.acc.y = 0
         self.acc.y = -math.sin(angle)
