@@ -30,7 +30,7 @@ class Physics:
         self.pos = Vec()
         self.max_speed = MAX_SPEED
 
-    def update(self) -> None:
+    def update(self):
         if self.friction > 1:  # dev stuff, TODO delete on final product
             print('friction should be negative and really small eg; -0.05.')
 
@@ -52,8 +52,6 @@ class Physics:
         self.pos += self.vel + 0.5 * self.acc  # plus something, friction?
 
         self.rect.center = self.pos
-
-        # print(f'Acc: {self.acc} Vel: {self.vel}')
 
 
 class Character(Physics, pg.sprite.Sprite):

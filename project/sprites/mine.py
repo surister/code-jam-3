@@ -13,9 +13,10 @@ class Mine(Combat, pg.sprite.Sprite):
         game,
         vel,
         pos,
+        points: int=150,
         image: pg.Surface= None
     ):
-        Combat.__init__(self, 30)
+        Combat.__init__(self, 30, points=points)
         pg.sprite.Sprite.__init__(self)
         self.game = game
         self.vel = vel
