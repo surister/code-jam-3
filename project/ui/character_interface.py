@@ -5,21 +5,31 @@ from project.constants import Color
 
 class Healthbar:
 
-    def __init__(self, game, owner, screen, hp, x, y):
+    def __init__(self, game, owner, screen, x: int, y: int, width=None):
         super().__init__()
         self.game = game
         self.owner = owner
         self.screen = screen
-        self.hp = hp
+
         self.x = x
         self.y = y
+        self.game.nonsprite.add(self)
 
-    def draw(self, hp: int, sp: int = None) -> None:
+    def draw(self) -> None:
+
+        self.hp = self.owner.health
+        self.sp = self.owner.shield
+
         hp_color = Color.pure_green
         sp_color = Color.pure_blue
-        if hp < 40:
+        if self.hp < 40:
             hp_color = Color.red
-        pg.draw.rect(self.screen, hp_color, [70, 40, hp*2, 20])
+        pg.draw.rect(self.screen, hp_color, [self.x, self.y, self.hp*2, 20])
 
-        if sp is not None:
-            pg.draw.rect(self.screen, sp_color, [70, 80, sp*2, 20])
+        if self.hp is not None:
+            pg.draw.rect(self.screen, sp_color, [70, 80, self.sp*2, 20])
+
+
+class MovableHealtbar(pg.sprite.Sprite):
+    def __init__(self):
+        super().__init__()

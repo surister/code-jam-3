@@ -8,7 +8,7 @@ import pygame as pg
 from project.constants import Color, FIRE_RATE, PATH_IMAGES, PLAYER_ACC, PROJECTILE_IMAGE_NAME
 from project.sprites.combat import Combat
 from project.sprites.sprite_internals import Physics
-
+from project.ui.character_interface import Healthbar
 
 CHARACTER_PROJECTILE_IMAGE = pg.image.load(str(PurePath(PATH_IMAGES).joinpath(PROJECTILE_IMAGE_NAME)))
 
@@ -39,6 +39,7 @@ class Character(Combat, Physics, pg.sprite.Sprite):
 
         self.player_acc = PLAYER_ACC
         self.fire_rate = FIRE_RATE
+        self.health = health
         self.shield = shield
         self.defense = defence
         self.projectiles = deque()
@@ -80,6 +81,8 @@ class Character(Combat, Physics, pg.sprite.Sprite):
         self.pos = pg.Vector2(500, 500)
         self.projectile_image: pg.Surface = CHARACTER_PROJECTILE_IMAGE
 
+        self.healthbar = Healthbar(self.game, self, self.game.screen, 70, 40)
+
     def update(self) -> None:
 
         self.key = pg.key.get_pressed()
@@ -95,7 +98,7 @@ class Character(Combat, Physics, pg.sprite.Sprite):
             self.acc.x = self.player_acc
         if self.key[pg.K_SPACE]:
             self._shot()
-            #self._take_damage(10)
+            # self._take_damage(10)
 
         super().update()
 

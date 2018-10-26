@@ -2,6 +2,7 @@ import pygame as pg
 
 from project.constants import Color
 from project.sprites.combat import Combat
+from project.ui.character_interface import Healthbar
 
 
 class Mine(Combat, pg.sprite.Sprite):
@@ -38,4 +39,7 @@ class Mine(Combat, pg.sprite.Sprite):
         if self.pos.x < 0:
             self.kill()
         self.rect.midbottom = self.pos
+
+        self.healthbar = Healthbar(self.game, self, self.game.screen, self.pos.x - 500, self.pos.y)
+
         super().update()
