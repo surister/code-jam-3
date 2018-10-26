@@ -2,21 +2,26 @@ from collections import deque
 from pathlib import PurePath
 from typing import Union
 
+
 import pygame as pg
 
-from project.constants import Color, PATH_IMAGES, PROJECTILE_IMAGE_NAME
-from project.sprites.game_elements import Projectile
-from project.sprites.physics import Physics
+from project.constants import Color, FIRE_RATE, PATH_IMAGES, PLAYER_ACC, PROJECTILE_IMAGE_NAME
+from project.sprites.combat import Combat
+from project.sprites.sprite_internals import Physics
 
 
-class Character(Physics, pg.sprite.Sprite):
+CHARACTER_PROJECTILE_IMAGE = pg.image.load(str(PurePath(PATH_IMAGES).joinpath(PROJECTILE_IMAGE_NAME)))
+
+
+class Character(Combat, Physics, pg.sprite.Sprite):
     """ Base class for Character, current implementation based on dev_character """
 
     def __init__(
         self,
         game,
-        health_points: int,
-        defense: int,
+        health: int,
+        defence: int,
+        shield: int = 50,
         pos: pg.Vector2 = None,
         acc: pg.Vector2 = None,
         vel: pg.Vector2 = None,
@@ -25,14 +30,22 @@ class Character(Physics, pg.sprite.Sprite):
         image: pg.Surface = None
     ):
 
-        super().__init__()
+        Physics.__init__(self, friction)
+        Combat.__init__(self, health, defence, shield=shield)
+        # pg.sprite.Sprite.__init__(self)
+        print(self.shield)
+        super().__init__(health, defence)
         self.game = game
         self.add(self.game.all_sprites)
 
+        self.player_acc = PLAYER_ACC
+        self.fire_rate = FIRE_RATE
+
         self.projectiles = deque()
 
-        self.health_points = health_points
-        self.defense = defense
+        self.rapid_fire = True
+        if self.rapid_fire:
+            self.fire_rate -= 20
 
         if image is None:
             self.image = pg.Surface((50, 50))
@@ -65,10 +78,7 @@ class Character(Physics, pg.sprite.Sprite):
 
         self.image.set_colorkey(Color.green)
         self.pos = pg.Vector2(500, 500)
-
-    def _shot(self):
-        image = pg.image.load(str(PurePath(PATH_IMAGES).joinpath(PROJECTILE_IMAGE_NAME)))
-        self.projectiles.append(Projectile(self.game, self, image=image))
+        self.projectile_image: pg.Surface = CHARACTER_PROJECTILE_IMAGE
 
     def update(self) -> None:
 
@@ -76,23 +86,29 @@ class Character(Physics, pg.sprite.Sprite):
 
         self.acc.y = self.acc.x = 0
         if self.key[pg.K_UP] or self.key[pg.K_w]:
-            self.acc.y = -1.5
+            self.acc.y = -self.player_acc
         if self.key[pg.K_DOWN] or self.key[pg.K_s]:
-            self.acc.y = 1.5
+            self.acc.y = self.player_acc
         if self.key[pg.K_LEFT] or self.key[pg.K_a]:
-            self.acc.x = -1.5
+            self.acc.x = -self.player_acc
         if self.key[pg.K_RIGHT] or self.key[pg.K_d]:
-            self.acc.x = 1.5
+            self.acc.x = self.player_acc
         if self.key[pg.K_SPACE]:
             self._shot()
+            # self._take_damage(10)
 
         super().update()
 
-    def take_damage(self, amount, penetration=0):
+    def _take_damage(self, amount, penetration=0):
         damage = amount
         if self.defense > penetration:
             damage = amount / (self.defense - penetration)
+        if self.shield != 0:
+            if self.shield < 0:
+                self.shield = 0
+            self.shield -= damage
+        else:
 
-        self.health_points -= damage
-        if self.health_points <= 0:
-            self.kill()
+            if self.health < 0:
+                self.health = 0
+            self.health -= damage

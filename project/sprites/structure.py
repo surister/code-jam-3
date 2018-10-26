@@ -1,9 +1,10 @@
 import pygame as pg
 
 from project.constants import Color
+from project.sprites.combat import Combat
 
 
-class Structure(pg.sprite.Sprite):
+class Structure(Combat, pg.sprite.Sprite):
     """ Structures slow move from off screen to their fixed position and then start firing at the player. """
 
     def __init__(
@@ -14,7 +15,8 @@ class Structure(pg.sprite.Sprite):
         pos,
         image: pg.Surface= None
     ):
-        super().__init__()
+        Combat.__init__(self, 20)
+        pg.sprite.Sprite.__init__(self)
         self.destination = destination
         self.arrived = False
         self.game = game
