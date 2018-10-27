@@ -77,7 +77,7 @@ class Game:
 
         Structure(self, WIDTH - 250, pg.Vector2(1, 1), pg.Vector2(WIDTH, 500))
 
-        Fighter(self, 200, vel=pg.Vector2(0, 0), pos=pg.Vector2(WIDTH, 500), friction=-0.02)
+        Fighter(self, -0.02, vel=pg.Vector2(0, 0), pos=pg.Vector2(WIDTH, 500))
 
         Mine(self, pg.Vector2(1.5, 1.5), pg.Vector2(WIDTH, 200))
 
