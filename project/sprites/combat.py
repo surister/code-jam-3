@@ -25,10 +25,11 @@ class Combat:
         self.fire_rate = fire_rate
         self.armor = armor
         self.type: int = None
+        self.projectile_scale: int = 1
         # Type will tell us what kind of projectiles we'd shoot
-        # 0 -> Foes
-        # 1 -> Main character
-        # 2 -> TBD
+        # 0 -> Main character
+        # 1 -> Normal foe
+        # 2 -> Small foe
         if drops is None:
             self.drops = []
         else:

@@ -46,4 +46,5 @@ PROJECTILE_IMAGE_NAME = {0: "blasters/b0.png",
 FIGHTER_IMAGE_NAME = "fighter.png"
 MINE_IMAGE_NAME = "mine.png"
 HEALTHBAR = 'healthbar.png'
+SHIELDBAR = 'shield.png'
 GIT_LAB_LINK = "https://gitlab.com/JannesJ/code-jam-3"
