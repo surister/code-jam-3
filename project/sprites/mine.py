@@ -2,7 +2,6 @@ import pygame as pg
 
 from project.constants import Color
 from project.sprites.combat import Combat
-from project.ui.character_interface import MovableHealtbar
 
 
 class Mine(Combat, pg.sprite.Sprite):
@@ -32,7 +31,7 @@ class Mine(Combat, pg.sprite.Sprite):
         self.add(self.game.all_sprites, self.game.enemy_sprites)
 
         self.image.set_colorkey(Color.black)
-        #self.healthbar = MovableHealtbar(self.game, self, self.pos.x, self.pos.y)
+        # self.healthbar = MovableHealtbar(self.game, self, self.pos.x, self.pos.y)
 
     def update(self):
         """ Move left untill off screen """

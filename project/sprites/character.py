@@ -1,11 +1,10 @@
 from collections import deque
-from pathlib import PurePath
 from typing import Union
 
 
 import pygame as pg
 
-from project.constants import Color, FIRE_RATE, PATH_IMAGES, PLAYER_ACC, PROJECTILE_IMAGE_NAME
+from project.constants import Color, FIRE_RATE, PLAYER_ACC
 from project.sprites.combat import Combat
 from project.sprites.sprite_internals import Physics
 from project.ui.character_interface import StaticHealthbar

@@ -3,7 +3,7 @@ from pathlib import PurePath
 
 import pygame as pg
 
-from project.constants import Color, HEIGHT, WIDTH, PATH_IMAGES, PROJECTILE_IMAGE_NAME
+from project.constants import HEIGHT, PATH_IMAGES, PROJECTILE_IMAGE_NAME, WIDTH
 from project.sprites.sprite_internals import Physics
 
 

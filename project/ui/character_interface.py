@@ -3,7 +3,7 @@ from pathlib import PurePath
 import pygame as pg
 from pygame.math import Vector2 as Vec
 
-from project.constants import Color, PATH_IMAGES, HEALTHBAR
+from project.constants import Color, HEALTHBAR, PATH_IMAGES
 
 
 class StaticHealthbar(pg.sprite.Sprite):

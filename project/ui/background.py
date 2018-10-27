@@ -1,6 +1,5 @@
 from pathlib import PurePath
 
-import pygame as pg
 from pygame.image import load
 
 from project.constants import PATH_IMAGES
