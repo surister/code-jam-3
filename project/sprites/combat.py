@@ -24,7 +24,11 @@ class Combat:
         self.shield = shield
         self.fire_rate = fire_rate
         self.armor = armor
-
+        self.type: int = None
+        # Type will tell us what kind of projectiles we'd shoot
+        # 0 -> Foes
+        # 1 -> Main character
+        # 2 -> TBD
         if drops is None:
             self.drops = []
         else:
@@ -62,5 +66,5 @@ class Combat:
         if now - self.last_update > self.fire_rate:
             self.last_update = now
             self.projectiles.append(
-                Projectile(self.game, self, angle=angle, image=self.projectile_image, spawn_point=spawn_point)
+                Projectile(self.game, self, angle=angle, spawn_point=spawn_point)
             )
