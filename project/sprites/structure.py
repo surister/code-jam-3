@@ -1,14 +1,11 @@
 import math
 from collections import deque
-from pathlib import PurePath
 
 import pygame as pg
 
-from project.constants import Color, PATH_IMAGES, PROJECTILE_IMAGE_NAME
+from project.constants import Color
 from project.sprites.combat import Combat
 from project.ui.character_interface import MovableHealtbar
-
-STRUCTURE_PROJECTILE_IMAGE = pg.image.load(str(PurePath(PATH_IMAGES).joinpath(PROJECTILE_IMAGE_NAME)))
 
 
 class Structure(Combat, pg.sprite.Sprite):
@@ -30,6 +27,7 @@ class Structure(Combat, pg.sprite.Sprite):
         self.game = game
         self.vel = vel
         self.pos = pos
+        self.type = 0
 
         if image is None:
             self.image = pg.Surface((80, 80))
@@ -44,7 +42,6 @@ class Structure(Combat, pg.sprite.Sprite):
 
         self.image.set_colorkey(Color.black)
         self.projectiles = deque()
-        self.projectile_image = STRUCTURE_PROJECTILE_IMAGE
         self.evil = True
         self.healthbar = MovableHealtbar(self.game, self, self.pos.x, self.pos.y)
 
