@@ -3,7 +3,7 @@ from pathlib import PurePath
 import pygame as pg
 from pygame.image import load
 
-from project.constants import PATH_IMAGES, WIDTH
+from project.constants import PATH_IMAGES
 
 
 class Background:
@@ -14,17 +14,16 @@ class Background:
         self.game.nonsprite.add(self)
         self.image = load(str(PurePath(PATH_IMAGES).joinpath(image_name))).convert_alpha()
         self.x = 0
-        self.x1 = WIDTH
+        self.x1 = self.bg_width = self.image.get_width()
         self.speed = speed
 
     def draw(self):
 
         self.x -= self.speed
         self.screen.blit(self.image, (self.x, 0))
+        self.x1 -= self.speed
+        self.screen.blit(self.image, (self.x1, 0))
 
-        if abs(self.x) >= self.image.get_width() - WIDTH:
-            self.screen.blit(self.image, (self.x1, 0))
-            self.x1 -= self.speed
-            if abs(self.x1) >= WIDTH:
-                self.x = 0
-                self.x1 = WIDTH
+        if abs(self.x) >= self.bg_width:
+            self.x += self.bg_width
+            self.x1 += self.bg_width
