@@ -5,7 +5,7 @@ from project.sprites.combat import Combat
 
 
 class Mine(Combat, pg.sprite.Sprite):
-    """ Mines slowly move to the astroid, exploding on impact of asteroid or player. """
+    """ Mines slowly move to the asteroid, exploding on impact of asteroid or player. """
 
     def __init__(
         self,
@@ -28,10 +28,10 @@ class Mine(Combat, pg.sprite.Sprite):
             self.image = image
         self.rect = self.image.get_rect()
 
-        self.add(self.game.all_sprites)
-        self.add(self.game.enemy_sprites)
+        self.add(self.game.all_sprites, self.game.enemy_sprites)
 
         self.image.set_colorkey(Color.black)
+        # self.healthbar = MovableHealtbar(self.game, self, self.pos.x, self.pos.y)
 
     def update(self):
         """ Move left untill off screen """
@@ -39,4 +39,7 @@ class Mine(Combat, pg.sprite.Sprite):
         if self.pos.x < 0:
             self.kill()
         self.rect.midbottom = self.pos
+
+        # self.healthbar = Healthbar(game=self.game, owner=self, x=self.pos.x - 500, y=self.pos.y)
+
         super().update()

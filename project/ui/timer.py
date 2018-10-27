@@ -5,8 +5,10 @@ from project.constants import Color
 
 class Timer:
 
-    def __init__(self, screen: pg.Surface, time: int, x: int, y: int, font: str, font_size: str):
-        self.screen = screen
+    def __init__(self, game, time: int, x: int, y: int, font: str, font_size: str):
+        self.game = game
+        self.screen = self.game.screen
+        self.game.nonsprite.add(self)
 
         self.x = x
         self.y = y

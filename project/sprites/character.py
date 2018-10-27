@@ -1,16 +1,13 @@
 from collections import deque
-from pathlib import PurePath
 from typing import Union
 
 
 import pygame as pg
 
-from project.constants import Color, FIRE_RATE, PATH_IMAGES, PLAYER_ACC, PROJECTILE_IMAGE_NAME
+from project.constants import Color, FIRE_RATE, PLAYER_ACC
 from project.sprites.combat import Combat
 from project.sprites.sprite_internals import Physics
-
-
-CHARACTER_PROJECTILE_IMAGE = pg.image.load(str(PurePath(PATH_IMAGES).joinpath(PROJECTILE_IMAGE_NAME)))
+from project.ui.character_interface import StaticHealthbar
 
 
 class Character(Combat, Physics, pg.sprite.Sprite):
@@ -32,15 +29,20 @@ class Character(Combat, Physics, pg.sprite.Sprite):
 
         Physics.__init__(self, friction)
         Combat.__init__(self, health, defence, shield=shield)
+
+        super().__init__(health, defence)
+
         self.game = game
-        print(shield)
         self.add(self.game.all_sprites)
 
         self.player_acc = PLAYER_ACC
         self.fire_rate = FIRE_RATE
-
+        self.health = health
+        self.shield = shield
+        self.defense = defence
         self.projectiles = deque()
         self.evil = False
+        self.type = 1
 
         self.rapid_fire = True
         if self.rapid_fire:
@@ -77,7 +79,8 @@ class Character(Combat, Physics, pg.sprite.Sprite):
 
         self.image.set_colorkey(Color.green)
         self.pos = pg.Vector2(500, 500)
-        self.projectile_image: pg.Surface = CHARACTER_PROJECTILE_IMAGE
+
+        self.healthbar = StaticHealthbar(self.game, self, 70, 40)
 
     def update(self) -> None:
 
@@ -97,17 +100,3 @@ class Character(Combat, Physics, pg.sprite.Sprite):
             # self._take_damage(10)
 
         super().update()
-
-    def _take_damage(self, amount, penetration=0):
-        damage = amount
-        if self.defense > penetration:
-            damage = amount / (self.defense - penetration)
-        if self.shield != 0:
-            if self.shield < 0:
-                self.shield = 0
-            self.shield -= damage
-        else:
-
-            if self.health < 0:
-                self.health = 0
-            self.health -= damage
