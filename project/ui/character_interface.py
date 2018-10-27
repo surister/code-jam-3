@@ -6,14 +6,16 @@ from pygame.math import Vector2 as Vec
 from project.constants import Color, HEALTHBAR, PATH_IMAGES
 
 
-class StaticHealthbar(pg.sprite.Sprite):
-
+class StaticHealthbar:
+    """
+    Represents the static healthbar, art and functionality.
+    """
     def __init__(self, game, owner, x: int, y: int, width=None):
         super().__init__()
         self.game = game
         self.owner = owner
         self.screen = self.game.screen
-        self.add(self.game.all_sprites)
+
         self.game.nonsprite.add(self)
         self.x = x
         self.y = y
@@ -26,6 +28,7 @@ class StaticHealthbar(pg.sprite.Sprite):
         self.rect.center = Vec(200, 40)
 
     def draw(self) -> None:
+
 
         self.hp = self.owner.health
         self.sp = self.owner.shield
@@ -41,10 +44,16 @@ class StaticHealthbar(pg.sprite.Sprite):
 
         if self.sp is not None:
             pg.draw.rect(self.screen, sp_color, [70, 80, self.sp*2, 20])
+        self.screen.blit(self.image, self.rect)
 
 
-class MovableHealtbar(pg.sprite.Sprite):
+class DynamicHealthbar(pg.sprite.Sprite):
+    """
+    Represent a Healthbar that can be moved.
 
+    It's a sprite unlike static Healthbar because only Sprite objects can be moved, as its main
+    functionality and nature is has nothing to do with Sprites, it's on ui/ rather sprites/ folder.
+    """
     def __init__(self, game, owner, x: int, y: int):
         super().__init__()
         self.game = game
