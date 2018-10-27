@@ -128,7 +128,7 @@ class Home:
         elif self.once:
             self.sounda.play()
             self.once = False
-        
+
     def _hovered(self, x: int, y: int, button: object)-> bool:
         return button.collidepoint(x, y)
 
