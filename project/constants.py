@@ -30,6 +30,7 @@ PATH_IMAGES = pathlib.PurePath(PATH_PROJECT).joinpath('assets/images')
 PATH_BUTTONS = pathlib.PurePath(PATH_PROJECT).joinpath('assets/gui/buttons')
 PATH_CURSORS = pathlib.PurePath(PATH_PROJECT).joinpath('assets/gui/cursors')
 PATH_MENUS = pathlib.PurePath(PATH_PROJECT).joinpath('ui/')
+FX_PATH = pathlib.PurePath(PATH_PROJECT).joinpath('assets/fx')
 
 CHARACTER_IMAGE_NAME = "ufo3.png"
 STRUCTURE_IMAGE_NAME = "structure.png"

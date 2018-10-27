@@ -4,13 +4,16 @@ from pathlib import PurePath
 import pygame
 from pygame.image import load
 
-from project.constants import GIT_LAB_LINK, HEIGHT, PATH_BUTTONS, PATH_CURSORS, PATH_IMAGES, WIDTH
+from project.constants import FX_PATH, GIT_LAB_LINK, HEIGHT, PATH_BUTTONS, PATH_CURSORS, PATH_IMAGES, WIDTH
 from project.sprites.sheet import Sheet
 
 
 class Home:
 
     def __init__(self, screen):
+        pygame.mixer.init()
+        self.sounda = pygame.mixer.Sound(str(PurePath(FX_PATH).joinpath("hover.wav")))
+
         self.screen = screen
 
         # SCREEN: 1280x720px = WxH
@@ -24,7 +27,7 @@ class Home:
 
         self.sheet = Sheet(str(PurePath(PATH_BUTTONS).joinpath("buttonsheet.png")))
 
-        self.background = load(str(PurePath(PATH_IMAGES).joinpath("background4.png"))).convert_alpha()
+        self.background = load(str(PurePath(PATH_IMAGES).joinpath("background.png"))).convert_alpha()
 
         self.buttons_hover_states = {"play": False, "options": False, "about": False, "exit": False, "gitlab": False}
         self.buttons_sprites = {
@@ -39,7 +42,7 @@ class Home:
         # horizontal - logo takes 3 parts out of 5 - W/5 * 3 = 768px
         # vertical - logo takes half of H - H/2 = 360px
         self.logo_rect = pygame.Rect(self.slice, 0, self.slice * 3, HEIGHT / 2)
-        self.logo_image = load(str(PurePath(PATH_IMAGES).joinpath("logo_placeholder.png"))).convert_alpha()
+        self.logo_image = load(str(PurePath(PATH_IMAGES).joinpath("logo.png"))).convert_alpha()
 
         # PLAY BUTTON (larger) 384x70px
         # horizontal - one part and half of 5 = W/5 * 1.5 = 384px
@@ -62,14 +65,15 @@ class Home:
 
         self.cursor = load(str(PurePath(PATH_CURSORS).joinpath("cur.png"))).convert_alpha()
         self.cursor2 = load(str(PurePath(PATH_CURSORS).joinpath("hov.png"))).convert_alpha()
+        self.once = True
 
     def draw(self, x: int, y: int)-> None:
-
         self.screen.blit(self.background, (0, 0))
         self.screen.blit(self.logo_image, self.logo_rect)
 
         self._draw_play_button(x, y)
         self._draw_gitlab_button(x, y)
+        self._play_sound()
 
         for key in self.buttons_dict.keys():
             self._draw_other_buttons(x, y, key)
@@ -81,7 +85,6 @@ class Home:
         pygame.display.update()
 
     def _draw_play_button(self, x: int, y: int)-> None:
-
         self.play_button_rect.top = self.segment * 4
         self.play_button_rect.left = self.space
         hovered = self._hovered(x, y, self.play_button_rect)
@@ -96,7 +99,6 @@ class Home:
             self.screen.blit(self.buttons_sprites["play"], self.play_button_rect)
 
     def _draw_other_buttons(self, x: int, y: int, button: str)-> None:
-
         self.other_button_rect.top = self.segment * self.buttons_dict[button]
         hovered = self._hovered(x, y, self.other_button_rect)
 
@@ -110,7 +112,6 @@ class Home:
             self.screen.blit(self.buttons_sprites[button], self.other_button_rect)
 
     def _draw_gitlab_button(self, x: int, y: int)-> None:
-
         hovered = self._hovered(x, y, self.gitlab_button_rect)
 
         if hovered:
@@ -120,6 +121,14 @@ class Home:
             self.buttons_hover_states["gitlab"] = False
             self.screen.blit(self.buttons_sprites["gitlab"], self.gitlab_button_rect)
 
+    def _play_sound(self)->None:
+
+        if not any(self.buttons_hover_states.values()):
+            self.once = True
+        elif self.once:
+            self.sounda.play()
+            self.once = False
+        
     def _hovered(self, x: int, y: int, button: object)-> bool:
         return button.collidepoint(x, y)
 
