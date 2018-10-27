@@ -8,9 +8,7 @@ import pygame as pg
 from project.constants import Color, FIRE_RATE, PATH_IMAGES, PLAYER_ACC, PROJECTILE_IMAGE_NAME
 from project.sprites.combat import Combat
 from project.sprites.sprite_internals import Physics
-from project.ui.character_interface import Healthbar
-
-CHARACTER_PROJECTILE_IMAGE = pg.image.load(str(PurePath(PATH_IMAGES).joinpath(PROJECTILE_IMAGE_NAME)))
+from project.ui.character_interface import StaticHealthbar
 
 
 class Character(Combat, Physics, pg.sprite.Sprite):
@@ -45,6 +43,7 @@ class Character(Combat, Physics, pg.sprite.Sprite):
         self.defense = defence
         self.projectiles = deque()
         self.evil = False
+        self.type = 1
 
         self.rapid_fire = True
         if self.rapid_fire:
@@ -81,9 +80,8 @@ class Character(Combat, Physics, pg.sprite.Sprite):
 
         self.image.set_colorkey(Color.green)
         self.pos = pg.Vector2(500, 500)
-        self.projectile_image: pg.Surface = CHARACTER_PROJECTILE_IMAGE
 
-        self.healthbar = Healthbar(self.game, self, 70, 40)
+        self.healthbar = StaticHealthbar(self.game, self, 70, 40)
 
     def update(self) -> None:
 
