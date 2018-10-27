@@ -1,4 +1,4 @@
-import pathlib
+from pathlib import PurePath
 
 WIDTH = 1280
 HEIGHT = 720
@@ -23,19 +23,27 @@ class Color:
     black = (0, 0, 0)
 
 
-PATH_PROJECT = pathlib.PurePath(__file__).parent
-PATH_SPRITES = pathlib.PurePath(PATH_PROJECT).joinpath('sprites/')
-PATH_ASSETS = pathlib.PurePath(PATH_PROJECT).joinpath('assets/')
-PATH_IMAGES = pathlib.PurePath(PATH_PROJECT).joinpath('assets/images')
-PATH_BUTTONS = pathlib.PurePath(PATH_PROJECT).joinpath('assets/gui/buttons')
-PATH_CURSORS = pathlib.PurePath(PATH_PROJECT).joinpath('assets/gui/cursors')
-PATH_MENUS = pathlib.PurePath(PATH_PROJECT).joinpath('ui/')
-FX_PATH = pathlib.PurePath(PATH_PROJECT).joinpath('assets/fx')
+PATH_PROJECT = PurePath(__file__).parent
+PATH_SPRITES = PurePath(PATH_PROJECT).joinpath('sprites/')
+PATH_ASSETS = PurePath(PATH_PROJECT).joinpath('assets/')
+PATH_IMAGES = PurePath(PATH_PROJECT).joinpath('assets/images')
+PATH_BUTTONS = PurePath(PATH_PROJECT).joinpath('assets/gui/buttons')
+PATH_CURSORS = PurePath(PATH_PROJECT).joinpath('assets/gui/cursors')
+PATH_MENUS = PurePath(PATH_PROJECT).joinpath('ui/')
+FX_PATH = PurePath(PATH_PROJECT).joinpath('assets/fx')
 
 CHARACTER_IMAGE_NAME = "ufo3.png"
 STRUCTURE_IMAGE_NAME = "structure.png"
-PROJECTILE_IMAGE_NAME = "shot_0003_Layer-8-scaled.png"
+PROJECTILE_IMAGE_NAME = {0: "blasters/b0.png",
+                         1: "blasters/b1.png",
+                         2: "blasters/b2.png",
+                         3: "blasters/b3.png",
+                         4: "blasters/b4.png",
+                         5: "blasters/b5.png",
+                         6: "blasters/b6.png"
+                         }
+
 FIGHTER_IMAGE_NAME = "fighter.png"
 MINE_IMAGE_NAME = "mine.png"
-
+HEALTHBAR = 'healthbar.png'
 GIT_LAB_LINK = "https://gitlab.com/JannesJ/code-jam-3"

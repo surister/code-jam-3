@@ -1,15 +1,12 @@
 import math
 from collections import deque
-from pathlib import PurePath
 from typing import Union
 
 import pygame as pg
 
-from project.constants import Color, PATH_IMAGES, PROJECTILE_IMAGE_NAME
+from project.constants import Color
 from project.sprites.combat import Combat
 from project.sprites.sprite_internals import Physics
-
-FIGHTER_PROJECTILE_IMAGE = pg.image.load(str(PurePath(PATH_IMAGES).joinpath(PROJECTILE_IMAGE_NAME)))
 
 
 class Fighter(Combat, Physics, pg.sprite.Sprite):
@@ -49,7 +46,6 @@ class Fighter(Combat, Physics, pg.sprite.Sprite):
         # self.image.set_colorkey(Color.red)
 
         self.projectiles = deque()
-        self.projectile_image = FIGHTER_PROJECTILE_IMAGE
         self.evil = True
 
     def update(self):

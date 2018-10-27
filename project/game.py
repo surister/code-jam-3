@@ -9,9 +9,29 @@ from project.sprites.fighter import Fighter
 from project.sprites.mine import Mine
 from project.sprites.structure import Structure
 from project.ui.background import Background
-from project.ui.character_interface import Healthbar
 from project.ui.main_menu import Home
 from project.ui.timer import Timer
+
+
+class CustomGroup:
+    def __init__(self):
+        self.elements = []
+
+    def __len__(self):
+        return len(self.elements)
+
+    def __repr__(self):
+        return f'{self.elements}'
+
+    def add(self, element):
+        if hasattr(element, 'draw'):
+            self.elements.append(element)
+        else:
+            raise AttributeError(f'{element.__class__.__name__} has no attribute draw')
+
+    def draw(self):
+        for element in self.elements:
+            element.draw()
 
 
 class Game:
@@ -26,7 +46,6 @@ class Game:
         self.screen = pg.display.set_mode((WIDTH, HEIGHT))
         self.clock = pg.time.Clock()
         self.font = pg.font.get_default_font()
-        self.background = Background("stars2.png", self.screen, 5)
 
         self.mouse_x = 0
         self.mouse_y = 0
@@ -41,12 +60,17 @@ class Game:
         """
         Every time a new game starts
         """
+
         self.all_sprites = pg.sprite.Group()
         self.enemy_sprites = pg.sprite.Group()
         self.others = pg.sprite.Group()  # Find a better name? Projectiles will be stored here for now
+
+        self.nonsprite = CustomGroup()
+
         self.enemy_projectiles = pg.sprite.Group()
 
         # Testing enemies
+        self.background = Background("stars2.png", self, 5)
         structure_image = pg.image.load(str(PurePath(PATH_IMAGES).joinpath(STRUCTURE_IMAGE_NAME)))
         Structure(self, WIDTH - 250, pg.Vector2(1, 1), pg.Vector2(WIDTH, 500), image=structure_image)
 
@@ -58,9 +82,9 @@ class Game:
 
         char_image = pg.image.load(str(PurePath(PATH_IMAGES).joinpath(CHARACTER_IMAGE_NAME)))
         self.devchar = Character(self, 100, 10, friction=-0.052, image=char_image, shield=50)
-        self.healthbar = Healthbar(self, self.devchar, self.screen, 100, 200, 200)
 
-        self.timer = Timer(self.screen, 600, WIDTH // 2 - 70, 25, "Ariel", 80)
+        self.timer = Timer(self, 600, WIDTH // 2 - 70, 25, "Ariel", 80)
+
         # TODO WITH SPREADSHEET IMAGE LOAD WON'T BE HERE, BUT IN EVERY SPRITE CLASS
         self._run()
 
@@ -115,11 +139,11 @@ class Game:
 
         Don't forget that we always draw first then -> pg.display.flip()
         """
-        self.background.draw()
-        self.healthbar.draw(self.devchar.health, self.devchar.shield)
+        self.screen.fill((255, 255, 255))
+        self.nonsprite.draw()
         self.all_sprites.draw(self.screen)
-        self.timer.draw()
-        pg.display.update()
+
+        pg.display.flip()
 
     def _destroy(self):
         self.kill()
