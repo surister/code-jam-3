@@ -1,6 +1,8 @@
+from pathlib import PurePath
+
 import pygame as pg
 
-from project.constants import Color
+from project.constants import Color, MINE_IMAGE_NAME, PATH_IMAGES
 from project.sprites.combat import Combat
 
 
@@ -12,8 +14,7 @@ class Mine(Combat, pg.sprite.Sprite):
         game,
         vel,
         pos,
-        points: int=150,
-        image: pg.Surface= None
+        points: int=150
     ):
         Combat.__init__(self, 30, points=points)
         pg.sprite.Sprite.__init__(self)
@@ -21,11 +22,7 @@ class Mine(Combat, pg.sprite.Sprite):
         self.vel = vel
         self.pos = pos
 
-        if image is None:
-            self.image = pg.Surface((60, 60))
-            self.image.fill(Color.red)
-        else:
-            self.image = image
+        self.image = pg.image.load(str(PurePath(PATH_IMAGES).joinpath(MINE_IMAGE_NAME)))
         self.rect = self.image.get_rect()
 
         self.add(self.game.all_sprites, self.game.enemy_sprites)

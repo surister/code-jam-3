@@ -13,3 +13,4 @@ class Sheet:
         if alpha:
             return image.convert_alpha()
         return image.convert()
+        # TODO are we convering twice!?

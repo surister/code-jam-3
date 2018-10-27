@@ -66,7 +66,7 @@ class DynamicHealthbar(pg.sprite.Sprite):
     It's a sprite unlike static Healthbar because only Sprite objects can be moved, as its main
     functionality and nature is has nothing to do with Sprites, it's on ui/ rather sprites/ folder.
     """
-    def __init__(self, game, owner, x: int, y: int):
+    def __init__(self, game, owner):
         super().__init__()
         self.game = game
         self.add(self.game.all_sprites)
@@ -74,16 +74,24 @@ class DynamicHealthbar(pg.sprite.Sprite):
         self.screen = self.game.screen
         self.image = pg.Surface((100, 20))
 
+        self.width_scale = {1: 10, 2: 5}
+
         self.rect = self.image.get_rect()
 
-        self.pos = Vec(x, y)
+        self.pos = Vec(self.owner.pos.x, self.owner.pos.y)
 
     def update(self):
         if self.owner.health != 20:
-            self.image = pg.Surface((self.owner.health*2, 10))
-            self.image.fill(Color.red)
+            if self.owner.health < 0:
+                self.owner.health = 0
+            self.image = pg.Surface((self.owner.health*2, self.width_scale[self.owner.type]))
+            if self.owner.health > 10:
+                self.image.fill(Color.pure_green)
+            else:
+                self.image.fill(Color.red)
+
             self.pos.x = self.owner.pos.x + 30
-            self.pos.y = self.owner.pos.y + 30
+            self.pos.y = self.owner.pos.y + 32
             self.rect.midbottom = self.pos
 
             self.game.screen.blit(self.image, self.rect)

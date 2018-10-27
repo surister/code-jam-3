@@ -1,9 +1,10 @@
 import math
 from collections import deque
+from pathlib import PurePath
 
 import pygame as pg
 
-from project.constants import Color
+from project.constants import Color, PATH_IMAGES, STRUCTURE_IMAGE_NAME
 from project.sprites.combat import Combat
 from project.ui.character_interface import DynamicHealthbar
 
@@ -17,8 +18,7 @@ class Structure(Combat, pg.sprite.Sprite):
         destination: int,
         vel,
         pos,
-        points: int=200,
-        image: pg.Surface= None
+        points: int=200
     ):
         Combat.__init__(self, 20, points=points)
         pg.sprite.Sprite.__init__(self)
@@ -29,21 +29,15 @@ class Structure(Combat, pg.sprite.Sprite):
         self.pos = pos
         self.type = 0
 
-        if image is None:
-            self.image = pg.Surface((80, 80))
-            self.image.fill(Color.red)
-        else:
-            self.image = image
-
+        self.image = pg.image.load(str(PurePath(PATH_IMAGES).joinpath(STRUCTURE_IMAGE_NAME)))
         self.rect = self.image.get_rect()
 
-        self.add(self.game.all_sprites)
-        self.add(self.game.enemy_sprites)
+        self.add(self.game.all_sprites, self.game.enemy_sprites)
 
         self.image.set_colorkey(Color.black)
         self.projectiles = deque()
         self.evil = True
-        self.healthbar = DynamicHealthbar(self.game, self, self.pos.x, self.pos.y)
+        self.healthbar = DynamicHealthbar(self.game, self)
 
     def update(self) -> None:
         """ Move left untill destination passed if not already there, otherwise shoot at the player """

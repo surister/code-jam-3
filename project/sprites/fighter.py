@@ -1,12 +1,14 @@
 import math
 from collections import deque
+from pathlib import PurePath
 from typing import Union
 
 import pygame as pg
 
-from project.constants import Color
+from project.constants import FIGHTER_IMAGE_NAME, PATH_IMAGES
 from project.sprites.combat import Combat
 from project.sprites.sprite_internals import Physics
+from project.ui.character_interface import DynamicHealthbar
 
 
 class Fighter(Combat, Physics, pg.sprite.Sprite):
@@ -18,8 +20,7 @@ class Fighter(Combat, Physics, pg.sprite.Sprite):
         friction: Union[int, float],
         vel: pg.Vector2,
         pos: pg.Vector2,
-        points: int=50,
-        image: pg.Surface= None
+        points: int=50
     ):
         Combat.__init__(self, 15, points=points)
         Physics.__init__(self, friction)
@@ -29,15 +30,11 @@ class Fighter(Combat, Physics, pg.sprite.Sprite):
         self.vel = vel
         self.acc = pg.Vector2(0, 0)
         self.game = game
+        self.type = 2
+        self.projectile_scale = 0.5
+        self.add(self.game.all_sprites, self.game.enemy_sprites)
 
-        self.add(self.game.all_sprites)
-        self.add(self.game.enemy_sprites)
-
-        if image is None:
-            self.image = pg.Surface((40, 40))
-            self.image.fill(Color.light_green)
-        else:
-            self.image = image
+        self.image = pg.image.load(str(PurePath(PATH_IMAGES).joinpath(FIGHTER_IMAGE_NAME)))
 
         self.base_image = self.image
 
@@ -47,18 +44,16 @@ class Fighter(Combat, Physics, pg.sprite.Sprite):
 
         self.projectiles = deque()
         self.evil = True
+        self.healthbar = DynamicHealthbar(self.game, self)
 
     def update(self):
-        player_pos = self.game.devchar.pos
-        # print(f"{player_pos}    {self.pos}"
-        angle = math.atan2(self.pos.y - player_pos.y, -(self.pos.x - player_pos.x))
 
+        angle = math.atan2(self.pos.y - self.game.devchar.pos.y, -(self.pos.x - self.game.devchar.pos.x))
         # -90 extra becasue of how the image is aligned
         self.image = pg.transform.rotate(self.base_image, angle * 180 / math.pi + -90)
 
         # self.acc.x = self.acc.y = 0
         self.acc.y = -math.sin(angle)
         self.acc.x = math.cos(angle)
-
-        self._shot(0.5*math.tau, self.rect.midleft)
+        self._shot(angle, self.rect.midleft)
         super().update()

@@ -2,8 +2,7 @@ from pathlib import PurePath
 
 import pygame as pg
 
-from project.constants import CHARACTER_IMAGE_NAME, FIGHTER_IMAGE_NAME, FPS, \
-    HEIGHT, MINE_IMAGE_NAME, PATH_IMAGES, STRUCTURE_IMAGE_NAME, WIDTH
+from project.constants import CHARACTER_IMAGE_NAME, FPS, HEIGHT, PATH_IMAGES, WIDTH
 from project.sprites.character import Character
 from project.sprites.fighter import Fighter
 from project.sprites.mine import Mine
@@ -57,6 +56,9 @@ class Game:
         pg.display.set_caption('Game in development')
         pg.mouse.set_cursor((8, 8), (0, 0), ((0,) * 8), ((0,) * 8))
 
+        self.pause_background = pg.image.load(str(PurePath(PATH_IMAGES).joinpath("background3.png"))).\
+            convert_alpha()
+
     def new(self):
         """
         Every time a new game starts
@@ -72,14 +74,12 @@ class Game:
 
         # Testing enemies
         self.background = Background("stars2.png", self, 5)
-        structure_image = pg.image.load(str(PurePath(PATH_IMAGES).joinpath(STRUCTURE_IMAGE_NAME)))
-        Structure(self, WIDTH - 250, pg.Vector2(1, 1), pg.Vector2(WIDTH, 500), image=structure_image)
 
-        fighter_image = pg.image.load(str(PurePath(PATH_IMAGES).joinpath(FIGHTER_IMAGE_NAME)))
-        Fighter(self, 200, vel=pg.Vector2(0, 0), pos=pg.Vector2(WIDTH, 500), friction=-0.02, image=fighter_image)
+        Structure(self, WIDTH - 250, pg.Vector2(1, 1), pg.Vector2(WIDTH, 500))
 
-        mine_image = pg.image.load(str(PurePath(PATH_IMAGES).joinpath(MINE_IMAGE_NAME)))
-        Mine(self, pg.Vector2(1.5, 1.5), pg.Vector2(WIDTH, 200), image=mine_image)
+        Fighter(self, 200, vel=pg.Vector2(0, 0), pos=pg.Vector2(WIDTH, 500), friction=-0.02)
+
+        Mine(self, pg.Vector2(1.5, 1.5), pg.Vector2(WIDTH, 200))
 
         char_image = pg.image.load(str(PurePath(PATH_IMAGES).joinpath(CHARACTER_IMAGE_NAME)))
         self.devchar = Character(self, 100, 10, friction=-0.052, image=char_image, shield=50)
@@ -101,14 +101,12 @@ class Game:
         """
         Every event will be registered here
         """
-        key = pg.key.get_pressed()
-
-        if key[pg.K_ESCAPE]:
-            self._pause()
-
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 self.running = self.playing = False
+            if event.type == pg.KEYUP:
+                if event.key == pg.K_ESCAPE:
+                    self._pause()
 
     def _update(self)-> None:
         """
@@ -140,7 +138,6 @@ class Game:
 
         Don't forget that we always draw first then -> pg.display.flip()
         """
-        self.screen.fill((255, 255, 255))
         self.nonsprite.draw()
         self.all_sprites.draw(self.screen)
 
@@ -173,7 +170,12 @@ class Game:
                     self.running = self.playing = waiting = False
 
     def _pause(self):
-        while self.pause:
-            key = pg.key.get_pressed()
-            if key[pg.K_ESCAPE]:
-                self.pause = False
+
+        waiting = True
+        while waiting:
+            self.screen.blit(self.pause_background, (0, 0))
+            pg.display.flip()
+            for event in pg.event.get():
+                if event.type == pg.KEYUP:
+                    if event.key == pg.K_ESCAPE:
+                        waiting = False
