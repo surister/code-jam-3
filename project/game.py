@@ -42,6 +42,7 @@ class Game:
     def __init__(self):
         self.running = True
         self.playing = True
+        self.pause = True
 
         self.screen = pg.display.set_mode((WIDTH, HEIGHT))
         self.clock = pg.time.Clock()
@@ -103,7 +104,7 @@ class Game:
         key = pg.key.get_pressed()
 
         if key[pg.K_ESCAPE]:
-            self.running = self.playing = False
+            self._pause()
 
         for event in pg.event.get():
             if event.type == pg.QUIT:
@@ -170,3 +171,9 @@ class Game:
                     self.homepage.open_gitlab()
                 if event.type == pg.MOUSEBUTTONUP and self.homepage.buttons_hover_states["exit"]:
                     self.running = self.playing = waiting = False
+
+    def _pause(self):
+        while self.pause:
+            key = pg.key.get_pressed()
+            if key[pg.K_ESCAPE]:
+                self.pause = False

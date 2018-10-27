@@ -5,7 +5,7 @@ import pygame as pg
 
 from project.constants import Color
 from project.sprites.combat import Combat
-from project.ui.character_interface import MovableHealtbar
+from project.ui.character_interface import DynamicHealthbar
 
 
 class Structure(Combat, pg.sprite.Sprite):
@@ -43,7 +43,7 @@ class Structure(Combat, pg.sprite.Sprite):
         self.image.set_colorkey(Color.black)
         self.projectiles = deque()
         self.evil = True
-        self.healthbar = MovableHealtbar(self.game, self, self.pos.x, self.pos.y)
+        self.healthbar = DynamicHealthbar(self.game, self, self.pos.x, self.pos.y)
 
     def update(self) -> None:
         """ Move left untill destination passed if not already there, otherwise shoot at the player """

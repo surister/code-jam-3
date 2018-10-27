@@ -50,7 +50,7 @@ class Fighter(Combat, Physics, pg.sprite.Sprite):
 
     def update(self):
         player_pos = self.game.devchar.pos
-        print(f"{player_pos}    {self.pos}")
+        # print(f"{player_pos}    {self.pos}"
         angle = math.atan2(self.pos.y - player_pos.y, -(self.pos.x - player_pos.x))
 
         # -90 extra becasue of how the image is aligned
