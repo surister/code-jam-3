@@ -38,6 +38,7 @@ class Structure(Combat, pg.sprite.Sprite):
         self.projectiles = deque()
         self.evil = True
         self.healthbar = DynamicHealthbar(self.game, self)
+        self.projectile_scale = 0.5
 
     def update(self) -> None:
         """ Move left untill destination passed if not already there, otherwise shoot at the player """

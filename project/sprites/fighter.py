@@ -17,15 +17,16 @@ class Fighter(Combat, Physics, pg.sprite.Sprite):
         self,
         game: 'Game',
         friction: Union[int, float],
-        vel: pg.Vector2,
         pos: pg.Vector2,
-        points: int=50
+        points: int=50,
+        health: int=15,
+        attack: int=2
     ):
-        Combat.__init__(self, 15, points=points)
+        Combat.__init__(self, health, points=points, attack=attack)
         Physics.__init__(self, friction)
         self.pos = pos
-        self.vel = vel
         self.acc = pg.Vector2(0, 0)
+        self.vel = pg.Vector2(0, 0)
         self.game = game
         self.type = 2
         self.projectile_scale = 0.5
