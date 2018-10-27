@@ -14,13 +14,13 @@ class Structure(Combat, pg.sprite.Sprite):
 
     def __init__(
         self,
-        game,
+        game: 'Game',
         destination: int,
-        vel,
-        pos,
+        vel: int,
+        pos: int,
         points: int=200
     ):
-        Combat.__init__(self, 20, points=points)
+        Combat.__init__(self, 20: int, points=points)
         pg.sprite.Sprite.__init__(self)
         self.destination = destination
         self.arrived = False
