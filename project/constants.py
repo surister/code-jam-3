@@ -36,5 +36,5 @@ STRUCTURE_IMAGE_NAME = "structure.png"
 PROJECTILE_IMAGE_NAME = "shot_0003_Layer-8-scaled.png"
 FIGHTER_IMAGE_NAME = "fighter.png"
 MINE_IMAGE_NAME = "mine.png"
-
+HEALTHBAR = 'healthbar.png'
 GIT_LAB_LINK = "https://gitlab.com/JannesJ/code-jam-3"

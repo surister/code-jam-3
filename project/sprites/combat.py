@@ -39,7 +39,10 @@ class Combat:
         self.shield -= dmg
         if self.shield < 0:
             dmg -= s"""
-        self.health -= max(projectile.damage - max(self.armor - projectile.penetration, 0), 0)
+        if self.shield != 0:
+            self.shield -= max(projectile.damage - max(self.armor - projectile.penetration, 0), 0)
+        else:
+            self.health -= max(projectile.damage - max(self.armor - projectile.penetration, 0), 0)
         if self.health <= 0:
             self._destroy()
 

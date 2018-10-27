@@ -6,7 +6,7 @@ import pygame as pg
 
 from project.constants import Color, PATH_IMAGES, PROJECTILE_IMAGE_NAME
 from project.sprites.combat import Combat
-
+from project.ui.character_interface import MovableHealtbar
 
 STRUCTURE_PROJECTILE_IMAGE = pg.image.load(str(PurePath(PATH_IMAGES).joinpath(PROJECTILE_IMAGE_NAME)))
 
@@ -46,6 +46,7 @@ class Structure(Combat, pg.sprite.Sprite):
         self.projectiles = deque()
         self.projectile_image = STRUCTURE_PROJECTILE_IMAGE
         self.evil = True
+        self.healthbar = MovableHealtbar(self.game, self, self.pos.x, self.pos.y)
 
     def update(self) -> None:
         """ Move left untill destination passed if not already there, otherwise shoot at the player """

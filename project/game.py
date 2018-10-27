@@ -46,7 +46,6 @@ class Game:
         self.clock = pg.time.Clock()
         self.font = pg.font.get_default_font()
 
-
         self.mouse_x = 0
         self.mouse_y = 0
 
@@ -64,12 +63,11 @@ class Game:
         self.all_sprites = pg.sprite.Group()
         self.enemy_sprites = pg.sprite.Group()
         self.others = pg.sprite.Group()  # Find a better name? Projectiles will be stored here for now
-<<<<<<< HEAD
+
         self.nonsprite = CustomGroup()
-=======
+
         self.enemy_projectiles = pg.sprite.Group()
 
->>>>>>> 8b8b879fade13d01a78ea3fd3d5cd0d47b2a2131
         # Testing enemies
         self.background = Background("stars2.png", self, 5)
         structure_image = pg.image.load(str(PurePath(PATH_IMAGES).joinpath(STRUCTURE_IMAGE_NAME)))

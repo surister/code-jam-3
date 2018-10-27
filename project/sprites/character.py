@@ -32,13 +32,10 @@ class Character(Combat, Physics, pg.sprite.Sprite):
 
         Physics.__init__(self, friction)
         Combat.__init__(self, health, defence, shield=shield)
-<<<<<<< HEAD
 
         super().__init__(health, defence)
-=======
->>>>>>> 8b8b879fade13d01a78ea3fd3d5cd0d47b2a2131
+
         self.game = game
-        print(shield)
         self.add(self.game.all_sprites)
 
         self.player_acc = PLAYER_ACC
@@ -86,7 +83,7 @@ class Character(Combat, Physics, pg.sprite.Sprite):
         self.pos = pg.Vector2(500, 500)
         self.projectile_image: pg.Surface = CHARACTER_PROJECTILE_IMAGE
 
-        self.healthbar = Healthbar(self.game, self, self.game.screen, 70, 40)
+        self.healthbar = Healthbar(self.game, self, 70, 40)
 
     def update(self) -> None:
 
@@ -106,17 +103,3 @@ class Character(Combat, Physics, pg.sprite.Sprite):
             # self._take_damage(10)
 
         super().update()
-
-    def _take_damage(self, amount, penetration=0):
-        damage = amount
-        if self.defense > penetration:
-            damage = amount / (self.defense - penetration)
-        if self.shield != 0:
-            if self.shield < 0:
-                self.shield = 0
-            self.shield -= damage
-        else:
-
-            if self.health < 0:
-                self.health = 0
-            self.health -= damage
