@@ -1,20 +1,29 @@
+from pathlib import PurePath
+
 import pygame as pg
+from pygame.math import Vector2 as Vec
 
-from project.constants import Color
+from project.constants import Color, PATH_IMAGES, HEALTHBAR
 
 
-class Healthbar:
+class StaticHealthbar(pg.sprite.Sprite):
 
     def __init__(self, game, owner, x: int, y: int, width=None):
         super().__init__()
         self.game = game
         self.owner = owner
         self.screen = self.game.screen
-
+        self.add(self.game.all_sprites)
+        self.game.nonsprite.add(self)
         self.x = x
         self.y = y
         self.width = width
-        self.game.nonsprite.add(self)
+
+        self.image = pg.image.load(str(PurePath(PATH_IMAGES).joinpath(HEALTHBAR))).convert_alpha()
+        self.image = pg.transform.scale(self.image, (250, 100))
+        self.image.set_colorkey(Color.black)
+        self.rect = self.image.get_rect()
+        self.rect.center = Vec(200, 40)
 
     def draw(self) -> None:
 
@@ -28,7 +37,7 @@ class Healthbar:
 
         if self.hp < 40:
             hp_color = Color.red
-        pg.draw.rect(self.screen, hp_color, [70, 50, self.hp*2, 20])
+        pg.draw.rect(self.screen, hp_color, [100, 20, self.hp*1.75, 30])
 
         if self.sp is not None:
             pg.draw.rect(self.screen, sp_color, [70, 80, self.sp*2, 20])
@@ -43,12 +52,17 @@ class MovableHealtbar(pg.sprite.Sprite):
         self.owner = owner
         self.screen = self.game.screen
         self.image = pg.Surface((100, 20))
-        self.image.fill(Color.red)
+
         self.rect = self.image.get_rect()
 
-        self.pos = (x, y)
+        self.pos = Vec(x, y)
 
     def update(self):
-        self.image = pg.Surface((100, 20))
-        self.rect.midbottom = self.owner.pos
-        self.game.screen.blit(self.image, self.rect)
+        if self.owner.health != 20:
+            self.image = pg.Surface((self.owner.health*2, 10))
+            self.image.fill(Color.red)
+            self.pos.x = self.owner.pos.x + 30
+            self.pos.y = self.owner.pos.y + 30
+            self.rect.midbottom = self.pos
+
+            self.game.screen.blit(self.image, self.rect)
