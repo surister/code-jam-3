@@ -4,15 +4,15 @@ from pathlib import PurePath
 import pygame
 from pygame.image import load
 
-from project.constants import FX_PATH, GIT_LAB_LINK, HEIGHT, PATH_BUTTONS, PATH_CURSORS, PATH_IMAGES, WIDTH
+from project.constants import GIT_LAB_LINK, HEIGHT, PATH_BUTTONS, PATH_CURSORS, PATH_FX, PATH_IMAGES, WIDTH
 from project.sprites.sheet import Sheet
 
 
 class Home:
 
     def __init__(self, screen):
-        pygame.mixer.init()
-        self.sounda = pygame.mixer.Sound(str(PurePath(FX_PATH).joinpath("hover.wav")))
+
+        self.sounda = pygame.mixer.Sound(str(PurePath(PATH_FX).joinpath("hover.wav")))
 
         self.screen = screen
 
