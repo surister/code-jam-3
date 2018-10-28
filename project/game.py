@@ -4,12 +4,10 @@ import pygame as pg
 
 from project.constants import CHARACTER_IMAGE_NAME, FPS, HEIGHT, PATH_IMAGES, WIDTH
 from project.sprites.character import Character
-from project.sprites.fighter import Fighter
-from project.sprites.mine import Mine
-from project.sprites.structure import Structure
 from project.ui.background import Background
 from project.ui.main_menu import Home
 from project.ui.timer import Timer
+from project.wave_generator import WaveGenerator
 
 
 class CustomGroup:
@@ -72,19 +70,23 @@ class Game:
 
         self.enemy_projectiles = pg.sprite.Group()
 
-        # Testing enemies
         self.background = Background("stars2.png", self, 5)
 
+        """
+        # Testing enemies
         Structure(self, WIDTH - 250, pg.Vector2(1, 1), pg.Vector2(WIDTH, 500))
 
-        Fighter(self, 200, vel=pg.Vector2(0, 0), pos=pg.Vector2(WIDTH, 500), friction=-0.02)
+        Fighter(self, -0.02, pos=pg.Vector2(WIDTH, 500))
 
         Mine(self, pg.Vector2(1.5, 1.5), pg.Vector2(WIDTH, 200))
+        """
 
         char_image = pg.image.load(str(PurePath(PATH_IMAGES).joinpath(CHARACTER_IMAGE_NAME)))
         self.devchar = Character(self, 100, 10, friction=-0.052, image=char_image, shield=50)
 
         self.timer = Timer(self, 600, WIDTH // 2 - 70, 25, "Ariel", 80)
+
+        self.wave_generator = WaveGenerator(self)
 
         # TODO WITH SPREADSHEET IMAGE LOAD WON'T BE HERE, BUT IN EVERY SPRITE CLASS
         self._run()
@@ -120,6 +122,7 @@ class Game:
                 if projectile.collideswith(enemy):
                     enemy.damage(projectile)
         """
+        self.wave_generator.update()
 
         for enemy in self.enemy_sprites:
             projectile_hit = pg.sprite.spritecollide(enemy, self.others, False)

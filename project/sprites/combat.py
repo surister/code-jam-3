@@ -15,15 +15,18 @@ class Combat:
         shield: int=0,
         points: int=0,
         fire_rate: int=250,
+        attack: int=2,
         drops: List[Tuple[Item, int]]=None
     ):
         """Class to handle combat for sprites that need it"""
         self.health = health
+        self.max_health: int = health
         self.defence = defence
         self.points = points
         self.shield = shield
         self.fire_rate = fire_rate
         self.armor = armor
+        self.attack = attack
         self.type: int = None
         self.projectile_scale: int = 1
         # Type will tell us what kind of projectiles we'd shoot
@@ -44,7 +47,7 @@ class Combat:
         self.shield -= dmg
         if self.shield < 0:
             dmg -= s"""
-        if self.shield != 0:
+        if self.shield > 0:
             self.shield -= max(projectile.damage - max(self.armor - projectile.penetration, 0), 0)
         else:
             self.health -= max(projectile.damage - max(self.armor - projectile.penetration, 0), 0)
@@ -67,5 +70,5 @@ class Combat:
         if now - self.last_update > self.fire_rate:
             self.last_update = now
             self.projectiles.append(
-                Projectile(self.game, self, angle=angle, spawn_point=spawn_point)
+                Projectile(self.game, self, angle=angle, spawn_point=spawn_point, damage=self.attack)
             )

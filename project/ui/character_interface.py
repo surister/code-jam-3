@@ -1,3 +1,4 @@
+import math
 from pathlib import PurePath
 
 import pygame as pg
@@ -10,6 +11,7 @@ class StaticHealthbar:
     """
     Represents the static healthbar, art and functionality.
     """
+
     def __init__(self, game, owner, x: int, y: int, width=None):
         super().__init__()
         self.game = game
@@ -66,6 +68,7 @@ class DynamicHealthbar(pg.sprite.Sprite):
     It's a sprite unlike static Healthbar because only Sprite objects can be moved, as its main
     functionality and nature  has nothing to do with Sprites, it's on ui/ rather sprites/ folder.
     """
+
     def __init__(self, game, owner):
         super().__init__()
         self.game = game
@@ -74,7 +77,7 @@ class DynamicHealthbar(pg.sprite.Sprite):
         self.screen = self.game.screen
         self.image = pg.Surface((100, 20))
 
-        self.width_scale = {0: 5, 1: 10, 2: 5}
+        self.height_scale = {0: 5, 1: 10, 2: 5}
 
         self.rect = self.image.get_rect()
 
@@ -84,14 +87,16 @@ class DynamicHealthbar(pg.sprite.Sprite):
         if self.owner.health != 20:
             if self.owner.health < 0:
                 self.owner.health = 0
-            self.image = pg.Surface((self.owner.health*2, self.width_scale[self.owner.type]))
-            if self.owner.health > 10:
+            self.image = pg.Surface(
+                (math.ceil(self.owner.health/self.owner.max_health*self.owner.rect.width * 0.8),
+                 self.height_scale[self.owner.type]))
+            if self.owner.health > self.owner.max_health * 0.4:
                 self.image.fill(Color.pure_green)
             else:
                 self.image.fill(Color.red)
 
             self.pos.x = self.owner.pos.x + 30
             self.pos.y = self.owner.pos.y + 32
-            self.rect.midbottom = self.pos
+            self.rect.midtop = self.owner.rect.midbottom + Vec(self.owner.rect.width * 0.1, 5)
 
             self.game.screen.blit(self.image, self.rect)
