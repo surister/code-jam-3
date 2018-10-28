@@ -2,7 +2,7 @@ from pathlib import PurePath
 
 import pygame as pg
 
-from project.constants import CHARACTER_IMAGE_NAME, FPS, HEIGHT, PATH_IMAGES, WIDTH, Color, SHOW_FPS
+from project.constants import CHARACTER_IMAGE_NAME, Color, FPS, HEIGHT, PATH_IMAGES, SHOW_FPS, WIDTH
 from project.sprites.character import Character
 from project.ui.background import Background
 from project.ui.main_menu import Home
