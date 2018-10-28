@@ -1,3 +1,4 @@
+import json
 from pathlib import PurePath
 
 
@@ -44,13 +45,21 @@ class Color:
 
 
 PATH_PROJECT = PurePath(__file__).parent
+
 PATH_SPRITES = PurePath(PATH_PROJECT).joinpath('sprites/')
 PATH_ASSETS = PurePath(PATH_PROJECT).joinpath('assets/')
 PATH_IMAGES = PurePath(PATH_PROJECT).joinpath('assets/images')
+
+PATH_MENUS = PurePath(PATH_PROJECT).joinpath('ui/')
 PATH_BUTTONS = PurePath(PATH_PROJECT).joinpath('assets/gui/buttons')
 PATH_CURSORS = PurePath(PATH_PROJECT).joinpath('assets/gui/cursors')
-PATH_MENUS = PurePath(PATH_PROJECT).joinpath('ui/')
-FX_PATH = PurePath(PATH_PROJECT).joinpath('assets/fx')
+
+PATH_FX = PurePath(PATH_PROJECT).joinpath('assets/fx')
+PATH_VOICES = PurePath(PATH_PROJECT).joinpath('assets/fx/slidevoices')
+
+with open(str(PurePath(PATH_PROJECT).joinpath("data.json"))) as f:
+    DATA = json.load(f)
+
 
 CHARACTER_IMAGE_NAME = "ufo3.png"
 STRUCTURE_IMAGE_NAME = "structure.png"

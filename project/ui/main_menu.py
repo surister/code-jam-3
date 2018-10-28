@@ -4,7 +4,7 @@ from webbrowser import open
 import pygame as pg
 from pygame.image import load
 
-from project.constants import FX_PATH, GIT_LAB_LINK, HEIGHT, PATH_BUTTONS, PATH_CURSORS, PATH_IMAGES, WIDTH
+from project.constants import GIT_LAB_LINK, HEIGHT, PATH_BUTTONS, PATH_CURSORS, PATH_FX, PATH_IMAGES, WIDTH
 from project.sprites.sheet import Sheet
 
 
@@ -12,7 +12,7 @@ class Home:
 
     def __init__(self, screen, paused: bool = False):
         pg.mixer.init()
-        self.sound = pg.mixer.Sound(str(PurePath(FX_PATH).joinpath("hover.wav")))
+        self.sound = pg.mixer.Sound(str(PurePath(PATH_FX).joinpath("hover.wav")))
 
         self.screen = screen
         self.paused = paused

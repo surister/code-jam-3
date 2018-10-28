@@ -2,9 +2,10 @@ from pathlib import PurePath
 
 import pygame as pg
 
-from project.constants import CHARACTER_IMAGE_NAME, Color, FPS, HEIGHT, PATH_IMAGES, SHOW_FPS, WIDTH
+from project.constants import CHARACTER_IMAGE_NAME, Color, DATA, FPS, HEIGHT, PATH_IMAGES, SHOW_FPS, WIDTH
 from project.sprites.character import Character
 from project.ui.background import Background
+from project.ui.intro import Intro
 from project.ui.main_menu import Home
 from project.ui.timer import Timer
 from project.wave_generator import WaveGenerator
@@ -51,6 +52,7 @@ class Game:
         self.score = 0
 
         pg.init()
+        pg.mixer.init()
         pg.display.set_caption('Game in development')
         pg.mouse.set_cursor((8, 8), (0, 0), ((0,) * 8), ((0,) * 8))
 
@@ -154,6 +156,21 @@ class Game:
     def _destroy(self)-> None:
         self.kill()
         # TODO show end screen
+
+    def play_intro(self):
+
+        if DATA["intro_played"]:
+            return
+        else:
+            intro = Intro(self.screen)
+
+            while intro.playing:
+                intro.play()
+                self.clock.tick(FPS/2)
+
+                for event in pg.event.get():
+                    if event.type == pg.QUIT:
+                        intro.playing = self.running = False
 
     def show_start_screen(self):
 
