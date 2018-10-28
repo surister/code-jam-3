@@ -20,6 +20,7 @@ class Combat:
     ):
         """Class to handle combat for sprites that need it"""
         self.health = health
+        self.max_health: int = health
         self.defence = defence
         self.points = points
         self.shield = shield
@@ -46,7 +47,7 @@ class Combat:
         self.shield -= dmg
         if self.shield < 0:
             dmg -= s"""
-        if self.shield != 0:
+        if self.shield > 0:
             self.shield -= max(projectile.damage - max(self.armor - projectile.penetration, 0), 0)
         else:
             self.health -= max(projectile.damage - max(self.armor - projectile.penetration, 0), 0)

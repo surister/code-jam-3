@@ -1,10 +1,10 @@
-import random
 import math
+import random
 from pathlib import PurePath
 
 import pygame as pg
 
-from project.constants import PATH_IMAGES, STRUCTURE_IMAGE_NAME, FIGHTER_IMAGE_NAME, MINE_IMAGE_NAME, WIDTH, HEIGHT
+from project.constants import FIGHTER_IMAGE_NAME, HEIGHT, MINE_IMAGE_NAME, PATH_IMAGES, STRUCTURE_IMAGE_NAME, WIDTH
 from project.sprites.fighter import Fighter
 from project.sprites.mine import Mine
 from project.sprites.structure import Structure
@@ -12,6 +12,7 @@ from project.sprites.structure import Structure
 
 class WaveGenerator:
     """Class responsible for spawning enemies"""
+
     def __init__(self, game: 'Game'):
         self.game = game
         self.difficulty = 1
@@ -22,12 +23,32 @@ class WaveGenerator:
         self.mine_image = pg.image.load(str(PurePath(PATH_IMAGES).joinpath(MINE_IMAGE_NAME)))
 
     def _generate(self, difficulty: int) -> None:
-        for _ in range(math.floor(random.uniform(0, 0.25* difficulty))):
-            self.wave_group.add(Fighter(self.game, -0.04, pg.Vector2(WIDTH, random.uniform(0, HEIGHT)), difficulty*50, 10 + 2 * random.randint(0, difficulty), 1+0.25*difficulty))
+        for _ in range(math.floor(random.uniform(0, 0.25 * difficulty))):
+            self.wave_group.add(Fighter(
+                self.game,
+                -0.04,
+                pg.Vector2(WIDTH, random.uniform(0, HEIGHT)),
+                difficulty*50,
+                10 + 2 * random.randint(0, difficulty),
+                1+0.25*difficulty))
 
         for _ in range(math.floor(random.uniform(1, math.sqrt(difficulty)))):
-            self.wave_group.add(Structure(self.game, WIDTH - random.randint(50, 300), pg.Vector2(random.uniform(0.5, 2), 1), pg.Vector2(WIDTH, random.randint(20, HEIGHT)), difficulty * 50))
+            self.wave_group.add(Structure(
+                self.game,
+                WIDTH - random.randint(50, 300),
+                pg.Vector2(random.uniform(0.5, 2), 1),
+                pg.Vector2(WIDTH, random.randint(75, HEIGHT - 75)),
+                random.randint(2, max(2 + difficulty, 4*difficulty)),
+                difficulty * 50))
 
+        for _ in range(math.floor(random.uniform(0, math.sqrt(0.25*difficulty)))):
+            self.wave_group.add(Mine(
+                self.game,
+                pg.Vector2(random.uniform(0.5, 4), 0),
+                pg.Vector2(WIDTH, random.uniform(200, HEIGHT - 200)),
+                difficulty * 3,
+                difficulty * 400
+            ))
 
     def update(self) -> None:
         if len(self.wave_group) == 0:

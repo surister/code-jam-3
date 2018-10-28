@@ -18,9 +18,10 @@ class Structure(Combat, pg.sprite.Sprite):
         destination: int,
         vel: int,
         pos: int,
+        health: int=10,
         points: int=200
     ):
-        Combat.__init__(self, 20, points=points)
+        Combat.__init__(self, health, points=points)
         pg.sprite.Sprite.__init__(self)
         self.destination = destination
         self.arrived = False

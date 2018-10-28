@@ -2,15 +2,12 @@ from pathlib import PurePath
 
 import pygame as pg
 
-from project.wave_generator import WaveGenerator
 from project.constants import CHARACTER_IMAGE_NAME, FPS, HEIGHT, PATH_IMAGES, WIDTH
 from project.sprites.character import Character
-from project.sprites.fighter import Fighter
-from project.sprites.mine import Mine
-from project.sprites.structure import Structure
 from project.ui.background import Background
 from project.ui.main_menu import Home
 from project.ui.timer import Timer
+from project.wave_generator import WaveGenerator
 
 
 class CustomGroup:

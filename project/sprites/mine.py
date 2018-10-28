@@ -14,9 +14,10 @@ class Mine(Combat, pg.sprite.Sprite):
         game: 'Game',
         vel: int,
         pos: int,
+        health: int=15,
         points: int=150
     ):
-        Combat.__init__(self, 30, points=points)
+        Combat.__init__(self, health, points=points)
         pg.sprite.Sprite.__init__(self)
         self.game = game
         self.vel = vel
