@@ -45,6 +45,7 @@ class Fighter(Combat, Physics, pg.sprite.Sprite):
         self.projectiles = deque()
         self.evil = True
         self.healthbar = DynamicHealthbar(self.game, self)
+        self.mask = pg.mask.from_surface(self.image)
 
     def update(self):
 

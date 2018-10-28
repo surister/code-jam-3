@@ -54,6 +54,11 @@ class Projectile(Physics, pg.sprite.Sprite):
             self.pos = spawn_point
 
         self.rect = self.image.get_rect(center=self.pos)
+        self.mask = pg.mask.from_surface(self.image)
+
+    def destroy(self):
+        self.kill()
+        self.owner.projectiles.remove(self)
 
     def update(self):
         self.friction = 0.012
@@ -65,19 +70,15 @@ class Projectile(Physics, pg.sprite.Sprite):
         self.max_speed = 20
 
         # make own kill function
-
+        print(self.owner.projectiles)
         if self.pos.y > HEIGHT:
-            self.kill()
-            self.owner.projectiles.pop()
+            self.destroy()
         if self.pos.y < 0:
-            self.kill()
-            self.owner.projectiles.pop()
+            self.destroy()
         if self.pos.x > WIDTH:
-            self.kill()
-            self.owner.projectiles.pop()
+            self.destroy()
         if self.pos.x < 0:
-            self.kill()
-            self.owner.projectiles.pop()
+            self.destroy()
 
 
 class Item(pg.sprite.Sprite):
