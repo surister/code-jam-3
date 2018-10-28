@@ -3,7 +3,7 @@ from pathlib import PurePath
 
 import pygame as pg
 
-from project.constants import HEIGHT, PATH_PROJECT, PATH_IMAGES, PATH_VOICES, WIDTH
+from project.constants import HEIGHT, PATH_IMAGES, PATH_PROJECT, PATH_VOICES, WIDTH
 from project.sprites.sheet import Sheet
 
 
