@@ -2,7 +2,7 @@ from pathlib import PurePath
 
 import pygame as pg
 
-from project.constants import CHARACTER_IMAGE_NAME, FPS, HEIGHT, PATH_IMAGES, WIDTH
+from project.constants import CHARACTER_IMAGE_NAME, Color, FPS, HEIGHT, PATH_IMAGES, SHOW_FPS, WIDTH
 from project.sprites.character import Character
 from project.ui.background import Background
 from project.ui.main_menu import Home
@@ -53,9 +53,6 @@ class Game:
         pg.init()
         pg.display.set_caption('Game in development')
         pg.mouse.set_cursor((8, 8), (0, 0), ((0,) * 8), ((0,) * 8))
-
-        self.pause_background = pg.image.load(str(PurePath(PATH_IMAGES).joinpath("background3.png"))).\
-            convert_alpha()
 
     def new(self):
         """
@@ -148,6 +145,9 @@ class Game:
         """
         self.nonsprite.draw()
         self.all_sprites.draw(self.screen)
+        if SHOW_FPS:
+            self._draw_text(f'{round(self.clock.get_fps(), 2)}', 22, Color.white, 40, 20)
+            pg.display.set_caption(f'Game in development - {round(self.clock.get_fps(), 1)}')
 
         pg.display.flip()
 
@@ -163,8 +163,7 @@ class Game:
     def _wait_for_input(self)-> None:
         waiting = True
         while waiting:
-            self.mouse_x, self.mouse_y = pg.mouse.get_pos()
-            self.homepage.draw(self.mouse_x, self.mouse_y)
+            self.homepage.draw()
 
             self.clock.tick(FPS/2)
             for event in pg.event.get():
@@ -178,12 +177,22 @@ class Game:
                     self.running = self.playing = waiting = False
 
     def _pause(self)-> None:
-
+        pause_buttom = Home(self.screen, True)
         waiting = True
         while waiting:
-            self.screen.blit(self.pause_background, (0, 0))
+            pause_buttom.draw()
             pg.display.flip()
             for event in pg.event.get():
                 if event.type == pg.KEYUP:
                     if event.key == pg.K_ESCAPE:
                         waiting = False
+
+    def _draw_text(self, text: str, size: int, color: Color, x: int, y: int)-> None:
+        """
+        To draw basic text in the screen, meant for FPS, SCORES AND SUCH
+        """
+        font = pg.font.Font(self.font, size)
+        text_surface = font.render(text, True, color)
+        text_rect = text_surface.get_rect()
+        text_rect.midtop = (x, y)
+        self.screen.blit(text_surface, text_rect)

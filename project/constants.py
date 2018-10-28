@@ -1,9 +1,29 @@
 from pathlib import PurePath
 
+
+# Frame rate options
+MIN_FPS = False
+SHOW_FPS = True
+FPS = 60
+
+if MIN_FPS:
+    FPS = 30
+
+# Screen options
+Full_Screen = False
+
 WIDTH = 1280
 HEIGHT = 720
 
-FPS = 60
+WIDTH_RATIO = 1
+HEIGHT_RATIO = 1
+
+if Full_Screen:
+    WIDTH = 1920
+    HEIGHT = 1080
+    WIDTH_RATIO = 1920 / WIDTH
+    HEIGHT_RATIO = 1080 / HEIGHT
+
 
 # Char consts
 MAX_SPEED = 10
@@ -48,3 +68,6 @@ MINE_IMAGE_NAME = "mine.png"
 HEALTHBAR = 'healthbar.png'
 SHIELDBAR = 'shield.png'
 GIT_LAB_LINK = "https://gitlab.com/JannesJ/code-jam-3"
+
+print(FPS)
+print(WIDTH_RATIO, HEIGHT_RATIO, WIDTH, HEIGHT)

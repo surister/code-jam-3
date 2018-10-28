@@ -57,8 +57,13 @@ class Projectile(Physics, pg.sprite.Sprite):
         self.mask = pg.mask.from_surface(self.image)
 
     def destroy(self):
+        # TODO FIX THIS BUG
+
         self.kill()
-        self.owner.projectiles.remove(self)
+        try:
+            self.owner.projectiles.remove(self)
+        except ValueError:
+            pass
 
     def update(self):
         self.friction = 0.012
@@ -70,7 +75,6 @@ class Projectile(Physics, pg.sprite.Sprite):
         self.max_speed = 20
 
         # make own kill function
-        print(self.owner.projectiles)
         if self.pos.y > HEIGHT:
             self.destroy()
         if self.pos.y < 0:

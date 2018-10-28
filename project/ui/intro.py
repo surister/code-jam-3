@@ -7,5 +7,5 @@ class Intro:
         self.music = []
         self.sounds = []
 
-    def display():
+    def display(self):
         pass
