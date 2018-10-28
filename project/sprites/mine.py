@@ -30,6 +30,7 @@ class Mine(Combat, pg.sprite.Sprite):
 
         self.image.set_colorkey(Color.black)
         # self.healthbar = MovableHealtbar(self.game, self, self.pos.x, self.pos.y)
+        self.mask = pg.mask.from_surface(self.image)
 
     def update(self):
         """ Move left untill off screen """

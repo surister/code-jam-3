@@ -125,15 +125,20 @@ class Game:
         self.wave_generator.update()
 
         for enemy in self.enemy_sprites:
-            projectiles = pg.sprite.spritecollide(enemy, self.others, False)
-            for projectile in projectiles:
-                enemy.damage(projectile)
-                projectile.kill()
+            projectile_hit = pg.sprite.spritecollide(enemy, self.others, False)
+            if projectile_hit:
+                projectile_hit_mask = pg.sprite.spritecollide(enemy, self.others, False, pg.sprite.collide_mask)
+                for projectile in projectile_hit_mask:
+                    enemy.damage(projectile)
+                    projectile.destroy()
 
-        enemy_projectiles = pg.sprite.spritecollide(self.devchar, self.enemy_projectiles, False)
-        for projectile in enemy_projectiles:
-            self.devchar.damage(projectile)
-            projectile.kill()
+        enemy_projectiles_hit = pg.sprite.spritecollide(self.devchar, self.enemy_projectiles, False)
+        if enemy_projectiles_hit:
+            enemy_projectiles_hit_mask = pg.sprite.\
+                spritecollide(self.devchar, self.enemy_projectiles, False, pg.sprite.collide_mask)
+            for projectile in enemy_projectiles_hit_mask:
+                self.devchar.damage(projectile)
+                projectile.destroy()
 
     def _draw(self)-> None:
         """
@@ -146,7 +151,7 @@ class Game:
 
         pg.display.flip()
 
-    def _destroy(self):
+    def _destroy(self)-> None:
         self.kill()
         # TODO show end screen
 
@@ -155,7 +160,7 @@ class Game:
         self.homepage = Home(self.screen)
         self._wait_for_input()
 
-    def _wait_for_input(self):
+    def _wait_for_input(self)-> None:
         waiting = True
         while waiting:
             self.mouse_x, self.mouse_y = pg.mouse.get_pos()
@@ -172,7 +177,7 @@ class Game:
                 if event.type == pg.MOUSEBUTTONUP and self.homepage.buttons_hover_states["exit"]:
                     self.running = self.playing = waiting = False
 
-    def _pause(self):
+    def _pause(self)-> None:
 
         waiting = True
         while waiting:
