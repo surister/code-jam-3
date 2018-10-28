@@ -74,7 +74,7 @@ class DynamicHealthbar(pg.sprite.Sprite):
         self.screen = self.game.screen
         self.image = pg.Surface((100, 20))
 
-        self.width_scale = {0: 1, 1: 10, 2: 5}
+        self.width_scale = {0: 5, 1: 10, 2: 5}
 
         self.rect = self.image.get_rect()
 
