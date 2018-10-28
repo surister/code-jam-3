@@ -1,5 +1,5 @@
-import webbrowser as wb
 from pathlib import PurePath
+from webbrowser import open
 
 import pygame
 from pygame.image import load
@@ -133,4 +133,4 @@ class Home:
         return button.collidepoint(x, y)
 
     def open_gitlab(self)->None:
-        wb.open(GIT_LAB_LINK)
+        open(GIT_LAB_LINK)

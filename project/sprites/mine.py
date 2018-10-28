@@ -11,12 +11,13 @@ class Mine(Combat, pg.sprite.Sprite):
 
     def __init__(
         self,
-        game,
-        vel,
-        pos,
+        game: 'Game',
+        vel: int,
+        pos: int,
+        health: int=15,
         points: int=150
     ):
-        Combat.__init__(self, 30, points=points)
+        Combat.__init__(self, health, points=points)
         pg.sprite.Sprite.__init__(self)
         self.game = game
         self.vel = vel
@@ -29,6 +30,7 @@ class Mine(Combat, pg.sprite.Sprite):
 
         self.image.set_colorkey(Color.black)
         # self.healthbar = MovableHealtbar(self.game, self, self.pos.x, self.pos.y)
+        self.mask = pg.mask.from_surface(self.image)
 
     def update(self):
         """ Move left untill off screen """
