@@ -81,6 +81,7 @@ class Character(Combat, Physics, pg.sprite.Sprite):
         self.pos = pg.Vector2(500, 500)
 
         self.healthbar = StaticHealthbar(self.game, self, 70, 40)
+        self.mask = pg.mask.from_surface(self.image)
 
     def update(self) -> None:
 
