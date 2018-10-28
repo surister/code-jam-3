@@ -14,10 +14,10 @@ class Structure(Combat, pg.sprite.Sprite):
 
     def __init__(
         self,
-        game: 'Game',
+        game,
         destination: int,
-        vel: int,
-        pos: int,
+        vel: pg.math.Vector2,
+        pos: pg.math.Vector2,
         health: int=10,
         points: int=200
     ):

@@ -46,7 +46,7 @@ class Fighter(Combat, Physics, pg.sprite.Sprite):
     def update(self):
         """ Turn towards the player and let the Physics do the rest """
         angle = math.atan2(self.pos.y - self.game.devchar.pos.y, -(self.pos.x - self.game.devchar.pos.x))
-        # -90 extra becasue of how the image is aligned
+        # -90 extra because of how the image is aligned
         self.image = pg.transform.rotate(self.base_image, angle * 180 / math.pi + -90)
 
         self.acc.y = -math.sin(angle)
