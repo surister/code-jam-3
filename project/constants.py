@@ -78,5 +78,9 @@ HEALTHBAR = 'healthbar.png'
 SHIELDBAR = 'shield.png'
 GIT_LAB_LINK = "https://gitlab.com/JannesJ/code-jam-3"
 
+INVISIBLE = (8, 8), (0, 0), ((0,) * 8), ((0,) * 8)  # invisible cursor
+
+# TODO constant variables for the hover sound and cursors
+
 print(FPS)
 print(WIDTH_RATIO, HEIGHT_RATIO, WIDTH, HEIGHT)
