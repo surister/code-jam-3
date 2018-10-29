@@ -91,11 +91,9 @@ class Game:
         self.devchar = Character(self, 100, 10, friction=-0.052, image=char_image, shield=50)
 
         self.timer = Timer(self, 600, WIDTH // 2 - 70, 25, "Ariel", 80)
-<<<<<<< HEAD
-=======
+
         self.score_display = ScoreDisplay(self, WIDTH - 160, 20, '', 50)
 
->>>>>>> 31c03030f83dae2db23bd1e2083169d567f3594c
         self.wave_generator = WaveGenerator(self)
 
         # TODO WITH SPREADSHEET IMAGE LOAD WON'T BE HERE, BUT IN EVERY SPRITE CLASS

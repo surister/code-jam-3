@@ -5,12 +5,8 @@ import pygame as pg
 from pygame.image import load
 
 from project.constants import GIT_LAB_LINK, HEIGHT, PATH_BUTTONS, PATH_CURSORS, PATH_FX, PATH_IMAGES, WIDTH
-<<<<<<< HEAD
 from project.ui.sheet import Sheet
-=======
-from project.sprites.sheet import Sheet
 from project.ui.volume import get_volume
->>>>>>> 31c03030f83dae2db23bd1e2083169d567f3594c
 
 
 class Home:
