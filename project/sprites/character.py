@@ -103,6 +103,6 @@ class Character(Combat, Physics, pg.sprite.Sprite):
             self.acc.x = self.player_acc
         if self.key[pg.K_SPACE]:
             self._shot()
-            #self.health -= 5
+            # self.health -= 5
 
         super().update()

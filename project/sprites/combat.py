@@ -1,5 +1,3 @@
-from random import randint
-
 import pygame as pg
 
 from project.sprites.game_elements import Item, Projectile

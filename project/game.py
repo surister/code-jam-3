@@ -5,7 +5,6 @@ import pygame as pg
 from project.constants import CHARACTER_IMAGE_NAME, Color, DATA, FPS, HEIGHT, INVISIBLE, PATH_IMAGES, SHOW_FPS, WIDTH
 from project.gameplay.intro import Intro
 from project.sprites.character import Character
-from project.sprites.game_elements import Item
 from project.ui.about import About
 from project.ui.background import Background
 from project.ui.main_menu import Home

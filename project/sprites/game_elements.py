@@ -4,9 +4,9 @@ from pathlib import PurePath
 
 import pygame as pg
 
-from project.constants import HEIGHT, PATH_IMAGES, PROJECTILE_IMAGE_NAME, WIDTH, POWERUPS, Color
-from project.ui.sheet import Sheet
+from project.constants import Color, HEIGHT, PATH_IMAGES, POWERUPS, PROJECTILE_IMAGE_NAME, WIDTH
 from project.sprites.sprite_internals import Physics
+from project.ui.sheet import Sheet
 
 
 class Projectile(Physics, pg.sprite.Sprite):
@@ -140,11 +140,19 @@ class Item(pg.sprite.Sprite):
 
     def apply_powerup(self, character: pg.sprite.Sprite):
 
-        if self.type == 'red': character.heal(random.randint(15, 30))
-        if self.type == 'pink': character.heal(100)
-        if self.type == 'purple': character.double_shot(15)
-        if self.type == 'blue': character.shield = character.max_health/2
-        if self.type == 'yellow': character.immune(15)
-        if self.type == 'white': character.rapidfire(15)
-        if self.type == 'green': character.armor += 25
-        if self.type == 'w_green': character.attack += 1
+        if self.type == 'red':
+            character.heal(random.randint(15, 30))
+        if self.type == 'pink':
+            character.heal(100)
+        if self.type == 'purple':
+            character.double_shot(15)
+        if self.type == 'blue':
+            character.shield = character.max_health/2
+        if self.type == 'yellow':
+            character.immune(15)
+        if self.type == 'white':
+            character.rapidfire(15)
+        if self.type == 'green':
+            character.armor += 25
+        if self.type == 'w_green':
+            character.attack += 1
