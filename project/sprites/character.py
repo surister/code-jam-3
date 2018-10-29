@@ -43,11 +43,10 @@ class Character(Combat, Physics, pg.sprite.Sprite):
         self.projectiles = deque()
         self.evil = False
         self.type = 1
-
-        self.rapid_fire = True
+        self.fire_rate -= 20
+        self.rapid_fire = False
         if self.rapid_fire:
-            self.fire_rate -= 20
-
+            self.fire_rate -= 100
         if image is None:
             self.image = pg.Surface((50, 50))
             self.image.fill(Color.white)
@@ -83,6 +82,12 @@ class Character(Combat, Physics, pg.sprite.Sprite):
         self.healthbar = StaticHealthbar(self.game, self, 70, 40)
         self.mask = pg.mask.from_surface(self.image)
 
+    def heal(self, amount: int)-> None:
+        if self.health + amount > self.max_health:
+            self.health = self.max_health
+        else:
+            self.health += amount
+
     def update(self) -> None:
 
         self.key = pg.key.get_pressed()
@@ -98,6 +103,6 @@ class Character(Combat, Physics, pg.sprite.Sprite):
             self.acc.x = self.player_acc
         if self.key[pg.K_SPACE]:
             self._shot()
-            # self._take_damage(10)
+            #self.health -= 5
 
         super().update()
