@@ -5,6 +5,7 @@ import pygame as pg
 from project.constants import CHARACTER_IMAGE_NAME, Color, DATA, FPS, HEIGHT, INVISIBLE, PATH_IMAGES, SHOW_FPS, WIDTH
 from project.gameplay.intro import Intro
 from project.sprites.character import Character
+from project.sprites.game_elements import Item
 from project.ui.about import About
 from project.ui.background import Background
 from project.ui.main_menu import Home
@@ -24,14 +25,17 @@ class CustomGroup:
         return f'{self.elements}'
 
     def add(self, element):
-        if hasattr(element, 'draw'):
-            self.elements.append(element)
-        else:
-            raise AttributeError(f'{element.__class__.__name__} has no attribute draw')
+        self.elements.append(element)
 
     def draw(self):
         for element in self.elements:
-            element.draw()
+            if hasattr(element, 'draw'):
+                element.draw()
+
+    def update(self):
+        for element in self.elements:
+            if hasattr(element, 'update'):
+                element.update()
 
 
 class Game:
@@ -65,6 +69,7 @@ class Game:
 
         self.all_sprites = pg.sprite.Group()
         self.enemy_sprites = pg.sprite.Group()
+        self.powerups = pg.sprite.Group()
         self.others = pg.sprite.Group()  # Find a better name? Projectiles will be stored here for now
 
         self.nonsprite = CustomGroup()
@@ -86,7 +91,6 @@ class Game:
         self.devchar = Character(self, 100, 10, friction=-0.052, image=char_image, shield=50)
 
         self.timer = Timer(self, 600, WIDTH // 2 - 70, 25, "Ariel", 80)
-
         self.wave_generator = WaveGenerator(self)
 
         # TODO WITH SPREADSHEET IMAGE LOAD WON'T BE HERE, BUT IN EVERY SPRITE CLASS
@@ -116,29 +120,31 @@ class Game:
         Every sprite's update will be registered here
         """
         self.all_sprites.update()
-
+        self.nonsprite.update()
         """# collide projectiles with enemies
         for projectile in self.devchar.projectiles:
             for enemy in self.enemy_sprites:
                 if projectile.collideswith(enemy):
                     enemy.damage(projectile)
         """
-        self.wave_generator.update()
 
         for enemy in self.enemy_sprites:
             projectile_hit = pg.sprite.spritecollide(enemy, self.others, False)
             if projectile_hit:
                 projectile_hit_mask = pg.sprite.spritecollide(enemy, self.others, False, pg.sprite.collide_mask)
                 for projectile in projectile_hit_mask:
-                    enemy.damage(projectile)
+                    enemy.damage(self, projectile)
                     projectile.destroy()
+        powerup_hit = pg.sprite.spritecollide(self.devchar, self.powerups, True, pg.sprite.collide_mask)
+        if powerup_hit:
+            powerup_hit[0].apply_powerup(self.devchar)
 
         enemy_projectiles_hit = pg.sprite.spritecollide(self.devchar, self.enemy_projectiles, False)
         if enemy_projectiles_hit:
             enemy_projectiles_hit_mask = pg.sprite.\
                 spritecollide(self.devchar, self.enemy_projectiles, False, pg.sprite.collide_mask)
             for projectile in enemy_projectiles_hit_mask:
-                self.devchar.damage(projectile)
+                self.devchar.damage(self, projectile)
                 projectile.destroy()
 
     def _draw(self)-> None:
