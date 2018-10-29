@@ -9,6 +9,7 @@ from project.ui.about import About
 from project.ui.background import Background
 from project.ui.main_menu import Home
 from project.ui.options import Options
+from project.ui.score import ScoreDisplay
 from project.ui.timer import Timer
 from project.wave_generator import WaveGenerator
 
@@ -86,6 +87,7 @@ class Game:
         self.devchar = Character(self, 100, 10, friction=-0.052, image=char_image, shield=50)
 
         self.timer = Timer(self, 600, WIDTH // 2 - 70, 25, "Ariel", 80)
+        self.score_display = ScoreDisplay(self, WIDTH - 160, 20, '', 50)
 
         self.wave_generator = WaveGenerator(self)
 
