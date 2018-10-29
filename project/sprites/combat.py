@@ -1,5 +1,4 @@
 from random import randint
-from typing import List, Tuple
 
 import pygame as pg
 
@@ -16,7 +15,6 @@ class Combat:
         points: int=0,
         fire_rate: int=250,
         attack: int=2,
-        drops: List[Tuple[Item, int]]=None
     ):
         """Class to handle combat for sprites that need it"""
         self.health = health
@@ -24,6 +22,7 @@ class Combat:
         self.defence = defence
         self.points = points
         self.shield = shield
+        self.max_shield = self.max_health/2
         self.fire_rate = fire_rate
         self.armor = armor
         self.attack = attack
@@ -33,20 +32,19 @@ class Combat:
         # 0 -> Main character
         # 1 -> Normal foe
         # 2 -> Small foe
-        if drops is None:
-            self.drops = []
-        else:
-            self.drops = drops
 
         self.last_update = 0
         self.fire_rate = fire_rate
 
-    def damage(self, projectile: Projectile) -> None:
+    def damage(self, game, projectile: Projectile) -> None:
         """dmg = projectile.damage
         s = self.shield
         self.shield -= dmg
         if self.shield < 0:
             dmg -= s"""
+
+        self.game = game
+
         if self.shield > 0:
             self.shield -= max(projectile.damage - max(self.armor - projectile.penetration, 0), 0)
         else:
@@ -56,14 +54,13 @@ class Combat:
 
     def _destroy(self) -> None:
         """Overwrite this in the sprite class if non-default behaviour is needed"""
+
         self.game.score += self.points
         self._generate_drops()
         self.kill()
 
     def _generate_drops(self) -> None:
-        for drop in self.drops:
-            if drop[1] < randint(100):
-                drop[0].spawn(self.pos)
+        Item(self.game)
 
     def _shot(self, angle: float=0, spawn_point: pg.Vector2=None) -> None:
         now = pg.time.get_ticks()
