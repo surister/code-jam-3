@@ -6,6 +6,7 @@ from pygame.image import load
 
 from project.constants import GIT_LAB_LINK, HEIGHT, PATH_BUTTONS, PATH_CURSORS, PATH_FX, PATH_IMAGES, WIDTH
 from project.sprites.sheet import Sheet
+from project.ui.volume import get_volume
 
 
 class Home:
@@ -13,6 +14,7 @@ class Home:
     def __init__(self, screen, paused: bool = False):
         pg.mixer.init()
         self.sound = pg.mixer.Sound(str(PurePath(PATH_FX).joinpath("hover.wav")))
+        self.sound.set_volume(get_volume())
 
         self.screen = screen
         self.paused = paused
@@ -129,6 +131,9 @@ class Home:
         elif self.once:
             self.sound.play()
             self.once = False
+
+    def update_volume(self)->None:
+        self.sound.set_volume(get_volume())
 
     @staticmethod
     def _hovered(x: int, y: int, button: object)-> bool:

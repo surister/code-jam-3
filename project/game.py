@@ -203,6 +203,7 @@ class Game:
                     waiting = False
                 if event.type == pg.MOUSEBUTTONUP and self.homepage.buttons_hover_states['options']:
                     self.running = waiting = self.show_options()
+                    self.homepage.update_volume()
                 if event.type == pg.MOUSEBUTTONUP and self.homepage.buttons_hover_states['about']:
                     self.running = waiting = self.show_about()
                 if event.type == pg.MOUSEBUTTONUP and self.homepage.buttons_hover_states['gitlab']:
