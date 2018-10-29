@@ -77,7 +77,10 @@ FIGHTER_IMAGE_NAME = "fighter.png"
 MINE_IMAGE_NAME = "mine.png"
 HEALTHBAR = 'healthbar.png'
 SHIELDBAR = 'shield.png'
+
 GIT_LAB_LINK = "https://gitlab.com/JannesJ/code-jam-3"
+PYTHON_DISCORD_LINK = "https://pythondiscord.com/"
+MISTY_LINK = "https://pythondiscord.com/jams/team/6f243fac-4803-48bb-80f4-237d206e0fab"
 
 INVISIBLE = (8, 8), (0, 0), ((0,) * 8), ((0,) * 8)  # invisible cursor
 

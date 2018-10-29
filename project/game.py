@@ -56,7 +56,7 @@ class Game:
 
         pg.init()
         pg.mixer.init()
-        pg.display.set_caption('Game in development')
+        pg.display.set_caption('LAST JUDGMENT')
         pg.mouse.set_cursor(*INVISIBLE)
 
     def new(self):
