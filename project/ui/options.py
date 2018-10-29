@@ -11,15 +11,12 @@ class Options:
     def __init__(self, screen: pg.Surface):
 
         self.screen = screen
-
         self.background = load(str(PurePath(PATH_IMAGES).joinpath("background3.png")))
-
         self.sound = None
 
         self.back_btn = load(str(PurePath(PATH_BUTTONS).joinpath("back.png")))
         self.back_btn_rect = pg.Rect(20, 20, self.back_btn.get_width(), self.back_btn.get_height())
         self.back_btn_hover = False
-
         self.x = self.y = 0
 
         self.shift = 40
@@ -42,12 +39,7 @@ class Options:
                     waiting = running = False
                 if event.type == pg.MOUSEBUTTONUP and self.back_btn_hover:
                     waiting = False
-                # if event.type == pg.MOUSEBUTTONUP and self.homepage.buttons_hover_states['play']:
-                #     waiting = False
-                # if event.type == pg.MOUSEBUTTONUP and self.homepage.buttons_hover_states['gitlab']:
-                #     self.homepage.open_gitlab()
-                # if event.type == pg.MOUSEBUTTONUP and self.homepage.buttons_hover_states['exit']:
-                #     self.running = self.playing = waiting = False
+
             pg.display.update()
         return running
 
