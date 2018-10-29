@@ -51,6 +51,7 @@ PATH_ASSETS = PurePath(PATH_PROJECT).joinpath('assets/')
 PATH_IMAGES = PurePath(PATH_PROJECT).joinpath('assets/images')
 
 PATH_MENUS = PurePath(PATH_PROJECT).joinpath('ui/')
+PATH_GUI = PurePath(PATH_PROJECT).joinpath('assets/gui')
 PATH_BUTTONS = PurePath(PATH_PROJECT).joinpath('assets/gui/buttons')
 PATH_CURSORS = PurePath(PATH_PROJECT).joinpath('assets/gui/cursors')
 

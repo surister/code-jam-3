@@ -9,6 +9,7 @@ from project.ui.about import About
 from project.ui.background import Background
 from project.ui.main_menu import Home
 from project.ui.options import Options
+from project.ui.score import ScoreDisplay
 from project.ui.timer import Timer
 from project.wave_generator import WaveGenerator
 
@@ -90,6 +91,11 @@ class Game:
         self.devchar = Character(self, 100, 10, friction=-0.052, image=char_image, shield=50)
 
         self.timer = Timer(self, 600, WIDTH // 2 - 70, 25, "Ariel", 80)
+<<<<<<< HEAD
+=======
+        self.score_display = ScoreDisplay(self, WIDTH - 160, 20, '', 50)
+
+>>>>>>> 31c03030f83dae2db23bd1e2083169d567f3594c
         self.wave_generator = WaveGenerator(self)
 
         # TODO WITH SPREADSHEET IMAGE LOAD WON'T BE HERE, BUT IN EVERY SPRITE CLASS
@@ -206,6 +212,7 @@ class Game:
                     waiting = False
                 if event.type == pg.MOUSEBUTTONUP and self.homepage.buttons_hover_states['options']:
                     self.running = waiting = self.show_options()
+                    self.homepage.update_volume()
                 if event.type == pg.MOUSEBUTTONUP and self.homepage.buttons_hover_states['about']:
                     self.running = waiting = self.show_about()
                 if event.type == pg.MOUSEBUTTONUP and self.homepage.buttons_hover_states['gitlab']:
