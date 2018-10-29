@@ -5,6 +5,7 @@ import pygame as pg
 from project.constants import CHARACTER_IMAGE_NAME, Color, DATA, FPS, HEIGHT, INVISIBLE, PATH_IMAGES, SHOW_FPS, WIDTH
 from project.gameplay.intro import Intro
 from project.sprites.character import Character
+from project.ui.about import About
 from project.ui.background import Background
 from project.ui.main_menu import Home
 from project.ui.options import Options
@@ -182,6 +183,10 @@ class Game:
         self.options = Options(self.screen)
         return self.options.handle_input()
 
+    def show_about(self):
+        self.about = About(self.screen)
+        return self.about.handle_input()
+
     def _wait_for_input(self)-> None:
         waiting = True
 
@@ -196,6 +201,8 @@ class Game:
                     waiting = False
                 if event.type == pg.MOUSEBUTTONUP and self.homepage.buttons_hover_states['options']:
                     self.running = waiting = self.show_options()
+                if event.type == pg.MOUSEBUTTONUP and self.homepage.buttons_hover_states['about']:
+                    self.running = waiting = self.show_about()
                 if event.type == pg.MOUSEBUTTONUP and self.homepage.buttons_hover_states['gitlab']:
                     self.homepage.open_gitlab()
                 if event.type == pg.MOUSEBUTTONUP and self.homepage.buttons_hover_states['exit']:
