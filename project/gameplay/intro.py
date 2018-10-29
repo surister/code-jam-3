@@ -50,6 +50,11 @@ class Intro:
     def _played(self):
         import json
 
-        with open(str(PurePath(PATH_PROJECT).joinpath("data.json")), "w") as f:
-            data = dict(intro_played=True)
+        file = str(PurePath(PATH_PROJECT).joinpath("data.json"))
+
+        with open(file, "r") as f:
+            data = json.load(f)
+            data["intro_played"] = True
+
+        with open(file, "w") as f:
             json.dump(data, f)

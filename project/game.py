@@ -2,11 +2,12 @@ from pathlib import PurePath
 
 import pygame as pg
 
-from project.constants import CHARACTER_IMAGE_NAME, Color, DATA, FPS, HEIGHT, PATH_IMAGES, SHOW_FPS, WIDTH
+from project.constants import CHARACTER_IMAGE_NAME, Color, DATA, FPS, HEIGHT, INVISIBLE, PATH_IMAGES, SHOW_FPS, WIDTH
+from project.gameplay.intro import Intro
 from project.sprites.character import Character
 from project.ui.background import Background
-from project.ui.intro import Intro
 from project.ui.main_menu import Home
+from project.ui.options import Options
 from project.ui.timer import Timer
 from project.wave_generator import WaveGenerator
 
@@ -54,7 +55,7 @@ class Game:
         pg.init()
         pg.mixer.init()
         pg.display.set_caption('Game in development')
-        pg.mouse.set_cursor((8, 8), (0, 0), ((0,) * 8), ((0,) * 8))
+        pg.mouse.set_cursor(*INVISIBLE)
 
     def new(self):
         """
@@ -164,7 +165,7 @@ class Game:
         else:
             intro = Intro(self.screen)
 
-            while intro.playing:
+            while intro.playing and self.running:
                 intro.play()
                 self.clock.tick(FPS/2)
 
@@ -177,20 +178,27 @@ class Game:
         self.homepage = Home(self.screen)
         self._wait_for_input()
 
+    def show_options(self):
+        self.options = Options(self.screen)
+        return self.options.handle_input()
+
     def _wait_for_input(self)-> None:
         waiting = True
+
         while waiting:
+            self.clock.tick(FPS/2)
             self.homepage.draw()
 
-            self.clock.tick(FPS/2)
             for event in pg.event.get():
                 if event.type == pg.QUIT:
                     waiting = self.running = False
-                if event.type == pg.MOUSEBUTTONUP and self.homepage.buttons_hover_states["play"]:
+                if event.type == pg.MOUSEBUTTONUP and self.homepage.buttons_hover_states['play']:
                     waiting = False
-                if event.type == pg.MOUSEBUTTONUP and self.homepage.buttons_hover_states["gitlab"]:
+                if event.type == pg.MOUSEBUTTONUP and self.homepage.buttons_hover_states['options']:
+                    self.running = waiting = self.show_options()
+                if event.type == pg.MOUSEBUTTONUP and self.homepage.buttons_hover_states['gitlab']:
                     self.homepage.open_gitlab()
-                if event.type == pg.MOUSEBUTTONUP and self.homepage.buttons_hover_states["exit"]:
+                if event.type == pg.MOUSEBUTTONUP and self.homepage.buttons_hover_states['exit']:
                     self.running = self.playing = waiting = False
 
     def _pause(self)-> None:

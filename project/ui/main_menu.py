@@ -87,7 +87,6 @@ class Home:
 
     def _draw_play_button(self, x: int, y: int)-> None:
         self.play_button_rect.top = self.segment * 4
-        print(self.play_button_rect)
         self.play_button_rect.left = self.space
         hovered = self._hovered(x, y, self.play_button_rect)
 
