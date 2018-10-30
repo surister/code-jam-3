@@ -61,6 +61,11 @@ class Game:
 
         self.score = 0
 
+        pg.init()
+        pg.mixer.init()
+        pg.display.set_caption('LAST JUDGMENT')
+        pg.mouse.set_cursor(*INVISIBLE)
+
     def new(self):
         """
         Every time a new game starts
@@ -185,14 +190,6 @@ class Game:
         self.homepage = Home(self.screen)
         self._wait_for_input()
 
-    def show_options(self):
-        self.options = Options(self.screen)
-        return self.options.handle_input()
-
-    def show_about(self):
-        self.about = About(self.screen)
-        return self.about.handle_input()
-
     def _wait_for_input(self)-> None:
         waiting = True
 
@@ -206,10 +203,12 @@ class Game:
                 if event.type == pg.MOUSEBUTTONUP and self.homepage.buttons_hover_states['play']:
                     waiting = False
                 if event.type == pg.MOUSEBUTTONUP and self.homepage.buttons_hover_states['options']:
-                    self.running = waiting = self.show_options()
+                    self.options = Options(self.screen)
+                    self.running = waiting = self.options.handle_input()
                     self.homepage.update_volume()
                 if event.type == pg.MOUSEBUTTONUP and self.homepage.buttons_hover_states['about']:
-                    self.running = waiting = self.show_about()
+                    self.about = About(self.screen)
+                    self.running = waiting = self.about.handle_input()
                 if event.type == pg.MOUSEBUTTONUP and self.homepage.buttons_hover_states['gitlab']:
                     self.homepage.open_gitlab()
                 if event.type == pg.MOUSEBUTTONUP and self.homepage.buttons_hover_states['exit']:
