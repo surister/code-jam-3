@@ -5,6 +5,7 @@ import pygame as pg
 
 from project.constants import HEIGHT, PATH_IMAGES, PATH_PROJECT, PATH_VOICES, WIDTH
 from project.ui.sheet import Sheet
+from project.ui.volume import get_volume
 
 
 class Intro:
@@ -17,7 +18,7 @@ class Intro:
         self.slides_sheet = Sheet(str(PurePath(PATH_IMAGES).joinpath("slidesheet.png")))
         self.slides = [self.slides_sheet.get_image(0, HEIGHT * i, WIDTH, HEIGHT) for i in range(0, 3)]
 
-        self.voice_clips = [pg.mixer.Sound(str(PurePath(PATH_VOICES).joinpath(i)))
+        self.voice_clips = [pg.mixer.Sound(str(PurePath(PATH_VOICES).joinpath(i))).set_volume(get_volume())
                             for i in os.listdir(str(PurePath(PATH_VOICES)))]
         self.durations = [i.get_length() for i in self.voice_clips]
         self.durations[0] += 1.5

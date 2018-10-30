@@ -2,6 +2,9 @@ import json
 from pathlib import PurePath
 from random import randint
 
+import pygame as pg
+pg.mixer.init()
+
 # Frame rate options
 MIN_FPS = False
 SHOW_FPS = True
@@ -66,6 +69,7 @@ PATH_MENUS = PurePath(PATH_PROJECT).joinpath('ui/')
 PATH_GUI = PurePath(PATH_PROJECT).joinpath('assets/gui')
 PATH_BUTTONS = PurePath(PATH_PROJECT).joinpath('assets/gui/buttons')
 PATH_CURSORS = PurePath(PATH_PROJECT).joinpath('assets/gui/cursors')
+PATH_BACKGROUNDS = PurePath(PATH_PROJECT).joinpath('assets/gui/backgrounds')
 
 PATH_FX = PurePath(PATH_PROJECT).joinpath('assets/fx')
 PATH_VOICES = PurePath(PATH_PROJECT).joinpath('assets/fx/slidevoices')
@@ -88,7 +92,26 @@ FIGHTER_IMAGE_NAME = "fighter.png"
 MINE_IMAGE_NAME = "mine.png"
 HEALTHBAR = 'healthbar.png'
 SHIELDBAR = 'shield.png'
+BUTTONSHEET = "buttonsheet.png"
+BACKGROUND = "background.png"
+BACKGROUND_2 = "background2.png"
+BACKGROUND_3 = "background3.png"
+VOLUME = "volume.png"
+VOLUME_NO = "novolume.png"
+BACK_BUTTON = "back.png"
+LABEL = "label7.png"
+LOGO = "logo.png"
+CURSOR = "cur.png"
+CURSOR_HOVER = "hov.png"
+PYTHON_LOGO = "python_logo2.png"
+PYTHON_LOGO_HOVER = "python_logo_hover.png"
+MISTY_HATS_LOGO = "mistyhats.png"
+MISTY_HATS_LOGO_HOVER = "mistyhats_hover.png"
+SWITCH = "switch.png"
+
 GIT_LAB_LINK = "https://gitlab.com/JannesJ/code-jam-3"
+PYTHON_DISCORD_LINK = "https://pythondiscord.com/"
+MISTY_LINK = "https://pythondiscord.com/jams/team/6f243fac-4803-48bb-80f4-237d206e0fab"
 POWERUPS = 'powerup_spritesheet.png'
 
 DEFAULT_FONT_NAME = "LiberationMono-Regular.ttf"
@@ -96,4 +119,10 @@ DEFAULT_FONT_NAME = "LiberationMono-Regular.ttf"
 CHARACTER_SPACESHIP = 'own_spaceship.png'
 INVISIBLE = (8, 8), (0, 0), ((0,) * 8), ((0,) * 8)  # invisible cursor
 
-# TODO constant variables for the hover sound and cursors
+HOVER_SOUND = pg.mixer.Sound(str(PurePath(PATH_FX).joinpath("hover.wav")))
+
+print(FPS)
+print(WIDTH_RATIO, HEIGHT_RATIO, WIDTH, HEIGHT)
+POWERUPS = 'powerup_spritesheet.png'
+
+INVISIBLE = (8, 8), (0, 0), ((0,) * 8), ((0,) * 8)  # invisible cursor
