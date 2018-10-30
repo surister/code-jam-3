@@ -4,8 +4,8 @@ from pathlib import PurePath
 import pygame as pg
 from pygame.image import load
 
-from project.constants import FPS, HOVER_SOUND, PATH_BACKGROUNDS, PATH_BUTTONS, PATH_CURSORS, PATH_GUI,\
-    PATH_PROJECT
+from project.constants import BACKGROUND_3, BACK_BUTTON, CURSOR, CURSOR_HOVER, FPS, HOVER_SOUND, PATH_BACKGROUNDS,\
+    PATH_BUTTONS, PATH_CURSORS, PATH_GUI, PATH_PROJECT, SWITCH, VOLUME, VOLUME_NO
 from project.ui.volume import get_volume
 
 
@@ -14,10 +14,10 @@ class Options:
     def __init__(self, screen: pg.Surface):
 
         self.screen = screen
-        self.background = load(str(PurePath(PATH_BACKGROUNDS).joinpath("background3.png")))
+        self.background = load(str(PurePath(PATH_BACKGROUNDS).joinpath(BACKGROUND_3)))
         self.sound = None
 
-        self.back_btn = load(str(PurePath(PATH_BUTTONS).joinpath("back.png")))
+        self.back_btn = load(str(PurePath(PATH_BUTTONS).joinpath(BACK_BUTTON)))
         self.back_btn_rect = pg.Rect(20, 20, self.back_btn.get_width(), self.back_btn.get_height())
         self.back_btn_hover = False
 
@@ -25,13 +25,13 @@ class Options:
         self.mouseclick = False
 
         self.shift = 40
-        self.cursor = load(str(PurePath(PATH_CURSORS).joinpath("cur.png"))).convert_alpha()
-        self.cursor2 = load(str(PurePath(PATH_CURSORS).joinpath("hov.png"))).convert_alpha()
+        self.cursor = load(str(PurePath(PATH_CURSORS).joinpath(CURSOR))).convert_alpha()
+        self.cursor2 = load(str(PurePath(PATH_CURSORS).joinpath(CURSOR_HOVER))).convert_alpha()
 
-        self.volume = load(str(PurePath(PATH_GUI).joinpath("volume.png"))).convert_alpha()
-        self.novolume = load(str(PurePath(PATH_GUI).joinpath("novolume.png"))).convert_alpha()
+        self.volume = load(str(PurePath(PATH_GUI).joinpath(VOLUME))).convert_alpha()
+        self.novolume = load(str(PurePath(PATH_GUI).joinpath(VOLUME_NO))).convert_alpha()
 
-        self.switch = load(str(PurePath(PATH_GUI).joinpath("switch.png"))).convert_alpha()
+        self.switch = load(str(PurePath(PATH_GUI).joinpath(SWITCH))).convert_alpha()
         self.switch_rect = pg.Rect(self._volume_to_pixels(), 150, self.switch.get_width(), self.switch.get_height())
         self.clicked_switch = False
 
