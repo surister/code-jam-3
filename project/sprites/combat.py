@@ -26,13 +26,15 @@ class Combat:
         self.attack = attack
         self.type: int = None
         self.projectile_scale: int = 1
+        self.double_s = False
+        self.immunity = False
+        self.rapid_fire = False
         # Type will tell us what kind of projectiles we'd shoot
         # 0 -> Main character
         # 1 -> Normal foe
         # 2 -> Small foe
 
         self.last_update = 0
-        self.fire_rate = fire_rate
 
     def damage(self, game, projectile: Projectile) -> None:
         """dmg = projectile.damage
@@ -43,6 +45,8 @@ class Combat:
 
         self.game = game
 
+        if self.immunity:
+            return
         if self.shield > 0:
             self.shield -= max(projectile.damage - max(self.armor - projectile.penetration, 0), 0)
         else:
@@ -64,6 +68,11 @@ class Combat:
         now = pg.time.get_ticks()
         if now - self.last_update > self.fire_rate:
             self.last_update = now
-            self.projectiles.append(
-                Projectile(self.game, self, angle=angle, spawn_point=spawn_point, damage=self.attack)
-            )
+            if self.double_s:
+                for i in range(0, 2):
+                    ypos = self.game.devchar.pos.y - 30 * i
+                    self.projectiles.append(Projectile(self.game, self, angle=angle,
+                                            spawn_point=pg.Vector2(self.game.devchar.pos.x, ypos), damage=self.attack))
+            else:
+                self.projectiles.append(
+                    Projectile(self.game, self, angle=angle, spawn_point=spawn_point, damage=self.attack))
