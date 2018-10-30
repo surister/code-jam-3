@@ -39,7 +39,7 @@ class About:
         self.misty_logo_hover = load(str(PurePath(PATH_IMAGES).joinpath(MISTY_HATS_LOGO_HOVER))).convert_alpha()
         self.misty_logo_hovered = False
 
-        self.text_img = load(str(PurePath(PATH_IMAGES).joinpath("text-about.png"))).convert_alpha()
+        self.text_img = load(str(PurePath(PATH_IMAGES).joinpath("text-about1.png"))).convert_alpha()
 
         self.sound = HOVER_SOUND
         self.sound.set_volume(get_volume())
@@ -107,12 +107,12 @@ class About:
             self.screen.blit(self.python_logo, (940, 600))
 
     def _draw_misty_logo(self)->None:
-        if self._hovered(self.x, self.y, pg.Rect(40, 200, 120, 120)):
+        if self._hovered(self.x, self.y, pg.Rect(800, 600, 120, 120)):
             self.misty_logo_hovered = True
-            self.screen.blit(self.misty_logo_hover, (40, 200))
+            self.screen.blit(self.misty_logo_hover, (800, 600))
         else:
             self.misty_logo_hovered = False
-            self.screen.blit(self.misty_logo, (40, 200))
+            self.screen.blit(self.misty_logo, (800, 600))
 
     def _play_sound(self)->None:
 
