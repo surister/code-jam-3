@@ -82,10 +82,17 @@ HEALTHBAR = 'healthbar.png'
 SHIELDBAR = 'shield.png'
 BUTTONSHEET = "buttonsheet.png"
 BACKGROUND = "background.png"
+BACKGROUND_2 = "background2.png"
 BACKGROUND_3 = "background3.png"
+BACK_BUTTON = "back.png"
+LABEL = "label7.png"
 LOGO = "logo.png"
 CURSOR = "cur.png"
 CURSOR_HOVER = "hov.png"
+PYTHON_LOGO = "python_logo2.png"
+PYTHON_LOGO_HOVER = "python_logo_hover.png"
+MISTY_HATS_LOGO = "mistyhats.png"
+MISTY_HATS_LOGO_HOVER = "mistyhats_hover.png"
 
 GIT_LAB_LINK = "https://gitlab.com/JannesJ/code-jam-3"
 PYTHON_DISCORD_LINK = "https://pythondiscord.com/"

@@ -4,8 +4,9 @@ from pathlib import PurePath
 import pygame as pg
 from pygame.image import load
 
-from project.constants import FPS, HOVER_SOUND, MISTY_LINK, PATH_BACKGROUNDS, PATH_BUTTONS, PATH_CURSORS, PATH_IMAGES,\
-    PYTHON_DISCORD_LINK
+from project.constants import BACKGROUND_2, BACK_BUTTON, CURSOR, CURSOR_HOVER, FPS, HOVER_SOUND, LABEL, MISTY_LINK,\
+    PATH_BACKGROUNDS, PATH_BUTTONS, PATH_CURSORS, PATH_IMAGES, PYTHON_DISCORD_LINK, PYTHON_LOGO, PYTHON_LOGO_HOVER,\
+    MISTY_HATS_LOGO, MISTY_HATS_LOGO_HOVER
 from project.ui.volume import get_volume
 
 # IF YOU ARE A MUGGLE DON'T LOOK AT THE CODE BECAUSE THERE ARE A LOT OF MAGIC NUMBERS
@@ -16,26 +17,26 @@ class About:
     def __init__(self, screen: pg.Surface):
 
         self.screen = screen
-        self.background = load(str(PurePath(PATH_BACKGROUNDS).joinpath("background2.png")))
+        self.background = load(str(PurePath(PATH_BACKGROUNDS).joinpath(BACKGROUND_2)))
         self.sound = None
 
-        self.back_btn = load(str(PurePath(PATH_BUTTONS).joinpath("back.png")))
+        self.back_btn = load(str(PurePath(PATH_BUTTONS).joinpath(BACK_BUTTON)))
         self.back_btn_rect = pg.Rect(20, 20, self.back_btn.get_width(), self.back_btn.get_height())
         self.back_btn_hover = False
         self.x = self.y = 0
 
         self.shift = 40
-        self.cursor = load(str(PurePath(PATH_CURSORS).joinpath("cur.png"))).convert_alpha()
-        self.cursor2 = load(str(PurePath(PATH_CURSORS).joinpath("hov.png"))).convert_alpha()
+        self.cursor = load(str(PurePath(PATH_CURSORS).joinpath(CURSOR))).convert_alpha()
+        self.cursor2 = load(str(PurePath(PATH_CURSORS).joinpath(CURSOR_HOVER))).convert_alpha()
 
-        self.label = load(str(PurePath(PATH_IMAGES).joinpath("label7.png"))).convert_alpha()
+        self.label = load(str(PurePath(PATH_IMAGES).joinpath(LABEL))).convert_alpha()
 
-        self.python_logo = load(str(PurePath(PATH_IMAGES).joinpath("python_logo2.png"))).convert_alpha()
-        self.python_logo_hover = load(str(PurePath(PATH_IMAGES).joinpath("python_logo_hover.png"))).convert_alpha()
+        self.python_logo = load(str(PurePath(PATH_IMAGES).joinpath(PYTHON_LOGO))).convert_alpha()
+        self.python_logo_hover = load(str(PurePath(PATH_IMAGES).joinpath(PYTHON_LOGO_HOVER))).convert_alpha()
         self.python_logo_hovered = False
 
-        self.misty_logo = load(str(PurePath(PATH_IMAGES).joinpath("mistyhats.png"))).convert_alpha()
-        self.misty_logo_hover = load(str(PurePath(PATH_IMAGES).joinpath("mistyhats_hover.png"))).convert_alpha()
+        self.misty_logo = load(str(PurePath(PATH_IMAGES).joinpath(MISTY_HATS_LOGO))).convert_alpha()
+        self.misty_logo_hover = load(str(PurePath(PATH_IMAGES).joinpath(MISTY_HATS_LOGO_HOVER))).convert_alpha()
         self.misty_logo_hovered = False
 
         self.sound = HOVER_SOUND
