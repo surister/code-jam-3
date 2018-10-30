@@ -18,6 +18,9 @@ class ScoreDisplay:
         self.font = pg.font.Font(str(PurePath(PATH_FONTS).joinpath(font)), font_size)
 
     def draw(self)->None:
-
-        text = self.font.render(str(self.game.score).zfill(7), True, Color.white)
+        if self.game.score >= 1000000:
+            score_text = '9999999'
+        else:
+            score_text = str(self.game.score).zfill(7)
+        text = self.font.render(score_text, True, Color.white)
         self.screen.blit(text, (self.x, self.y))
