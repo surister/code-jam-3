@@ -10,6 +10,11 @@ from project.ui.volume import get_volume
 
 
 class Options:
+    """
+    Represents the options page.
+
+    The about page contains buttons for controling the volume and the playing of the intro.
+    """
 
     def __init__(self, screen: pg.Surface):
         """

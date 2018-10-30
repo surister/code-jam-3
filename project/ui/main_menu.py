@@ -11,6 +11,11 @@ from project.ui.volume import get_volume
 
 
 class Home:
+    """
+    Represents the about page.
+
+    The main menu page contains buttons which lead to playing the game, about page, options page and exiting.
+    """
 
     def __init__(self, screen: pg.Surface, paused: bool = False):
         """

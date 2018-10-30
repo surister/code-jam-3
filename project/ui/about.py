@@ -13,6 +13,11 @@ from project.ui.volume import get_volume
 
 
 class About:
+    """
+    Represents the about page.
+
+    The about page contains information for the keybinds and the game itself.
+    """
 
     def __init__(self, screen: pg.Surface):
         """
