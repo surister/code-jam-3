@@ -72,6 +72,12 @@ class Projectile(Physics, pg.sprite.Sprite):
             pass
 
     def update(self):
+        """
+        Overrides pg.sprite.Sprite update function and gets called in /game.py/Game class
+
+        Basic projectiles phisics, it supports multi directional projectiles
+        """
+
         self.friction = 0.012
         super().update()
 
@@ -80,7 +86,6 @@ class Projectile(Physics, pg.sprite.Sprite):
 
         self.max_speed = 20
 
-        # make own kill function
         if self.pos.y > HEIGHT:
             self.destroy()
         if self.pos.y < 0:
@@ -92,7 +97,8 @@ class Projectile(Physics, pg.sprite.Sprite):
 
 
 class Item(pg.sprite.Sprite):
-    """Represents items such as drops
+    """Represents Items such as drops
+
     red: + soft hp
     pink: + full hp
     purple: temporary double shot x seconds
@@ -131,6 +137,12 @@ class Item(pg.sprite.Sprite):
         self.rect.center = (random.randint(200, 700), random.randint(200, 700))
 
     def apply_powerup(self, character: pg.sprite.Sprite):
+        """
+        Calls Character functions that handle the powerup effects
+        :param character: pg.sprite.Sprite (Character)
+
+        """
+
         if self.type in ['purple', 'yellow', 'white']:
 
             Timer(self.game, POWERUP_EFFECT[self.type], 15, 20, DEFAULT_FONT_NAME, 25)
