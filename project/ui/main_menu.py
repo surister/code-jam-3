@@ -19,7 +19,7 @@ class Home:
 
     def __init__(self, screen: pg.Surface, paused: bool = False):
         """
-        Constructur for the main menu page.
+        Constructor for the main menu page.
         """
         self.screen = screen
         self.paused = paused

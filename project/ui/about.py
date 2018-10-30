@@ -21,7 +21,7 @@ class About:
 
     def __init__(self, screen: pg.Surface):
         """
-        Constructur for the about page.
+        Constructor for the about page.
         """
         self.screen = screen
         self.background = load(str(PurePath(PATH_BACKGROUNDS).joinpath(BACKGROUND_2)))

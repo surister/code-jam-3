@@ -18,7 +18,7 @@ class Options:
 
     def __init__(self, screen: pg.Surface):
         """
-        Constructur for the options page.
+        Constructor for the options page.
         """
         self.screen = screen
         self.background = load(str(PurePath(PATH_BACKGROUNDS).joinpath(BACKGROUND_3)))

@@ -7,7 +7,7 @@ class Sheet:
     """
     def __init__(self, sheet_path):
         """
-        Constructur for the sheet tool.
+        Constructor for the sheet tool.
         Loading the spritesheet.
         """
         self.spritesheet = pg.image.load(sheet_path).convert_alpha()
