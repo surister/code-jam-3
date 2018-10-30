@@ -177,6 +177,8 @@ class Options:
 
     def _draw_back_button(self)->None:
         """
+        Bliting the back button on the screen.
+        Shifting to the right if it is hovered.
         """
         self.back_btn_rect.left = 20
         self.back_btn_hover = self._hovered(self.x, self.y, self.back_btn_rect)
@@ -188,11 +190,17 @@ class Options:
         self.screen.blit(self.back_btn, self.back_btn_rect)
 
     def _volume_to_pixels(self)->int:
+        """
+        Converting the volume value from the data.json file to pixels for the volume bar.
+        """
         with open(str(PurePath(PATH_PROJECT).joinpath("data.json"))) as f:
             data = json.load(f)
         return 122 + int(data["volume"] * 5.7)
 
     def _pixels_to_volume(self)->None:
+        """
+        Converting the pixels for volume and saving it to the data.json file.
+        """
         with open(str(PurePath(PATH_PROJECT).joinpath("data.json"))) as f:
             data = json.load(f)
 
@@ -202,6 +210,10 @@ class Options:
             json.dump(data, f)
 
     def _play_sound(self)->None:
+        """
+        Playing the sound if any hoverable element is hovered.
+        Ensuring the current volume coresponds to the value in the data.json file.
+        """
         self.sound.set_volume(get_volume())
 
         if not self.back_btn_hover:
@@ -211,4 +223,7 @@ class Options:
             self.once = False
 
     def _hovered(self, x: int, y: int, button: pg.Rect)-> bool:
+        """
+        Wraper for collidepoint (checks if point is in pygame.Rect object).
+        """
         return button.collidepoint(x, y)
