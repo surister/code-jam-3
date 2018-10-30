@@ -10,7 +10,11 @@ from project.ui.character_interface import DynamicHealthbar
 
 
 class Structure(Combat, pg.sprite.Sprite):
-    """ Structures slow move from off screen to their fixed position and then start firing at the player. """
+    """
+    Represents an enemy structure.
+
+    It slow move from off screen to their fixed position and then start firing at the player.
+    """
 
     def __init__(
         self,
@@ -44,7 +48,12 @@ class Structure(Combat, pg.sprite.Sprite):
         self.rect = self.image.get_rect(center=self.pos)
 
     def update(self) -> None:
-        """ Move left untill destination passed if not already there, otherwise shoot at the player """
+        """
+        Overrides pg.sprite.Sprite update function and gets called in /game.py/Game class
+
+        Move left until destination passed if not already there, otherwise shoot at the player
+        """
+
         if not self.arrived:
             self.pos.x = self.pos.x - self.vel.x
 

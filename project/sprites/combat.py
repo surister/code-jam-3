@@ -4,6 +4,14 @@ from project.sprites.game_elements import Item, Projectile
 
 
 class Combat:
+    """
+    Class to handle combat for every Sprite that needs it
+        * damage
+        * shooting
+        * drops
+        * Sprite disposal
+    """
+
     def __init__(
         self,
         health: int,
@@ -14,7 +22,7 @@ class Combat:
         fire_rate: int=250,
         attack: int=2,
     ):
-        """Class to handle combat for sprites that need it"""
+
         self.health = health
         self.max_health: int = health
         self.defence = defence
@@ -37,11 +45,10 @@ class Combat:
         self.last_update = 0
 
     def damage(self, projectile: Projectile) -> None:
-        """dmg = projectile.damage
-        s = self.shield
-        self.shield -= dmg
-        if self.shield < 0:
-            dmg -= s"""
+        """"
+        Handles every Sprite damaging by receive :param projectile: Projectile and applying it's damage on
+        collision
+        """
 
         if self.immunity:
             return
@@ -53,16 +60,30 @@ class Combat:
             self._destroy()
 
     def _destroy(self) -> None:
-        """Overwrite this in the sprite class if non-default behaviour is needed"""
+        """
+        Destroys the Sprite
+
+        #Overwrite this in the sprite class if non-default behaviour is needed
+        """
 
         self.game.score += self.points
         self._generate_drops()
         self.kill()
 
     def _generate_drops(self) -> None:
+        """
+        Generates a power up
+        """
         Item(self.game)
 
     def _shot(self, angle: float=0, spawn_point: pg.Vector2=None) -> None:
+        """
+        Generates a projectile.
+
+        Supports multi directional shooting
+        :param angle: float=0
+        :param spawn_point: pg.Vector2= None
+        """
         now = pg.time.get_ticks()
         if now - self.last_update > self.fire_rate:
             self.last_update = now

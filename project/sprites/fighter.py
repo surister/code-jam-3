@@ -12,7 +12,10 @@ from project.ui.character_interface import DynamicHealthbar
 
 
 class Fighter(Combat, Physics, pg.sprite.Sprite):
-    """ Fighters circle around the player and rapidly shoot weak projectiles at him """
+    """
+    Represents a fighters that circle around the player and rapidly shoot weak projectiles at him
+    """
+
     def __init__(
         self,
         game,
@@ -44,7 +47,11 @@ class Fighter(Combat, Physics, pg.sprite.Sprite):
         self.mask = pg.mask.from_surface(self.image)
 
     def update(self):
-        """ Turn towards the player and let the Physics do the rest """
+        """
+        Overrides pg.sprite.Sprite update function and gets called in /game.py/Game class
+
+        Turn towards the player and let the Physics do the rest
+        """
         angle = math.atan2(self.pos.y - self.game.devchar.pos.y, - (self.pos.x - self.game.devchar.pos.x))
         # -90 extra because of how the image is aligned
         self.image = pg.transform.rotate(self.base_image, angle * 180 / math.pi + -90)

@@ -6,18 +6,7 @@ from project.constants import Color, MAX_SPEED
 
 class Physics:
     """
-    Sprite example
-
-    class Character(Test, pygame.sprite.Sprite):
-        def __init__(self, game):
-            super().__init__()
-            self.game = game
-            self.add(self.game.all_sprites)
-            self.image = pygame.Surface((50, 50))
-            self.rect = self.image.get_rect()
-            self.image.set_colorkey(Color.green)
-
-            self.friction = 1
+    Class that handles every physic in the game.
     """
 
     def __init__(self, friction: int = None):
@@ -31,8 +20,10 @@ class Physics:
         self.max_speed = MAX_SPEED
 
     def update(self):
-        if self.friction > 1:  # dev stuff, TODO delete on final product
-            print('friction should be negative and really small eg; -0.05.')
+        """
+        Overrides pg.sprite.Sprite update function of every Sprite that inherits Physics
+        and gets called in /game.py/Game class
+        """
 
         # Friction
         self.acc += self.vel * self.friction
@@ -56,7 +47,7 @@ class Physics:
 
 class TestingCharacter(Physics, pg.sprite.Sprite):
     """
-    Sprite made for the sake of testing.
+    Sprite to test the Basic Physics.
     """
 
     def __init__(self, game):

@@ -7,11 +7,13 @@ from project.sprites.combat import Combat
 
 
 class Mine(Combat, pg.sprite.Sprite):
-    """ Mines slowly move to the asteroid, exploding on impact of asteroid or player. """
+    """
+    Represents a Mine that slowly move to the asteroid, exploding on impact of asteroid or player.
+    """
 
     def __init__(
         self,
-        game: 'Game',
+        game,
         vel: int,
         pos: int,
         health: int=15,
@@ -33,7 +35,11 @@ class Mine(Combat, pg.sprite.Sprite):
         self.mask = pg.mask.from_surface(self.image)
 
     def update(self):
-        """ Move left untill off screen """
+        """
+        Overrides pg.sprite.Sprite update function and gets called in /game.py/Game class
+
+        Move left untill off screen
+        """
         self.pos.x = self.pos.x - self.vel.x
         if self.pos.x < 0:
             self.kill()

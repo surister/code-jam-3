@@ -7,7 +7,7 @@ from project.constants import Color, PATH_FONTS
 
 class Timer:
     """
-    Represent the timer in the game.
+    Represent the text timer in the game.
 
     The timer counts down from given seconds.
     """
