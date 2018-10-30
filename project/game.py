@@ -14,6 +14,10 @@ from project.wave_generator import WaveGenerator
 
 
 class CustomGroup:
+    """
+    Imitates pg.sprite.Group(). It's main functionality is to handle every draw and update call for non
+    Sprite class that do have and need any of those methods.
+    """
     def __init__(self):
         self.elements = []
 
@@ -39,7 +43,7 @@ class CustomGroup:
 
 class Game:
     """
-    Main Game class
+    Main Game class that controls and
     """
 
     def __init__(self):
@@ -74,7 +78,7 @@ class Game:
         self.all_sprites = pg.sprite.Group()
         self.enemy_sprites = pg.sprite.Group()
         self.powerups = pg.sprite.Group()
-        self.others = pg.sprite.Group()  # Find a better name? Projectiles will be stored here for now
+        self.others = pg.sprite.Group()
         self.enemy_projectiles = pg.sprite.Group()
 
         self.nonsprite = CustomGroup()
@@ -227,7 +231,7 @@ class Game:
 
     def _draw_text(self, text: str, size: int, color: Color, x: int, y: int)-> None:
         """
-        To draw basic text in the screen, meant for FPS, SCORES AND SUCH
+        Draws basic text in the screen
         """
         font = pg.font.Font(self.font, size)
         text_surface = font.render(text, True, color)

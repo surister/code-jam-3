@@ -13,7 +13,7 @@ from project.ui.sheet import Sheet
 
 
 class Character(Combat, Physics, pg.sprite.Sprite):
-    """ Base class for Character, current implementation based on dev_character """
+    """ Main Character Class """
     path = str(PurePath(PATH_IMAGES).joinpath(CHARACTER_SPACESHIP))
 
     def __init__(
@@ -25,7 +25,6 @@ class Character(Combat, Physics, pg.sprite.Sprite):
         pos: pg.Vector2 = None,
         acc: pg.Vector2 = None,
         vel: pg.Vector2 = None,
-        weapons: list = None,
         friction: Union[int, float] = 1
     ):
 
@@ -47,21 +46,17 @@ class Character(Combat, Physics, pg.sprite.Sprite):
         self.shield = shield
         self.defense = defence
         self.projectiles = deque()
-        self.evil = False
         self.type = 1
         self.fire_rate -= 20
+        self.evil = False
         self.check_for_double_shot = False
         self.check_for_immunity = False
         self.check_for_rapid_fire = False
         self.time_update = 0
+
         if self.rapid_fire:
             self.fire_rate -= 100
         self.rect = self.image.get_rect()
-
-        if weapons is None:
-            self.weapons = []
-        else:
-            self.weapons = weapons
 
         if pos is None:
             self.pos = pg.Vector2(0, 0)
@@ -87,15 +82,28 @@ class Character(Combat, Physics, pg.sprite.Sprite):
         self.mask = pg.mask.from_surface(self.image)
 
     def heal(self, amount: int)-> None:
+        """
+        Heals :param amount
+
+        If the amount + current heal is larger than max_health then current health is
+        max_health, healing the character to its maximum and ignoring amount
+        """
         if self.health + amount > self.max_health:
             self.health = self.max_health
         else:
             self.health += amount
 
     def heal_shield(self)-> None:
+        """
+        Shield is set to max
+
+        """
         self.shield = self.max_health / 2
 
     def double_shot(self, duration: int)-> None:
+        """
+        During :param duration seconds the character shots two projectiles instead of one.
+        """
         self.double_shot_time = pg.time.get_ticks()
         self.type = 5
         self.double_s = True
@@ -103,12 +111,20 @@ class Character(Combat, Physics, pg.sprite.Sprite):
         self.check_for_double_shot = True
 
     def immune(self, duration: int)-> None:
+        """
+        During :param duration: seconds the character cannot receive any damage
+        """
         self.immune_time = pg.time.get_ticks()
         self.immunity_duration = duration
         self.immunity = True
         self.check_for_immunity = True
 
     def fast_fire(self, duration: int)-> None:
+        """
+        During :param duration: seconds the character rapid_fire decreases (incrementing character
+        fire speed
+        """
+
         self.fast_time = pg.time.get_ticks()
         self.rapid_fire_duration = duration
         self.rapid_fire = True
@@ -116,6 +132,12 @@ class Character(Combat, Physics, pg.sprite.Sprite):
         self.fire_rate -= 40
 
     def update(self) -> None:
+        """
+        Overrides pg.sprite.Sprite update function and gets called in /game.py/Game class
+
+        Depending on the check flags we check for boosts duration.
+        Key -> movement is also done here.
+        """
         if self.check_for_double_shot:
             now = pg.time.get_ticks()
             if now > self.double_shot_time + self.double_shot_duration * 1000:
@@ -152,5 +174,5 @@ class Character(Combat, Physics, pg.sprite.Sprite):
             self.acc.x = self.player_acc
         if self.key[pg.K_SPACE]:
             self._shot()
-            # self.health -= 5
+
         super().update()
