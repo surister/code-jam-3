@@ -1,6 +1,6 @@
 import json
 from pathlib import PurePath
-
+from random import randint
 
 # Frame rate options
 MIN_FPS = False
@@ -30,6 +30,17 @@ if Full_Screen:
 MAX_SPEED = 10
 PLAYER_ACC = 1.5
 FIRE_RATE = 250  # interval between shots: milliseconds
+
+POWERUP_EFFECT = {
+    'red': randint(15, 30),  # Hp
+    'pink': 100,    # Full hp - don't change
+    'purple': 15,   # double shot - seconds
+    'blue': None,    # Full shield - don't change
+    'yellow': 15,   # immune - seconds
+    'white': 15,    # permanent extra fire rate
+    'green': 5,     # +armor
+    'w_green': 1    # + attack
+}
 
 
 class Color:
@@ -62,9 +73,6 @@ PATH_VOICES = PurePath(PATH_PROJECT).joinpath('assets/fx/slidevoices')
 with open(str(PurePath(PATH_PROJECT).joinpath("data.json"))) as f:
     DATA = json.load(f)
 
-
-CHARACTER_IMAGE_NAME = "ufo3.png"
-STRUCTURE_IMAGE_NAME = "structure.png"
 PROJECTILE_IMAGE_NAME = {0: "blasters/b0.png",
                          1: "blasters/b1.png",
                          2: "blasters/b2.png",
@@ -74,6 +82,8 @@ PROJECTILE_IMAGE_NAME = {0: "blasters/b0.png",
                          6: "blasters/b6.png"
                          }
 
+CHARACTER_IMAGE_NAME = "ufo3.png"
+STRUCTURE_IMAGE_NAME = "structure.png"
 FIGHTER_IMAGE_NAME = "fighter.png"
 MINE_IMAGE_NAME = "mine.png"
 HEALTHBAR = 'healthbar.png'
@@ -83,6 +93,7 @@ POWERUPS = 'powerup_spritesheet.png'
 
 DEFAULT_FONT_NAME = "LiberationMono-Regular.ttf"
 
+CHARACTER_SPACESHIP = 'own_spaceship.png'
 INVISIBLE = (8, 8), (0, 0), ((0,) * 8), ((0,) * 8)  # invisible cursor
 
 # TODO constant variables for the hover sound and cursors

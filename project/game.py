@@ -1,9 +1,6 @@
-from pathlib import PurePath
-
 import pygame as pg
 
-from project.constants import (CHARACTER_IMAGE_NAME, Color, DATA, DEFAULT_FONT_NAME, FPS, HEIGHT,
-                               INVISIBLE, PATH_IMAGES, SHOW_FPS, WIDTH)
+from project.constants import Color, DATA, DEFAULT_FONT_NAME, FPS, HEIGHT, INVISIBLE, WIDTH
 from project.gameplay.intro import Intro
 from project.sprites.character import Character
 from project.ui.about import About
@@ -46,6 +43,11 @@ class Game:
     """
 
     def __init__(self):
+        pg.init()
+        pg.mixer.init()
+        pg.display.set_caption('Game in development')
+        pg.mouse.set_cursor(*INVISIBLE)
+
         self.running = True
         self.playing = True
         self.pause = True
@@ -59,11 +61,6 @@ class Game:
 
         self.score = 0
 
-        pg.init()
-        pg.mixer.init()
-        pg.display.set_caption('Game in development')
-        pg.mouse.set_cursor(*INVISIBLE)
-
     def new(self):
         """
         Every time a new game starts
@@ -73,10 +70,9 @@ class Game:
         self.enemy_sprites = pg.sprite.Group()
         self.powerups = pg.sprite.Group()
         self.others = pg.sprite.Group()  # Find a better name? Projectiles will be stored here for now
+        self.enemy_projectiles = pg.sprite.Group()
 
         self.nonsprite = CustomGroup()
-
-        self.enemy_projectiles = pg.sprite.Group()
 
         self.background = Background("stars2.png", self, 5)
 
@@ -89,8 +85,8 @@ class Game:
         Mine(self, pg.Vector2(1.5, 1.5), pg.Vector2(WIDTH, 200))
         """
 
-        char_image = pg.image.load(str(PurePath(PATH_IMAGES).joinpath(CHARACTER_IMAGE_NAME)))
-        self.devchar = Character(self, 100, 10, friction=-0.052, image=char_image, shield=50)
+        # char_image = pg.image.load(str(PurePath(PATH_IMAGES).joinpath(CHARACTER_IMAGE_NAME)))
+        self.devchar = Character(self, 100, 10, friction=-0.052, shield=50)
 
         self.timer = Timer(self, 600, WIDTH // 2 - 70, 25, DEFAULT_FONT_NAME, 50)
         self.score_display = ScoreDisplay(self, WIDTH - 160, 20, DEFAULT_FONT_NAME, 30)
@@ -139,7 +135,7 @@ class Game:
             if projectile_hit:
                 projectile_hit_mask = pg.sprite.spritecollide(enemy, self.others, False, pg.sprite.collide_mask)
                 for projectile in projectile_hit_mask:
-                    enemy.damage(self, projectile)
+                    enemy.damage(projectile)
                     projectile.destroy()
         powerup_hit = pg.sprite.spritecollide(self.devchar, self.powerups, True, pg.sprite.collide_mask)
 
@@ -151,7 +147,7 @@ class Game:
             enemy_projectiles_hit_mask = pg.sprite.\
                 spritecollide(self.devchar, self.enemy_projectiles, False, pg.sprite.collide_mask)
             for projectile in enemy_projectiles_hit_mask:
-                self.devchar.damage(self, projectile)
+                self.devchar.damage(projectile)
                 projectile.destroy()
 
     def _draw(self)-> None:
@@ -162,9 +158,6 @@ class Game:
         """
         self.nonsprite.draw()
         self.all_sprites.draw(self.screen)
-        if SHOW_FPS:
-            self._draw_text(f'{round(self.clock.get_fps(), 2)}', 22, Color.white, 40, 20)
-            pg.display.set_caption(f'Game in development - {round(self.clock.get_fps(), 1)}')
 
         pg.display.flip()
 

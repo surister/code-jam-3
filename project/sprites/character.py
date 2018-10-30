@@ -1,17 +1,20 @@
 from collections import deque
+from pathlib import PurePath
 from typing import Union
 
 
 import pygame as pg
 
-from project.constants import Color, FIRE_RATE, PLAYER_ACC
+from project.constants import CHARACTER_SPACESHIP, Color, FIRE_RATE, PATH_IMAGES, PLAYER_ACC
 from project.sprites.combat import Combat
 from project.sprites.sprite_internals import Physics
 from project.ui.character_interface import StaticHealthbar
+from project.ui.sheet import Sheet
 
 
 class Character(Combat, Physics, pg.sprite.Sprite):
     """ Base class for Character, current implementation based on dev_character """
+    path = str(PurePath(PATH_IMAGES).joinpath(CHARACTER_SPACESHIP))
 
     def __init__(
         self,
@@ -23,8 +26,7 @@ class Character(Combat, Physics, pg.sprite.Sprite):
         acc: pg.Vector2 = None,
         vel: pg.Vector2 = None,
         weapons: list = None,
-        friction: Union[int, float] = 1,
-        image: pg.Surface = None
+        friction: Union[int, float] = 1
     ):
 
         Physics.__init__(self, friction)
@@ -34,6 +36,10 @@ class Character(Combat, Physics, pg.sprite.Sprite):
 
         self.game = game
         self.add(self.game.all_sprites)
+
+        self.image = Sheet(Character.path).get_image(200, 460, 310, 300, alpha=True)
+        self.image = pg.transform.scale(self.image, (60, 60))
+        self.image.set_colorkey(Color.black)
 
         self.player_acc = PLAYER_ACC
         self.fire_rate = FIRE_RATE
@@ -50,11 +56,6 @@ class Character(Combat, Physics, pg.sprite.Sprite):
         self.time_update = 0
         if self.rapid_fire:
             self.fire_rate -= 100
-        if image is None:
-            self.image = pg.Surface((50, 50))
-            self.image.fill(Color.white)
-        else:
-            self.image = image
         self.rect = self.image.get_rect()
 
         if weapons is None:
@@ -91,18 +92,24 @@ class Character(Combat, Physics, pg.sprite.Sprite):
         else:
             self.health += amount
 
-    def double_shot(self, duration: int):
+    def heal_shield(self)-> None:
+        self.shield = self.max_health / 2
+
+    def double_shot(self, duration: int)-> None:
+        self.double_shot_time = pg.time.get_ticks()
         self.type = 5
         self.double_s = True
         self.double_shot_duration = duration
         self.check_for_double_shot = True
 
-    def immune(self, duration: int):
+    def immune(self, duration: int)-> None:
+        self.immune_time = pg.time.get_ticks()
         self.immunity_duration = duration
         self.immunity = True
         self.check_for_immunity = True
 
-    def fast_fire(self, duration: int):
+    def fast_fire(self, duration: int)-> None:
+        self.fast_time = pg.time.get_ticks()
         self.rapid_fire_duration = duration
         self.rapid_fire = True
         self.check_for_rapid_fire = True
@@ -111,8 +118,7 @@ class Character(Combat, Physics, pg.sprite.Sprite):
     def update(self) -> None:
         if self.check_for_double_shot:
             now = pg.time.get_ticks()
-
-            if now - self.time_update > self.double_shot_duration * 1000:
+            if now > self.double_shot_time + self.double_shot_duration * 1000:
                 self.time_update = now
                 self.double_s = False
                 self.type = 1
@@ -120,14 +126,14 @@ class Character(Combat, Physics, pg.sprite.Sprite):
 
         if self.check_for_immunity:
             now = pg.time.get_ticks()
-            if now - self.time_update > self.immunity_duration * 1000:
+            if now > self.immune_time + self.immunity_duration * 1000:
                 self.time_update = now
                 self.immunity = False
                 self.check_for_immunity = False
 
         if self.check_for_rapid_fire:
             now = pg.time.get_ticks()
-            if now - self.time_update > self.rapid_fire_duration * 1000:
+            if now > self.fast_time + self.rapid_fire_duration * 1000:
                 self.time_update = now
                 self.immunity = False
                 self.check_for_rapid_fire = False
@@ -148,5 +154,3 @@ class Character(Combat, Physics, pg.sprite.Sprite):
             self._shot()
             # self.health -= 5
         super().update()
-        print(self.armor)
-        print(self.attack)
