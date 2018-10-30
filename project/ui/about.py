@@ -39,6 +39,8 @@ class About:
         self.misty_logo_hover = load(str(PurePath(PATH_IMAGES).joinpath(MISTY_HATS_LOGO_HOVER))).convert_alpha()
         self.misty_logo_hovered = False
 
+        self.text_img = load(str(PurePath(PATH_IMAGES).joinpath("text-about.png"))).convert_alpha()
+
         self.sound = HOVER_SOUND
         self.sound.set_volume(get_volume())
 
@@ -84,6 +86,7 @@ class About:
     def _draw_background(self):
         self.screen.blit(self.background, (0, 0))
         self.screen.blit(self.label, (0, 0))
+        self.screen.blit(self.text_img, (0, 100))
 
     def _draw_back_button(self)->None:
         self.back_btn_rect.left = 20
