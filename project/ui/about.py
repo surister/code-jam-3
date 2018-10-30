@@ -15,7 +15,9 @@ from project.ui.volume import get_volume
 class About:
 
     def __init__(self, screen: pg.Surface):
-
+        """
+        Constructur for the about page.
+        """
         self.screen = screen
         self.background = load(str(PurePath(PATH_BACKGROUNDS).joinpath(BACKGROUND_2)))
         self.sound = None
@@ -45,7 +47,10 @@ class About:
         self.sound.set_volume(get_volume())
 
     def handle_input(self)->None:
-
+        """
+        Handling the events.
+        Clicking on a button/quiting the game.
+        """
         clock = pg.time.Clock()
         waiting = True
         running = True
@@ -68,6 +73,9 @@ class About:
         return running
 
     def draw(self):
+        """
+        Unifying drawing method - draws every element of the options page.
+        """
         self._draw_background()
 
         self._draw_python_logo()
@@ -77,18 +85,29 @@ class About:
         self._play_sound()
         self._draw_cursor()
 
+    def _draw_background(self):
+        """
+        Bliting the background image and the on the screen.
+        """
+        self.screen.blit(self.background, (0, 0))
+        self.screen.blit(self.label, (0, 0))
+        self.screen.blit(self.text_img, (0, 100))
+
     def _draw_cursor(self):
+        """
+        Bliting the cursor on the screen.
+        Classical cursor and finger cursor (if any hoverable element is hovered).
+        """
         if any((self.back_btn_hover, self.python_logo_hovered, self.misty_logo_hovered)):
             self.screen.blit(self.cursor2, (self.x, self.y))
         else:
             self.screen.blit(self.cursor, (self.x, self.y))
 
-    def _draw_background(self):
-        self.screen.blit(self.background, (0, 0))
-        self.screen.blit(self.label, (0, 0))
-        self.screen.blit(self.text_img, (0, 100))
-
     def _draw_back_button(self)->None:
+        """
+        Bliting the back button on the screen.
+        Shifting to the right if it is hovered.
+        """
         self.back_btn_rect.left = 20
         self.back_btn_hover = self._hovered(self.x, self.y, self.back_btn_rect)
 
@@ -99,6 +118,10 @@ class About:
         self.screen.blit(self.back_btn, self.back_btn_rect)
 
     def _draw_python_logo(self)->None:
+        """
+        Bliting the Python Discord's logo.
+        Version with golden border if hovered.
+        """
         if self._hovered(self.x, self.y, pg.Rect(940, 600, 940 + 318, 600 + 111)):
             self.python_logo_hovered = True
             self.screen.blit(self.python_logo_hover, (940, 600))
@@ -107,6 +130,10 @@ class About:
             self.screen.blit(self.python_logo, (940, 600))
 
     def _draw_misty_logo(self)->None:
+        """
+        Bliting the Misty Hat's logo.
+        Version with golden border if hovered.
+        """
         if self._hovered(self.x, self.y, pg.Rect(800, 600, 120, 120)):
             self.misty_logo_hovered = True
             self.screen.blit(self.misty_logo_hover, (800, 600))
@@ -115,7 +142,9 @@ class About:
             self.screen.blit(self.misty_logo, (800, 600))
 
     def _play_sound(self)->None:
-
+        """
+        Playing the sound if any hoverable element is hovered.
+        """
         if not any([self.back_btn_hover, self.misty_logo_hovered, self.python_logo_hovered]):
             self.once = True
         elif self.once:
@@ -123,4 +152,7 @@ class About:
             self.once = False
 
     def _hovered(self, x: int, y: int, button: pg.Rect)-> bool:
+        """
+        Wraper for collidepoint (checks if point is in pygame.Rect object).
+        """
         return button.collidepoint(x, y)
