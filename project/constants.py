@@ -104,3 +104,6 @@ HOVER_SOUND = pg.mixer.Sound(str(PurePath(PATH_FX).joinpath("hover.wav")))
 
 print(FPS)
 print(WIDTH_RATIO, HEIGHT_RATIO, WIDTH, HEIGHT)
+POWERUPS = 'powerup_spritesheet.png'
+
+INVISIBLE = (8, 8), (0, 0), ((0,) * 8), ((0,) * 8)  # invisible cursor

@@ -6,7 +6,7 @@ from pygame.image import load
 
 from project.constants import BACKGROUND, BACKGROUND_3, BUTTONSHEET, CURSOR, CURSOR_HOVER, GIT_LAB_LINK, HEIGHT,\
     HOVER_SOUND, LOGO, PATH_BACKGROUNDS, PATH_BUTTONS, PATH_CURSORS, PATH_IMAGES, WIDTH
-from project.sprites.sheet import Sheet
+from project.ui.sheet import Sheet
 from project.ui.volume import get_volume
 
 

@@ -4,7 +4,7 @@ from pathlib import PurePath
 import pygame as pg
 
 from project.constants import HEIGHT, PATH_IMAGES, PATH_PROJECT, PATH_VOICES, WIDTH
-from project.sprites.sheet import Sheet
+from project.ui.sheet import Sheet
 from project.ui.volume import get_volume
 
 
