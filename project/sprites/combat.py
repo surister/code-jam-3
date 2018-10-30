@@ -36,14 +36,12 @@ class Combat:
 
         self.last_update = 0
 
-    def damage(self, game, projectile: Projectile) -> None:
+    def damage(self, projectile: Projectile) -> None:
         """dmg = projectile.damage
         s = self.shield
         self.shield -= dmg
         if self.shield < 0:
             dmg -= s"""
-
-        self.game = game
 
         if self.immunity:
             return
@@ -71,8 +69,9 @@ class Combat:
             if self.double_s:
                 for i in range(0, 2):
                     ypos = self.game.devchar.pos.y - 30 * i
+                    xpos = self.game.devchar.pos.x + 30
                     self.projectiles.append(Projectile(self.game, self, angle=angle,
-                                            spawn_point=pg.Vector2(self.game.devchar.pos.x, ypos), damage=self.attack))
+                                            spawn_point=pg.Vector2(xpos, ypos), damage=self.attack))
             else:
                 self.projectiles.append(
                     Projectile(self.game, self, angle=angle, spawn_point=spawn_point, damage=self.attack))
