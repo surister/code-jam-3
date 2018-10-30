@@ -79,6 +79,12 @@ FIGHTER_IMAGE_NAME = "fighter.png"
 MINE_IMAGE_NAME = "mine.png"
 HEALTHBAR = 'healthbar.png'
 SHIELDBAR = 'shield.png'
+BUTTONSHEET = "buttonsheet.png"
+BACKGROUND = "background.png"
+BACKGROUND_3 = "background3.png"
+LOGO = "logo.png"
+CURSOR = "cur.png"
+CURSOR_HOVER = "hov.png"
 
 GIT_LAB_LINK = "https://gitlab.com/JannesJ/code-jam-3"
 PYTHON_DISCORD_LINK = "https://pythondiscord.com/"

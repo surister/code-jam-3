@@ -4,7 +4,8 @@ from webbrowser import open
 import pygame as pg
 from pygame.image import load
 
-from project.constants import GIT_LAB_LINK, HEIGHT, HOVER_SOUND, PATH_BUTTONS, PATH_CURSORS, PATH_IMAGES, WIDTH
+from project.constants import BACKGROUND, BACKGROUND_3, BUTTONSHEET, CURSOR, CURSOR_HOVER, GIT_LAB_LINK, HEIGHT,\
+    HOVER_SOUND, LOGO, PATH_BUTTONS, PATH_CURSORS, PATH_IMAGES, WIDTH
 from project.sprites.sheet import Sheet
 from project.ui.volume import get_volume
 
@@ -24,11 +25,11 @@ class Home:
         self.air = self.space = 10    # px
         self.shift = 20               # px
 
-        self.sheet = Sheet(str(PurePath(PATH_BUTTONS).joinpath("buttonsheet.png")))
+        self.sheet = Sheet(str(PurePath(PATH_BUTTONS).joinpath(BUTTONSHEET)))
         if self.paused:
-            self.background = load(str(PurePath(PATH_IMAGES).joinpath("background3.png"))).convert_alpha()
+            self.background = load(str(PurePath(PATH_IMAGES).joinpath(BACKGROUND_3))).convert_alpha()
         else:
-            self.background = load(str(PurePath(PATH_IMAGES).joinpath("background.png"))).convert_alpha()
+            self.background = load(str(PurePath(PATH_IMAGES).joinpath(BACKGROUND))).convert_alpha()
 
         self.buttons_hover_states = {"play": False, "options": False, "about": False, "exit": False, "gitlab": False}
         self.buttons_sprites = {
@@ -43,7 +44,7 @@ class Home:
         # horizontal - logo takes 3 parts out of 5 - W/5 * 3 = 768px
         # vertical - logo takes half of H - H/2 = 360px
         self.logo_rect = pg.Rect(self.slice, 0, self.slice * 3, HEIGHT / 2)
-        self.logo_image = load(str(PurePath(PATH_IMAGES).joinpath("logo.png"))).convert_alpha()
+        self.logo_image = load(str(PurePath(PATH_IMAGES).joinpath(LOGO))).convert_alpha()
 
         # PLAY BUTTON (larger) 384x70px
         # horizontal - one part and half of 5 = W/5 * 1.5 = 384px
@@ -65,8 +66,8 @@ class Home:
         self.sound = HOVER_SOUND
         self.sound.set_volume(get_volume())
 
-        self.cursor = load(str(PurePath(PATH_CURSORS).joinpath("cur.png"))).convert_alpha()
-        self.cursor2 = load(str(PurePath(PATH_CURSORS).joinpath("hov.png"))).convert_alpha()
+        self.cursor = load(str(PurePath(PATH_CURSORS).joinpath(CURSOR))).convert_alpha()
+        self.cursor2 = load(str(PurePath(PATH_CURSORS).joinpath(CURSOR_HOVER))).convert_alpha()
         self.once = True
 
     def draw(self)-> None:
