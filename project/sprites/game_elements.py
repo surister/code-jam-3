@@ -17,7 +17,7 @@ class Projectile(Physics, pg.sprite.Sprite):
     Blaster 2 -> Yellow
     Blaster 3 -> Orange
     Blaster 4 -> Red
-    Blaster 5 -> Purple
+    Blaster 5 -> Purple  For double shots
     Blaster 6 -> Blue
     """
     blasters = {'green': pg.image.load(str(PurePath(PATH_IMAGES).joinpath(PROJECTILE_IMAGE_NAME[0]))),
@@ -44,11 +44,13 @@ class Projectile(Physics, pg.sprite.Sprite):
 
         if self.owner.type == 1:
             self.image = Projectile.blasters['green']
+        if self.owner.type == 5:
+            self.image = Projectile.blasters['purple']
         else:
             self.image = Projectile.blasters['blue_marine']
 
-        self.image = pg.transform.scale(self.image, (round(self.owner.projectile_scale*100),
-                                                     round(self.owner.projectile_scale*50)))
+        self.image = pg.transform.scale(self.image, (round(self.owner.projectile_scale*90),
+                                                     round(self.owner.projectile_scale*40)))
         self.image = pg.transform.rotate(self.image, angle * 180 / math.pi)
         if spawn_point is None:
             self.pos = owner.rect.midright
@@ -89,7 +91,7 @@ class Projectile(Physics, pg.sprite.Sprite):
 
 class Item(pg.sprite.Sprite):
     """Represents items such as drops
-    red: + soft
+    red: + soft hp
     pink: + full hp
     purple: temporal double shot x seconds
     blue: + max shield
@@ -97,25 +99,11 @@ class Item(pg.sprite.Sprite):
     white: permanent extra fire rate
     green: % damage reduction
     white: permanent extra damage
-
-    How does the power_effect is read? We have a dictionary with every possible powerup color, every color has
-    different characteristics, 'color': {'attr': 'attribute that will be changed',
-                                        'type' : 'type of the operation that will be done to the attr',
-                                        'value' : 'value that will be used for that operation'
-
-                            Type of operations:
-                                - Add: The ['value'] will be added to ['attr']
-                                - Set: The ['value'] will be set to ['attr']
-
-                                *If the set is a set_bool the ['attr'] will be set to True for ['value'] seconds.
-                                *If the ['value'] is not an int, it will be read as a other.__getattribute__(['attr'])
-
-
     """
-    def __init__(self, game):
+    def __init__(self, game, color: str = None):
         super().__init__()
         self.game = game
-
+        self.color = color
         self.add(self.game.all_sprites, self.game.powerups)
 
         self.color_location = {'red': (0, 0, 130, 130),
@@ -127,16 +115,17 @@ class Item(pg.sprite.Sprite):
                                'green': (255, 130, 130, 130),
                                'w_green': (385, 130, 130, 130)
                                }
-
-        self.type = random.choice(['red', 'pink', 'purple', 'blue', 'yellow', 'white', 'green', 'w_green'])
-
+        if self.color is None:
+            self.type = random.choice(['red', 'pink', 'purple', 'blue', 'yellow', 'white', 'green', 'w_green'])
+        else:
+            self.type = self.color
         self.image = Sheet(str(PurePath(PATH_IMAGES).joinpath(POWERUPS))).get_image(*self.color_location[self.type])
         self.image.set_colorkey(Color.black)
-        self.image = pg.transform.scale(self.image, (75, 75))
+        self.image = pg.transform.scale(self.image, (35, 35))
         self.rect = self.image.get_rect()
 
         self.mask = pg.mask.from_surface(self.image)
-        self.rect.center = (random.randint(100, 800), random.randint(100, 800))
+        self.rect.center = (random.randint(200, 700), random.randint(200, 700))
 
     def apply_powerup(self, character: pg.sprite.Sprite):
 
@@ -151,7 +140,7 @@ class Item(pg.sprite.Sprite):
         if self.type == 'yellow':
             character.immune(15)
         if self.type == 'white':
-            character.rapidfire(15)
+            character.fast_fire(15)
         if self.type == 'green':
             character.armor += 25
         if self.type == 'w_green':
