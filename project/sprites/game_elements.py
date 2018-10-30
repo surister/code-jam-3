@@ -4,9 +4,10 @@ from pathlib import PurePath
 
 import pygame as pg
 
-from project.constants import Color, HEIGHT, PATH_IMAGES, POWERUPS, PROJECTILE_IMAGE_NAME, WIDTH
+from project.constants import Color, HEIGHT, PATH_IMAGES, POWERUPS, POWERUP_EFFECT, PROJECTILE_IMAGE_NAME, WIDTH
 from project.sprites.sprite_internals import Physics
 from project.ui.sheet import Sheet
+from project.ui.timer import Timer
 
 
 class Projectile(Physics, pg.sprite.Sprite):
@@ -93,11 +94,11 @@ class Item(pg.sprite.Sprite):
     """Represents items such as drops
     red: + soft hp
     pink: + full hp
-    purple: temporal double shot x seconds
+    purple: temporary double shot x seconds
     blue: + max shield
-    yellow: immune for x seconds
-    white: permanent extra fire rate
-    green: % damage reduction
+    yellow: temporary immunity
+    white: temporary extra fire rate
+    green: + armor
     white: permanent extra damage
     """
     def __init__(self, game, color: str = None):
@@ -119,6 +120,7 @@ class Item(pg.sprite.Sprite):
             self.type = random.choice(['red', 'pink', 'purple', 'blue', 'yellow', 'white', 'green', 'w_green'])
         else:
             self.type = self.color
+
         self.image = Sheet(str(PurePath(PATH_IMAGES).joinpath(POWERUPS))).get_image(*self.color_location[self.type])
         self.image.set_colorkey(Color.black)
         self.image = pg.transform.scale(self.image, (35, 35))
@@ -128,20 +130,22 @@ class Item(pg.sprite.Sprite):
         self.rect.center = (random.randint(200, 700), random.randint(200, 700))
 
     def apply_powerup(self, character: pg.sprite.Sprite):
+        if self.type in ['purple', 'yellow', 'white']:
 
+            Timer(self.game, POWERUP_EFFECT[self.type], 15, 20, pg.font.get_default_font(), 40)
         if self.type == 'red':
-            character.heal(random.randint(15, 30))
+            character.heal(POWERUP_EFFECT[self.type])
         if self.type == 'pink':
-            character.heal(100)
+            character.heal(POWERUP_EFFECT[self.type])
         if self.type == 'purple':
-            character.double_shot(15)
+            character.double_shot(POWERUP_EFFECT[self.type])
         if self.type == 'blue':
-            character.shield = character.max_health/2
+            character.heal_shield()
         if self.type == 'yellow':
-            character.immune(15)
+            character.immune(POWERUP_EFFECT[self.type])
         if self.type == 'white':
-            character.fast_fire(15)
+            character.fast_fire(POWERUP_EFFECT[self.type])
         if self.type == 'green':
-            character.armor += 25
+            character.armor += POWERUP_EFFECT[self.type]
         if self.type == 'w_green':
-            character.attack += 1
+            character.attack += POWERUP_EFFECT[self.type]
