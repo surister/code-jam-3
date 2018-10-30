@@ -10,9 +10,16 @@ from project.ui.volume import get_volume
 
 
 class Options:
+    """
+    Represents the options page.
+
+    The about page contains buttons for controling the volume and the playing of the intro.
+    """
 
     def __init__(self, screen: pg.Surface):
-
+        """
+        Constructor for the options page.
+        """
         self.screen = screen
         self.background = load(str(PurePath(PATH_BACKGROUNDS).joinpath(BACKGROUND_3)))
         self.sound = None
@@ -54,7 +61,10 @@ class Options:
         self.mute = None
 
     def handle_input(self)->None:
-
+        """
+        Handling the events.
+        Clicking on a button/quiting the game.
+        """
         clock = pg.time.Clock()
         waiting = True
         running = True
@@ -79,6 +89,9 @@ class Options:
         return running
 
     def draw(self):
+        """
+        Unifying drawing method - draws every element of the options page.
+        """
         self._draw_background()
 
         self._draw_back_button()
@@ -90,15 +103,25 @@ class Options:
         self._draw_cursor()
 
     def _draw_background(self):
+        """
+        Bliting the background image and the on the screen.
+        """
         self.screen.blit(self.background, (0, 0))
 
     def _draw_cursor(self):
+        """
+        Bliting the cursor on the screen.
+        Classical cursor and finger cursor (if any hoverable element is hovered).
+        """
         if self.back_btn_hover or self.clicked_switch or self.intro_hovered:
             self.screen.blit(self.cursor2, (self.x, self.y))
         else:
             self.screen.blit(self.cursor, (self.x, self.y))
 
     def _draw_volume(self)->None:
+        """
+        Bliting the volume bar on the screen.
+        """
         if 120 < self.switch_rect.left < 133:
             self.screen.blit(self.novolume, (20, 140))
             self.mute = True
@@ -107,6 +130,9 @@ class Options:
             self.mute = False
 
     def _draw_intro(self)->None:
+        """
+        Bliting the intro labels on the screen. (INRO, ON, OFF).
+        """
         self.intro_hovered = self._hovered(self.x, self.y, pg.Rect(920, 150, 200, 100))
 
         if self.intro_played:
@@ -119,12 +145,18 @@ class Options:
         self.screen.blit(self.on, (1120, 170))
 
     def _intro_state(self)->True:
+        """
+        Extracting the intro state (on or off) from the data.json file.
+        """
         with open(str(PurePath(PATH_PROJECT).joinpath("data.json"))) as f:
             data = json.load(f)
             played = data["intro_played"]
         return played
 
     def _save_intro_state(self)->None:
+        """
+        Saving the intro state (on or off) to the data.json file.
+        """
         with open(str(PurePath(PATH_PROJECT).joinpath("data.json"))) as f:
             data = json.load(f)
 
@@ -133,6 +165,10 @@ class Options:
             json.dump(data, f)
 
     def _draw_switch(self)->None:
+        """
+        Bliting the volume switching button on the screen.
+        Ensuring that is in the borders of the volume bar.
+        """
         if self._hovered(self.x, self.y, self.switch_rect) and self.mouseclick:
             self.clicked_switch = True
 
@@ -145,6 +181,10 @@ class Options:
         self.screen.blit(self.switch, self.switch_rect)
 
     def _draw_back_button(self)->None:
+        """
+        Bliting the back button on the screen.
+        Shifting to the right if it is hovered.
+        """
         self.back_btn_rect.left = 20
         self.back_btn_hover = self._hovered(self.x, self.y, self.back_btn_rect)
 
@@ -155,11 +195,17 @@ class Options:
         self.screen.blit(self.back_btn, self.back_btn_rect)
 
     def _volume_to_pixels(self)->int:
+        """
+        Converting the volume value from the data.json file to pixels for the volume bar.
+        """
         with open(str(PurePath(PATH_PROJECT).joinpath("data.json"))) as f:
             data = json.load(f)
         return 122 + int(data["volume"] * 5.7)
 
     def _pixels_to_volume(self)->None:
+        """
+        Converting the pixels for volume and saving it to the data.json file.
+        """
         with open(str(PurePath(PATH_PROJECT).joinpath("data.json"))) as f:
             data = json.load(f)
 
@@ -169,6 +215,10 @@ class Options:
             json.dump(data, f)
 
     def _play_sound(self)->None:
+        """
+        Playing the sound if any hoverable element is hovered.
+        Ensuring the current volume coresponds to the value in the data.json file.
+        """
         self.sound.set_volume(get_volume())
 
         if not self.back_btn_hover:
@@ -178,4 +228,7 @@ class Options:
             self.once = False
 
     def _hovered(self, x: int, y: int, button: pg.Rect)-> bool:
+        """
+        Wraper for collidepoint (checks if point is in pygame.Rect object).
+        """
         return button.collidepoint(x, y)

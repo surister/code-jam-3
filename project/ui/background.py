@@ -6,8 +6,14 @@ from project.constants import PATH_IMAGES
 
 
 class Background:
+    """
+    Represents a parallax scroling background.
+    """
 
     def __init__(self, image_name: str, game, speed: int):
+        """
+        Constructur for the moving background.
+        """
         self.game = game
         self.screen = game.screen
         self.game.nonsprite.add(self)
@@ -17,7 +23,9 @@ class Background:
         self.speed = speed
 
     def draw(self):
-
+        """
+        Bliting the background on the screen.
+        """
         self.x -= self.speed
         self.screen.blit(self.image, (self.x, 0))
         self.x1 -= self.speed

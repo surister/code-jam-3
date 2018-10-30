@@ -7,10 +7,14 @@ from project.constants import Color, PATH_FONTS
 
 class Timer:
     """
-    Represents a text timer
-    """
+    Represent the text timer in the game.
 
+    The timer counts down from given seconds.
+    """
     def __init__(self, game, time: int, x: int, y: int, font: str, font_size: int):
+        """
+        Constructor for the timer.
+        """
         self.game = game
         self.screen = self.game.screen
         self.game.nonsprite.add(self)
@@ -25,9 +29,8 @@ class Timer:
 
     def draw(self)->None:
         """
-        Draws the timer onto the screen
+        Bliting the timer on the screen.
         """
-
         if not self.completed:
             self.current = (pg.time.get_ticks() - self.start) // 1000
             if self.current <= self.time:
@@ -38,7 +41,6 @@ class Timer:
     @staticmethod
     def min_sec(sec: int)->str:
         """
-        Converts handles minutes into str seconds
+        Formats seconds to mitutes and second (m:ss).
         """
-
         return f"{int((sec - sec % 60) / 60)}:{sec % 60:02}"
