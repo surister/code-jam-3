@@ -12,6 +12,7 @@ from project.ui.options import Options
 from project.ui.score import ScoreDisplay
 from project.ui.timer import Timer
 from project.wave_generator import WaveGenerator
+# from project.sprites.game_elements import Item
 
 
 class CustomGroup:
@@ -93,7 +94,8 @@ class Game:
         self.timer = Timer(self, 600, WIDTH // 2 - 70, 25, "Ariel", 80)
 
         self.score_display = ScoreDisplay(self, WIDTH - 160, 20, '', 50)
-
+        # self.test = Item(self, 'green')
+        # self.second_test = Item(self, 'w_green')
         self.wave_generator = WaveGenerator(self)
 
         # TODO WITH SPREADSHEET IMAGE LOAD WON'T BE HERE, BUT IN EVERY SPRITE CLASS
@@ -124,6 +126,7 @@ class Game:
         """
         self.all_sprites.update()
         self.nonsprite.update()
+
         """# collide projectiles with enemies
         for projectile in self.devchar.projectiles:
             for enemy in self.enemy_sprites:
@@ -139,6 +142,7 @@ class Game:
                     enemy.damage(self, projectile)
                     projectile.destroy()
         powerup_hit = pg.sprite.spritecollide(self.devchar, self.powerups, True, pg.sprite.collide_mask)
+
         if powerup_hit:
             powerup_hit[0].apply_powerup(self.devchar)
 
@@ -184,7 +188,6 @@ class Game:
                         intro.playing = self.running = False
 
     def show_start_screen(self):
-
         self.homepage = Home(self.screen)
         self._wait_for_input()
 
