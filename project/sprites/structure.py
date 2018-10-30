@@ -49,7 +49,7 @@ class Structure(Combat, pg.sprite.Sprite):
             if self.pos.x < self.destination:
                 self.arrived = True
         else:
-            angle = math.atan2(self.pos.y - self.game.devchar.pos.y, -(self.pos.x - self.game.devchar.pos.x))
+            angle = math.atan2(self.pos.y - self.game.devchar.pos.y, - (self.pos.x - self.game.devchar.pos.x))
             self._shot(angle, self.rect.midleft)
 
         self.rect.midbottom = self.pos

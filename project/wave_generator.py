@@ -15,8 +15,8 @@ class WaveGenerator:
 
     def __init__(self, game):
         self.game = game
+        self.game.nonsprite.add(self)
         self.difficulty = 1
-
         self.structure_image = pg.image.load(str(PurePath(PATH_IMAGES).joinpath(STRUCTURE_IMAGE_NAME)))
         self.fighter_image = pg.image.load(str(PurePath(PATH_IMAGES).joinpath(FIGHTER_IMAGE_NAME)))
         self.mine_image = pg.image.load(str(PurePath(PATH_IMAGES).joinpath(MINE_IMAGE_NAME)))

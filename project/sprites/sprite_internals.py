@@ -54,7 +54,7 @@ class Physics:
         self.rect.center = self.pos
 
 
-class Character(Physics, pg.sprite.Sprite):
+class TestingCharacter(Physics, pg.sprite.Sprite):
     """
     Sprite made for the sake of testing.
     """
