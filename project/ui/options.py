@@ -40,6 +40,13 @@ class Options:
         self.intro_button_off = load(str(PurePath(PATH_BUTTONS).joinpath("off_btn.png"))).convert_alpha()
         self.intro_hovered = False
 
+        self.on = load(str(PurePath(PATH_BUTTONS).joinpath("on.png"))).convert_alpha()
+        self.off = load(str(PurePath(PATH_BUTTONS).joinpath("off.png"))).convert_alpha()
+        self.intro_img = load(str(PurePath(PATH_BUTTONS).joinpath("intro.png"))).convert_alpha()
+
+        self.on = pg.transform.scale(self.on, (100, 50))
+        self.off = pg.transform.scale(self.off, (100, 50))
+
         self.sound = HOVER_SOUND
         self.sound.set_volume(get_volume())
 
@@ -106,6 +113,10 @@ class Options:
             self.screen.blit(self.intro_button_on, (920, 150))
         else:
             self.screen.blit(self.intro_button_off, (920, 150))
+
+        self.screen.blit(self.intro_img, (875, 50))
+        self.screen.blit(self.off, (810, 170))
+        self.screen.blit(self.on, (1120, 170))
 
     def _intro_state(self)->True:
         with open(str(PurePath(PATH_PROJECT).joinpath("data.json"))) as f:
