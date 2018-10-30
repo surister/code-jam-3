@@ -4,7 +4,8 @@ from pathlib import PurePath
 
 import pygame as pg
 
-from project.constants import Color, HEIGHT, PATH_IMAGES, POWERUPS, POWERUP_EFFECT, PROJECTILE_IMAGE_NAME, WIDTH
+from project.constants import (Color, DEFAULT_FONT_NAME, HEIGHT, PATH_IMAGES, POWERUPS, POWERUP_EFFECT,
+                               PROJECTILE_IMAGE_NAME, WIDTH)
 from project.sprites.sprite_internals import Physics
 from project.ui.sheet import Sheet
 from project.ui.timer import Timer
@@ -132,7 +133,7 @@ class Item(pg.sprite.Sprite):
     def apply_powerup(self, character: pg.sprite.Sprite):
         if self.type in ['purple', 'yellow', 'white']:
 
-            Timer(self.game, POWERUP_EFFECT[self.type], 15, 20, pg.font.get_default_font(), 40)
+            Timer(self.game, POWERUP_EFFECT[self.type], 15, 20, DEFAULT_FONT_NAME, 25)
         if self.type == 'red':
             character.heal(POWERUP_EFFECT[self.type])
         if self.type == 'pink':

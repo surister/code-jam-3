@@ -63,6 +63,7 @@ PATH_PROJECT = PurePath(__file__).parent
 PATH_SPRITES = PurePath(PATH_PROJECT).joinpath('sprites/')
 PATH_ASSETS = PurePath(PATH_PROJECT).joinpath('assets/')
 PATH_IMAGES = PurePath(PATH_PROJECT).joinpath('assets/images')
+PATH_FONTS = PurePath(PATH_PROJECT).joinpath('assets/fonts')
 
 PATH_MENUS = PurePath(PATH_PROJECT).joinpath('ui/')
 PATH_GUI = PurePath(PATH_PROJECT).joinpath('assets/gui')
@@ -112,6 +113,9 @@ GIT_LAB_LINK = "https://gitlab.com/JannesJ/code-jam-3"
 PYTHON_DISCORD_LINK = "https://pythondiscord.com/"
 MISTY_LINK = "https://pythondiscord.com/jams/team/6f243fac-4803-48bb-80f4-237d206e0fab"
 POWERUPS = 'powerup_spritesheet.png'
+
+DEFAULT_FONT_NAME = "LiberationMono-Regular.ttf"
+
 CHARACTER_SPACESHIP = 'own_spaceship.png'
 INVISIBLE = (8, 8), (0, 0), ((0,) * 8), ((0,) * 8)  # invisible cursor
 

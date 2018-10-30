@@ -1,6 +1,8 @@
+from pathlib import PurePath
+
 import pygame as pg
 
-from project.constants import Color
+from project.constants import Color, PATH_FONTS
 
 
 class Timer:
@@ -13,7 +15,7 @@ class Timer:
         self.x = x
         self.y = y
 
-        self.font = pg.font.SysFont(font, font_size)
+        self.font = pg.font.Font(str(PurePath(PATH_FONTS).joinpath(font)), font_size)
         self.time = time
         self.start = pg.time.get_ticks()
         self.completed = False
