@@ -1,6 +1,6 @@
 import pygame as pg
 
-from project.constants import Color, FPS, HEIGHT, INVISIBLE, WIDTH
+from project.constants import Color, DEFAULT_FONT_NAME, FPS, HEIGHT, INVISIBLE, WIDTH
 from project.gameplay.intro import Intro, json_load
 from project.sprites.character import Character
 from project.ui.about import About
@@ -93,9 +93,8 @@ class Game:
         # char_image = pg.image.load(str(PurePath(PATH_IMAGES).joinpath(CHARACTER_IMAGE_NAME)))
         self.devchar = Character(self, 100, 10, friction=-0.052, shield=50)
 
-        self.timer = Timer(self, 600, WIDTH // 2 - 70, 25, "Ariel", 80)
-
-        self.score_display = ScoreDisplay(self, WIDTH - 160, 20, '', 50)
+        self.timer = Timer(self, 600, WIDTH // 2 - 70, 25, DEFAULT_FONT_NAME, 50)
+        self.score_display = ScoreDisplay(self, WIDTH - 160, 20, DEFAULT_FONT_NAME, 30)
         # self.test = Item(self, 'green')
         # self.second_test = Item(self, 'w_green')
         self.wave_generator = WaveGenerator(self)
