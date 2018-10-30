@@ -10,5 +10,4 @@ def get_volume()->float:
 
     if data["mute"]:
         return 0
-    else:
-        return data["volume"] / 100
+    return data["volume"] / 100

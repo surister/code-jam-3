@@ -1,7 +1,7 @@
 import pygame as pg
 
-from project.constants import Color, DATA, DEFAULT_FONT_NAME, FPS, HEIGHT, INVISIBLE, WIDTH
-from project.gameplay.intro import Intro
+from project.constants import Color, DEFAULT_FONT_NAME, FPS, HEIGHT, INVISIBLE, WIDTH
+from project.gameplay.intro import Intro, json_load
 from project.sprites.character import Character
 from project.ui.about import About
 from project.ui.background import Background
@@ -171,6 +171,7 @@ class Game:
         # TODO show end screen
 
     def play_intro(self):
+        DATA = json_load()
 
         if DATA["intro_played"]:
             return
