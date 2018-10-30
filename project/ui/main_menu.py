@@ -1,5 +1,5 @@
+import webbrowser as wb
 from pathlib import PurePath
-from webbrowser import open
 
 import pygame as pg
 from pygame.image import load
@@ -12,8 +12,10 @@ from project.ui.volume import get_volume
 
 class Home:
 
-    def __init__(self, screen, paused: bool = False):
-
+    def __init__(self, screen: pg.Surface, paused: bool = False):
+        """
+        Constructur for the main menu page.
+        """
         self.screen = screen
         self.paused = paused
         # SCREEN: 1280x720px = WxH
@@ -71,6 +73,9 @@ class Home:
         self.once = True
 
     def draw(self)-> None:
+        """
+        Unifying drawing method - draws every element of the main menu.
+        """
         x, y = pg.mouse.get_pos()
 
         self._draw_background()
@@ -84,21 +89,28 @@ class Home:
 
         pg.display.update()
 
-    def _draw_background(self):
+    def _draw_background(self)->None:
+        """
+        Bliting the background image and the game logo on the screen.
+        """
         self.screen.blit(self.background, (0, 0))
         self.screen.blit(self.logo_image, self.logo_rect)
 
-    def _draw_cursor(self, x, y):
+    def _draw_cursor(self, x: int, y: int)->None:
+        """
+        Bliting the cursor on the screen.
+        Classical cursor and finger cursor (if any hoverable element is hovered).
+        """
         if any(self.buttons_hover_states.values()):
             self.screen.blit(self.cursor2, (x, y))
         else:
             self.screen.blit(self.cursor, (x, y))
 
-    def _draw_other_buttons(self, x, y):
-        for key in self.buttons_dict.keys():
-            self._draw_other_button(x, y, key)
-
     def _draw_play_button(self, x: int, y: int)-> None:
+        """
+        Bliting the play button on the screen.
+        Shifting to the right if it is hovered.
+        """
         self.play_button_rect.top = self.segment * 4
         self.play_button_rect.left = self.space
         hovered = self._hovered(x, y, self.play_button_rect)
@@ -112,7 +124,18 @@ class Home:
             self.play_button_rect.left = self.space
             self.screen.blit(self.buttons_sprites["play"], self.play_button_rect)
 
+    def _draw_other_buttons(self, x, y):
+        """
+        Iterating through other buttons and bliting them on the screen.
+        """
+        for key in self.buttons_dict.keys():
+            self._draw_other_button(x, y, key)
+
     def _draw_other_button(self, x: int, y: int, button: str)-> None:
+        """
+        Bliting given button on the screen.
+        Shifting to the right if it is hovered.
+        """
         self.other_button_rect.top = self.segment * self.buttons_dict[button]
         hovered = self._hovered(x, y, self.other_button_rect)
 
@@ -126,6 +149,10 @@ class Home:
             self.screen.blit(self.buttons_sprites[button], self.other_button_rect)
 
     def _draw_gitlab_button(self, x: int, y: int)-> None:
+        """
+        Bliting the GitLab button (link).
+        Bliting hovered version of the button if it is hovered.
+        """
         hovered = self._hovered(x, y, self.gitlab_button_rect)
 
         if hovered:
@@ -136,6 +163,9 @@ class Home:
             self.screen.blit(self.buttons_sprites["gitlab"], self.gitlab_button_rect)
 
     def _play_sound(self)-> None:
+        """
+        Playing the hover sound if any hoverable element is hovered.
+        """
         if not any(self.buttons_hover_states.values()):
             self.once = True
         elif self.once:
@@ -143,12 +173,21 @@ class Home:
             self.once = False
 
     def update_volume(self)->None:
+        """
+        Updating the power of the volume if needed.
+        """
         self.sound.set_volume(get_volume())
 
     @staticmethod
-    def _hovered(x: int, y: int, button: object)-> bool:
+    def _hovered(x: int, y: int, button: pg.Rect)-> bool:
+        """
+        Wraper for collidepoint (checks if point is in pygame.Rect object).
+        """
         return button.collidepoint(x, y)
 
     @staticmethod
     def open_gitlab()-> None:
-        open(GIT_LAB_LINK)
+        """
+        Opens the gitlab link in the browser.
+        """
+        wb.open(GIT_LAB_LINK)
