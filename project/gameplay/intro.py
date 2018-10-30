@@ -10,7 +10,7 @@ from project.ui.volume import get_volume
 
 
 def json_load():
-    with open(str(PurePath(PATH_PROJECT).joinpath("data.json"))) as f:
+    with open(str(PurePath(PATH_PROJECT).joinpath('data.json'))) as f:
         DATA = json.load(f)
     return DATA
 
@@ -23,7 +23,7 @@ class Intro:
         self.screen = screen
         self.playing = True
 
-        self.slides_sheet = Sheet(str(PurePath(PATH_IMAGES).joinpath("slidesheet.png")))
+        self.slides_sheet = Sheet(str(PurePath(PATH_IMAGES).joinpath('slidesheet.png')))
         self.slides = [self.slides_sheet.get_image(0, HEIGHT * i, WIDTH, HEIGHT) for i in range(0, 3)]
 
         self.voice_clips = [pg.mixer.Sound(str(PurePath(PATH_VOICES).joinpath(i)))
@@ -65,11 +65,11 @@ class Intro:
     def _played(self):
         import json
 
-        file = str(PurePath(PATH_PROJECT).joinpath("data.json"))
+        file = str(PurePath(PATH_PROJECT).joinpath('data.json'))
 
-        with open(file, "r") as f:
+        with open(file, 'r') as f:
             data = json.load(f)
-            data["intro_played"] = True
+            data['intro_played'] = True
 
-        with open(file, "w") as f:
+        with open(file, 'w') as f:
             json.dump(data, f)

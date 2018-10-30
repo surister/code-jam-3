@@ -83,7 +83,7 @@ class Game:
 
         self.nonsprite = CustomGroup()
 
-        self.background = Background("stars2.png", self, 5)
+        self.background = Background('stars2.png', self, 5)
 
         """
         # Testing enemies
@@ -132,13 +132,6 @@ class Game:
         self.all_sprites.update()
         self.nonsprite.update()
 
-        """# collide projectiles with enemies
-        for projectile in self.devchar.projectiles:
-            for enemy in self.enemy_sprites:
-                if projectile.collideswith(enemy):
-                    enemy.damage(projectile)
-        """
-
         for enemy in self.enemy_sprites:
             projectile_hit = pg.sprite.spritecollide(enemy, self.others, False)
             if projectile_hit:
@@ -177,7 +170,7 @@ class Game:
     def play_intro(self):
         DATA = json_load()
 
-        if DATA["intro_played"]:
+        if DATA['intro_played']:
             return
         else:
             intro = Intro(self.screen)

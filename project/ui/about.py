@@ -46,7 +46,7 @@ class About:
         self.misty_logo_hover = load(str(PurePath(PATH_IMAGES).joinpath(MISTY_HATS_LOGO_HOVER))).convert_alpha()
         self.misty_logo_hovered = False
 
-        self.text_img = load(str(PurePath(PATH_IMAGES).joinpath("text-about1.png"))).convert_alpha()
+        self.text_img = load(str(PurePath(PATH_IMAGES).joinpath('text-about1.png'))).convert_alpha()
 
         self.sound = HOVER_SOUND
         self.sound.set_volume(get_volume())

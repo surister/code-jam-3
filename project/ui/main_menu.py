@@ -38,14 +38,14 @@ class Home:
         else:
             self.background = load(str(PurePath(PATH_BACKGROUNDS).joinpath(BACKGROUND))).convert_alpha()
 
-        self.buttons_hover_states = {"play": False, "options": False, "about": False, "exit": False, "gitlab": False}
+        self.buttons_hover_states = {'play': False, 'options': False, 'about': False, 'exit': False, 'gitlab': False}
         self.buttons_sprites = {
-            "play": self.sheet.get_image(0, 0, 384, 70, True),
-            "options": self.sheet.get_image(0, 70, 320, 70, True),
-            "about": self.sheet.get_image(0, 140, 320, 70, True),
-            "exit": self.sheet.get_image(0, 210, 320, 70, True),
-            "gitlab": self.sheet.get_image(320, 70, 100, 100, True),
-            "gitlab_h": self.sheet.get_image(320, 170, 100, 100, True)}
+            'play': self.sheet.get_image(0, 0, 384, 70, True),
+            'options': self.sheet.get_image(0, 70, 320, 70, True),
+            'about': self.sheet.get_image(0, 140, 320, 70, True),
+            'exit': self.sheet.get_image(0, 210, 320, 70, True),
+            'gitlab': self.sheet.get_image(320, 70, 100, 100, True),
+            'gitlab_h': self.sheet.get_image(320, 170, 100, 100, True)}
 
         # LOGO: 768x360px
         # horizontal - logo takes 3 parts out of 5 - W/5 * 3 = 768px
@@ -68,7 +68,7 @@ class Home:
             pg.Rect(self.space, self.segment * 5, self.slice * 1.25, self.segment - (self.air * 2))
 
         self.gitlab_button_rect = pg.Rect(WIDTH - 100 - 20, HEIGHT - 100 - 20, 200, 200)
-        self.buttons_dict = {"options": 5, "about": 6, "exit": 7}
+        self.buttons_dict = {'options': 5, 'about': 6, 'exit': 7}
 
         self.sound = HOVER_SOUND
         self.sound.set_volume(get_volume())
@@ -121,13 +121,13 @@ class Home:
         hovered = self._hovered(x, y, self.play_button_rect)
 
         if hovered:
-            self.buttons_hover_states["play"] = True
+            self.buttons_hover_states['play'] = True
             self.play_button_rect.left = self.shift
-            self.screen.blit(self.buttons_sprites["play"], self.play_button_rect)
+            self.screen.blit(self.buttons_sprites['play'], self.play_button_rect)
         else:
-            self.buttons_hover_states["play"] = False
+            self.buttons_hover_states['play'] = False
             self.play_button_rect.left = self.space
-            self.screen.blit(self.buttons_sprites["play"], self.play_button_rect)
+            self.screen.blit(self.buttons_sprites['play'], self.play_button_rect)
 
     def _draw_other_buttons(self, x, y):
         """
@@ -161,11 +161,11 @@ class Home:
         hovered = self._hovered(x, y, self.gitlab_button_rect)
 
         if hovered:
-            self.buttons_hover_states["gitlab"] = True
-            self.screen.blit(self.buttons_sprites["gitlab_h"], self.gitlab_button_rect)
+            self.buttons_hover_states['gitlab'] = True
+            self.screen.blit(self.buttons_sprites['gitlab_h'], self.gitlab_button_rect)
         else:
-            self.buttons_hover_states["gitlab"] = False
-            self.screen.blit(self.buttons_sprites["gitlab"], self.gitlab_button_rect)
+            self.buttons_hover_states['gitlab'] = False
+            self.screen.blit(self.buttons_sprites['gitlab'], self.gitlab_button_rect)
 
     def _play_sound(self)-> None:
         """

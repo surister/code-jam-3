@@ -33,7 +33,6 @@ class Structure(Combat, pg.sprite.Sprite):
         self.vel = vel
         self.pos = pos
         self.type = 2
-        print(self.pos)
         self.image = pg.image.load(str(PurePath(PATH_IMAGES).joinpath(STRUCTURE_IMAGE_NAME)))
         self.rect = self.image.get_rect()
 

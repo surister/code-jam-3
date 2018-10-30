@@ -43,13 +43,13 @@ class Options:
         self.clicked_switch = False
 
         self.intro_played = self._intro_state()
-        self.intro_button_on = load(str(PurePath(PATH_BUTTONS).joinpath("on_btn.png"))).convert_alpha()
-        self.intro_button_off = load(str(PurePath(PATH_BUTTONS).joinpath("off_btn.png"))).convert_alpha()
+        self.intro_button_on = load(str(PurePath(PATH_BUTTONS).joinpath('on_btn.png'))).convert_alpha()
+        self.intro_button_off = load(str(PurePath(PATH_BUTTONS).joinpath('off_btn.png'))).convert_alpha()
         self.intro_hovered = False
 
-        self.on = load(str(PurePath(PATH_BUTTONS).joinpath("on.png"))).convert_alpha()
-        self.off = load(str(PurePath(PATH_BUTTONS).joinpath("off.png"))).convert_alpha()
-        self.intro_img = load(str(PurePath(PATH_BUTTONS).joinpath("intro.png"))).convert_alpha()
+        self.on = load(str(PurePath(PATH_BUTTONS).joinpath('on.png'))).convert_alpha()
+        self.off = load(str(PurePath(PATH_BUTTONS).joinpath('off.png'))).convert_alpha()
+        self.intro_img = load(str(PurePath(PATH_BUTTONS).joinpath('intro.png'))).convert_alpha()
 
         self.on = pg.transform.scale(self.on, (100, 50))
         self.off = pg.transform.scale(self.off, (100, 50))
@@ -148,20 +148,20 @@ class Options:
         """
         Extracting the intro state (on or off) from the data.json file.
         """
-        with open(str(PurePath(PATH_PROJECT).joinpath("data.json"))) as f:
+        with open(str(PurePath(PATH_PROJECT).joinpath('ata.json'))) as f:
             data = json.load(f)
-            played = data["intro_played"]
+            played = data['intro_played']
         return played
 
     def _save_intro_state(self)->None:
         """
         Saving the intro state (on or off) to the data.json file.
         """
-        with open(str(PurePath(PATH_PROJECT).joinpath("data.json"))) as f:
+        with open(str(PurePath(PATH_PROJECT).joinpath('data.json'))) as f:
             data = json.load(f)
 
-        with open(str(PurePath(PATH_PROJECT).joinpath("data.json")), "w") as f:
-            data["intro_played"] = self.intro_played
+        with open(str(PurePath(PATH_PROJECT).joinpath('data.json')), 'w') as f:
+            data['intro_played'] = self.intro_played
             json.dump(data, f)
 
     def _draw_switch(self)->None:
@@ -198,20 +198,20 @@ class Options:
         """
         Converting the volume value from the data.json file to pixels for the volume bar.
         """
-        with open(str(PurePath(PATH_PROJECT).joinpath("data.json"))) as f:
+        with open(str(PurePath(PATH_PROJECT).joinpath('data.json'))) as f:
             data = json.load(f)
-        return 122 + int(data["volume"] * 5.7)
+        return 122 + int(data['volume'] * 5.7)
 
     def _pixels_to_volume(self)->None:
         """
         Converting the pixels for volume and saving it to the data.json file.
         """
-        with open(str(PurePath(PATH_PROJECT).joinpath("data.json"))) as f:
+        with open(str(PurePath(PATH_PROJECT).joinpath('data.json'))) as f:
             data = json.load(f)
 
-        with open(str(PurePath(PATH_PROJECT).joinpath("data.json")), "w") as f:
-            data["volume"] = (self.switch_rect.left - 122) // 5.7
-            data["mute"] = self.mute
+        with open(str(PurePath(PATH_PROJECT).joinpath('data.json')), 'w') as f:
+            data['volume'] = (self.switch_rect.left - 122) // 5.7
+            data['mute'] = self.mute
             json.dump(data, f)
 
     def _play_sound(self)->None:

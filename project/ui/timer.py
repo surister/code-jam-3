@@ -43,4 +43,4 @@ class Timer:
         """
         Formats seconds to mitutes and second (m:ss).
         """
-        return f"{int((sec - sec % 60) / 60)}:{sec % 60:02}"
+        return f'{int((sec - sec % 60) / 60)}:{sec % 60:02}'
