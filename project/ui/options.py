@@ -4,7 +4,8 @@ from pathlib import PurePath
 import pygame as pg
 from pygame.image import load
 
-from project.constants import FPS, PATH_BUTTONS, PATH_CURSORS, PATH_GUI, PATH_IMAGES, PATH_PROJECT
+from project.constants import FPS, HOVER_SOUND, PATH_BUTTONS, PATH_CURSORS, PATH_GUI, PATH_IMAGES, PATH_PROJECT
+from project.ui.volume import get_volume
 
 
 class Options:
@@ -33,6 +34,10 @@ class Options:
         self.switch_rect = pg.Rect(self._volume_to_pixels(), 150, self.switch.get_width(), self.switch.get_height())
         self.clicked_switch = False
 
+        self.sound = HOVER_SOUND
+        self.sound.set_volume(get_volume())
+
+        self.once = True
         self.mute = None
 
     def handle_input(self)->None:
@@ -53,24 +58,30 @@ class Options:
                     waiting = running = False
                 if event.type == pg.MOUSEBUTTONUP and self.back_btn_hover:
                     waiting = False
-
+            self._pixels_to_volume()
             pg.display.update()
-        self._pixels_to_volume()
         return running
 
     def draw(self):
-        self.screen.blit(self.background, (0, 0))
+        self._draw_background()
+
         self._draw_back_button()
         self._draw_volume()
         self._draw_switch()
 
+        self._play_sound()
+        self._draw_cursor()
+
+    def _draw_background(self):
+        self.screen.blit(self.background, (0, 0))
+
+    def _draw_cursor(self):
         if self.back_btn_hover or self.clicked_switch:
             self.screen.blit(self.cursor2, (self.x, self.y))
         else:
             self.screen.blit(self.cursor, (self.x, self.y))
 
     def _draw_volume(self)->None:
-
         if 120 < self.switch_rect.left < 133:
             self.screen.blit(self.novolume, (20, 140))
             self.mute = True
@@ -79,7 +90,6 @@ class Options:
             self.mute = False
 
     def _draw_switch(self)->None:
-
         if self._hovered(self.x, self.y, self.switch_rect) and self.mouseclick:
             self.clicked_switch = True
 
@@ -114,6 +124,15 @@ class Options:
             data["volume"] = (self.switch_rect.left - 122) // 5.7
             data["mute"] = self.mute
             json.dump(data, f)
+
+    def _play_sound(self)->None:
+        self.sound.set_volume(get_volume())
+
+        if not self.back_btn_hover:
+            self.once = True
+        elif self.once:
+            self.sound.play()
+            self.once = False
 
     def _hovered(self, x: int, y: int, button: pg.Rect)-> bool:
         return button.collidepoint(x, y)

@@ -4,7 +4,8 @@ from pathlib import PurePath
 import pygame as pg
 from pygame.image import load
 
-from project.constants import FPS, MISTY_LINK, PATH_BUTTONS, PATH_CURSORS, PATH_IMAGES, PYTHON_DISCORD_LINK
+from project.constants import FPS, HOVER_SOUND, MISTY_LINK, PATH_BUTTONS, PATH_CURSORS, PATH_IMAGES, PYTHON_DISCORD_LINK
+from project.ui.volume import get_volume
 
 # IF YOU ARE A MUGGLE DON'T LOOK AT THE CODE BECAUSE THERE ARE A LOT OF MAGIC NUMBERS
 
@@ -26,7 +27,7 @@ class About:
         self.cursor = load(str(PurePath(PATH_CURSORS).joinpath("cur.png"))).convert_alpha()
         self.cursor2 = load(str(PurePath(PATH_CURSORS).joinpath("hov.png"))).convert_alpha()
 
-        self.label = load(str(PurePath(PATH_IMAGES).joinpath("label5.png"))).convert_alpha()
+        self.label = load(str(PurePath(PATH_IMAGES).joinpath("label7.png"))).convert_alpha()
 
         self.python_logo = load(str(PurePath(PATH_IMAGES).joinpath("python_logo2.png"))).convert_alpha()
         self.python_logo_hover = load(str(PurePath(PATH_IMAGES).joinpath("python_logo_hover.png"))).convert_alpha()
@@ -36,8 +37,8 @@ class About:
         self.misty_logo_hover = load(str(PurePath(PATH_IMAGES).joinpath("mistyhats_hover.png"))).convert_alpha()
         self.misty_logo_hovered = False
 
-        # self.python_logo = pg.transform.scale(self.python_logo, (self.python_logo.get_width() // 6,
-        #                                                          self.python_logo.get_height() // 6))
+        self.sound = HOVER_SOUND
+        self.sound.set_volume(get_volume())
 
     def handle_input(self)->None:
 
@@ -59,23 +60,28 @@ class About:
                     wb.open(PYTHON_DISCORD_LINK)
                 if event.type == pg.MOUSEBUTTONUP and self.misty_logo_hovered:
                     wb.open(MISTY_LINK)
-
             pg.display.update()
         return running
 
     def draw(self):
-        self.screen.blit(self.background, (0, 0))
-        self.screen.blit(self.label, (0, 0))
+        self._draw_background()
 
         self._draw_python_logo()
         self._draw_misty_logo()
-
         self._draw_back_button()
 
-        if self.back_btn_hover or self.python_logo_hovered or self.misty_logo_hovered:
+        self._play_sound()
+        self._draw_cursor()
+
+    def _draw_cursor(self):
+        if any((self.back_btn_hover, self.python_logo_hovered, self.misty_logo_hovered)):
             self.screen.blit(self.cursor2, (self.x, self.y))
         else:
             self.screen.blit(self.cursor, (self.x, self.y))
+
+    def _draw_background(self):
+        self.screen.blit(self.background, (0, 0))
+        self.screen.blit(self.label, (0, 0))
 
     def _draw_back_button(self)->None:
         self.back_btn_rect.left = 20
@@ -88,20 +94,28 @@ class About:
         self.screen.blit(self.back_btn, self.back_btn_rect)
 
     def _draw_python_logo(self)->None:
-        if self._hovered(self.x, self.y, pg.Rect(940, 120, 940 + 318, 120 + 11)):
+        if self._hovered(self.x, self.y, pg.Rect(940, 600, 940 + 318, 600 + 111)):
             self.python_logo_hovered = True
-            self.screen.blit(self.python_logo_hover, (940, 120))
+            self.screen.blit(self.python_logo_hover, (940, 600))
         else:
             self.python_logo_hovered = False
-            self.screen.blit(self.python_logo, (940, 120))
+            self.screen.blit(self.python_logo, (940, 600))
 
     def _draw_misty_logo(self)->None:
-        if self._hovered(self.x, self.y, pg.Rect(225, 115, 180 + 318, 115 + 11)):
+        if self._hovered(self.x, self.y, pg.Rect(40, 200, 120, 120)):
             self.misty_logo_hovered = True
-            self.screen.blit(self.misty_logo_hover, (225, 115))
+            self.screen.blit(self.misty_logo_hover, (40, 200))
         else:
             self.misty_logo_hovered = False
-            self.screen.blit(self.misty_logo, (225, 115))
+            self.screen.blit(self.misty_logo, (40, 200))
+
+    def _play_sound(self)->None:
+
+        if not any([self.back_btn_hover, self.misty_logo_hovered, self.python_logo_hovered]):
+            self.once = True
+        elif self.once:
+            self.sound.play()
+            self.once = False
 
     def _hovered(self, x: int, y: int, button: pg.Rect)-> bool:
         return button.collidepoint(x, y)

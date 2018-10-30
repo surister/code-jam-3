@@ -1,6 +1,8 @@
 import json
 from pathlib import PurePath
 
+import pygame as pg
+pg.mixer.init()
 
 # Frame rate options
 MIN_FPS = False
@@ -84,7 +86,7 @@ MISTY_LINK = "https://pythondiscord.com/jams/team/6f243fac-4803-48bb-80f4-237d20
 
 INVISIBLE = (8, 8), (0, 0), ((0,) * 8), ((0,) * 8)  # invisible cursor
 
-# TODO constant variables for the hover sound and cursors
+HOVER_SOUND = pg.mixer.Sound(str(PurePath(PATH_FX).joinpath("hover.wav")))
 
 print(FPS)
 print(WIDTH_RATIO, HEIGHT_RATIO, WIDTH, HEIGHT)
