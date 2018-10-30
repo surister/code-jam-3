@@ -44,7 +44,10 @@ class Character(Combat, Physics, pg.sprite.Sprite):
         self.evil = False
         self.type = 1
         self.fire_rate -= 20
-        self.rapid_fire = False
+        self.check_for_double_shot = False
+        self.check_for_immunity = False
+        self.check_for_rapid_fire = False
+        self.time_update = 0
         if self.rapid_fire:
             self.fire_rate -= 100
         if image is None:
@@ -88,7 +91,47 @@ class Character(Combat, Physics, pg.sprite.Sprite):
         else:
             self.health += amount
 
+    def double_shot(self, duration: int):
+        self.type = 5
+        self.double_s = True
+        self.double_shot_duration = duration
+        self.check_for_double_shot = True
+
+    def immune(self, duration: int):
+        self.immunity_duration = duration
+        self.immunity = True
+        self.check_for_immunity = True
+
+    def fast_fire(self, duration: int):
+        self.rapid_fire_duration = duration
+        self.rapid_fire = True
+        self.check_for_rapid_fire = True
+        self.fire_rate -= 40
+
     def update(self) -> None:
+        if self.check_for_double_shot:
+            now = pg.time.get_ticks()
+
+            if now - self.time_update > self.double_shot_duration * 1000:
+                self.time_update = now
+                self.double_s = False
+                self.type = 1
+                self.check_for_double_shot = False
+
+        if self.check_for_immunity:
+            now = pg.time.get_ticks()
+            if now - self.time_update > self.immunity_duration * 1000:
+                self.time_update = now
+                self.immunity = False
+                self.check_for_immunity = False
+
+        if self.check_for_rapid_fire:
+            now = pg.time.get_ticks()
+            if now - self.time_update > self.rapid_fire_duration * 1000:
+                self.time_update = now
+                self.immunity = False
+                self.check_for_rapid_fire = False
+                self.fire_rate += 40
 
         self.key = pg.key.get_pressed()
 
@@ -104,5 +147,6 @@ class Character(Combat, Physics, pg.sprite.Sprite):
         if self.key[pg.K_SPACE]:
             self._shot()
             # self.health -= 5
-
         super().update()
+        print(self.armor)
+        print(self.attack)
