@@ -1,3 +1,4 @@
+import json
 import os
 from pathlib import PurePath
 
@@ -8,18 +9,31 @@ from project.ui.sheet import Sheet
 from project.ui.volume import get_volume
 
 
+def json_load():
+    with open(str(PurePath(PATH_PROJECT).joinpath("data.json"))) as f:
+        DATA = json.load(f)
+    return DATA
+
+
 class Intro:
 
     def __init__(self, screen: pg.Surface):
 
+        pg.mixer.init()
         self.screen = screen
         self.playing = True
 
         self.slides_sheet = Sheet(str(PurePath(PATH_IMAGES).joinpath("slidesheet.png")))
         self.slides = [self.slides_sheet.get_image(0, HEIGHT * i, WIDTH, HEIGHT) for i in range(0, 3)]
 
-        self.voice_clips = [pg.mixer.Sound(str(PurePath(PATH_VOICES).joinpath(i))).set_volume(get_volume())
+        self.voice_clips = [pg.mixer.Sound(str(PurePath(PATH_VOICES).joinpath(i)))
                             for i in os.listdir(str(PurePath(PATH_VOICES)))]
+
+        volume = get_volume()
+        self.voice_clips[0].set_volume(volume)
+        self.voice_clips[1].set_volume(volume)
+        self.voice_clips[2].set_volume(volume)
+
         self.durations = [i.get_length() for i in self.voice_clips]
         self.durations[0] += 1.5
 

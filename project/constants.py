@@ -1,4 +1,3 @@
-import json
 from pathlib import PurePath
 from random import randint
 
@@ -73,8 +72,6 @@ PATH_BACKGROUNDS = PurePath(PATH_PROJECT).joinpath('assets/gui/backgrounds')
 PATH_FX = PurePath(PATH_PROJECT).joinpath('assets/fx')
 PATH_VOICES = PurePath(PATH_PROJECT).joinpath('assets/fx/slidevoices')
 
-with open(str(PurePath(PATH_PROJECT).joinpath("data.json"))) as f:
-    DATA = json.load(f)
 
 PROJECTILE_IMAGE_NAME = {0: "blasters/b0.png",
                          1: "blasters/b1.png",

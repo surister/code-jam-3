@@ -5,7 +5,7 @@ import pygame as pg
 from pygame.image import load
 
 from project.constants import BACKGROUND_3, BACK_BUTTON, CURSOR, CURSOR_HOVER, FPS, HOVER_SOUND, PATH_BACKGROUNDS,\
-    PATH_BUTTONS, PATH_CURSORS, PATH_GUI, PATH_PROJECT, SWITCH, VOLUME, VOLUME_NO
+    PATH_BUTTONS, PATH_CURSORS, PATH_PROJECT, SWITCH, VOLUME, VOLUME_NO
 from project.ui.volume import get_volume
 
 
@@ -28,12 +28,17 @@ class Options:
         self.cursor = load(str(PurePath(PATH_CURSORS).joinpath(CURSOR))).convert_alpha()
         self.cursor2 = load(str(PurePath(PATH_CURSORS).joinpath(CURSOR_HOVER))).convert_alpha()
 
-        self.volume = load(str(PurePath(PATH_GUI).joinpath(VOLUME))).convert_alpha()
-        self.novolume = load(str(PurePath(PATH_GUI).joinpath(VOLUME_NO))).convert_alpha()
+        self.volume = load(str(PurePath(PATH_BUTTONS).joinpath(VOLUME))).convert_alpha()
+        self.novolume = load(str(PurePath(PATH_BUTTONS).joinpath(VOLUME_NO))).convert_alpha()
 
-        self.switch = load(str(PurePath(PATH_GUI).joinpath(SWITCH))).convert_alpha()
+        self.switch = load(str(PurePath(PATH_BUTTONS).joinpath(SWITCH))).convert_alpha()
         self.switch_rect = pg.Rect(self._volume_to_pixels(), 150, self.switch.get_width(), self.switch.get_height())
         self.clicked_switch = False
+
+        self.intro_played = self._intro_state()
+        self.intro_button_on = load(str(PurePath(PATH_BUTTONS).joinpath("on_btn.png"))).convert_alpha()
+        self.intro_button_off = load(str(PurePath(PATH_BUTTONS).joinpath("off_btn.png"))).convert_alpha()
+        self.intro_hovered = False
 
         self.sound = HOVER_SOUND
         self.sound.set_volume(get_volume())
@@ -59,7 +64,10 @@ class Options:
                     waiting = running = False
                 if event.type == pg.MOUSEBUTTONUP and self.back_btn_hover:
                     waiting = False
+                if event.type == pg.MOUSEBUTTONUP and self.intro_hovered:
+                    self.intro_played = not self.intro_played
             self._pixels_to_volume()
+            self._save_intro_state()
             pg.display.update()
         return running
 
@@ -69,6 +77,7 @@ class Options:
         self._draw_back_button()
         self._draw_volume()
         self._draw_switch()
+        self._draw_intro()
 
         self._play_sound()
         self._draw_cursor()
@@ -77,7 +86,7 @@ class Options:
         self.screen.blit(self.background, (0, 0))
 
     def _draw_cursor(self):
-        if self.back_btn_hover or self.clicked_switch:
+        if self.back_btn_hover or self.clicked_switch or self.intro_hovered:
             self.screen.blit(self.cursor2, (self.x, self.y))
         else:
             self.screen.blit(self.cursor, (self.x, self.y))
@@ -89,6 +98,28 @@ class Options:
         else:
             self.screen.blit(self.volume, (20, 140))
             self.mute = False
+
+    def _draw_intro(self)->None:
+        self.intro_hovered = self._hovered(self.x, self.y, pg.Rect(920, 150, 200, 100))
+
+        if self.intro_played:
+            self.screen.blit(self.intro_button_on, (920, 150))
+        else:
+            self.screen.blit(self.intro_button_off, (920, 150))
+
+    def _intro_state(self)->True:
+        with open(str(PurePath(PATH_PROJECT).joinpath("data.json"))) as f:
+            data = json.load(f)
+            played = data["intro_played"]
+        return played
+
+    def _save_intro_state(self)->None:
+        with open(str(PurePath(PATH_PROJECT).joinpath("data.json"))) as f:
+            data = json.load(f)
+
+        with open(str(PurePath(PATH_PROJECT).joinpath("data.json")), "w") as f:
+            data["intro_played"] = self.intro_played
+            json.dump(data, f)
 
     def _draw_switch(self)->None:
         if self._hovered(self.x, self.y, self.switch_rect) and self.mouseclick:
