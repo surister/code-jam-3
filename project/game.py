@@ -2,7 +2,8 @@ from pathlib import PurePath
 
 import pygame as pg
 
-from project.constants import CHARACTER_IMAGE_NAME, Color, DATA, FPS, HEIGHT, INVISIBLE, PATH_IMAGES, SHOW_FPS, WIDTH
+from project.constants import (CHARACTER_IMAGE_NAME, Color, DATA, DEFAULT_FONT_NAME, FPS, HEIGHT,
+                               INVISIBLE, PATH_IMAGES, SHOW_FPS, WIDTH)
 from project.gameplay.intro import Intro
 from project.sprites.character import Character
 from project.ui.about import About
@@ -91,9 +92,8 @@ class Game:
         char_image = pg.image.load(str(PurePath(PATH_IMAGES).joinpath(CHARACTER_IMAGE_NAME)))
         self.devchar = Character(self, 100, 10, friction=-0.052, image=char_image, shield=50)
 
-        self.timer = Timer(self, 600, WIDTH // 2 - 70, 25, "Ariel", 80)
-
-        self.score_display = ScoreDisplay(self, WIDTH - 160, 20, '', 50)
+        self.timer = Timer(self, 600, WIDTH // 2 - 70, 25, DEFAULT_FONT_NAME, 50)
+        self.score_display = ScoreDisplay(self, WIDTH - 160, 20, DEFAULT_FONT_NAME, 30)
         # self.test = Item(self, 'green')
         # self.second_test = Item(self, 'w_green')
         self.wave_generator = WaveGenerator(self)
