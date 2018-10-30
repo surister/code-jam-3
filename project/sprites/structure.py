@@ -29,7 +29,7 @@ class Structure(Combat, pg.sprite.Sprite):
         self.vel = vel
         self.pos = pos
         self.type = 2
-
+        print(self.pos)
         self.image = pg.image.load(str(PurePath(PATH_IMAGES).joinpath(STRUCTURE_IMAGE_NAME)))
         self.rect = self.image.get_rect()
 
@@ -40,6 +40,8 @@ class Structure(Combat, pg.sprite.Sprite):
         self.evil = True
         self.healthbar = DynamicHealthbar(self.game, self)
         self.mask = pg.mask.from_surface(self.image)
+
+        self.rect = self.image.get_rect(center=self.pos)
 
     def update(self) -> None:
         """ Move left untill destination passed if not already there, otherwise shoot at the player """
