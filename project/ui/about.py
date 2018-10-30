@@ -4,7 +4,8 @@ from pathlib import PurePath
 import pygame as pg
 from pygame.image import load
 
-from project.constants import FPS, HOVER_SOUND, MISTY_LINK, PATH_BUTTONS, PATH_CURSORS, PATH_IMAGES, PYTHON_DISCORD_LINK
+from project.constants import FPS, HOVER_SOUND, MISTY_LINK, PATH_BACKGROUNDS, PATH_BUTTONS, PATH_CURSORS, PATH_IMAGES,\
+    PYTHON_DISCORD_LINK
 from project.ui.volume import get_volume
 
 # IF YOU ARE A MUGGLE DON'T LOOK AT THE CODE BECAUSE THERE ARE A LOT OF MAGIC NUMBERS
@@ -15,7 +16,7 @@ class About:
     def __init__(self, screen: pg.Surface):
 
         self.screen = screen
-        self.background = load(str(PurePath(PATH_IMAGES).joinpath("background2.png")))
+        self.background = load(str(PurePath(PATH_BACKGROUNDS).joinpath("background2.png")))
         self.sound = None
 
         self.back_btn = load(str(PurePath(PATH_BUTTONS).joinpath("back.png")))

@@ -4,7 +4,8 @@ from pathlib import PurePath
 import pygame as pg
 from pygame.image import load
 
-from project.constants import FPS, HOVER_SOUND, PATH_BUTTONS, PATH_CURSORS, PATH_GUI, PATH_IMAGES, PATH_PROJECT
+from project.constants import FPS, HOVER_SOUND, PATH_BACKGROUNDS, PATH_BUTTONS, PATH_CURSORS, PATH_GUI,\
+    PATH_PROJECT
 from project.ui.volume import get_volume
 
 
@@ -13,7 +14,7 @@ class Options:
     def __init__(self, screen: pg.Surface):
 
         self.screen = screen
-        self.background = load(str(PurePath(PATH_IMAGES).joinpath("background3.png")))
+        self.background = load(str(PurePath(PATH_BACKGROUNDS).joinpath("background3.png")))
         self.sound = None
 
         self.back_btn = load(str(PurePath(PATH_BUTTONS).joinpath("back.png")))

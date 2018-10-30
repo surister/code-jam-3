@@ -5,7 +5,7 @@ import pygame as pg
 from pygame.image import load
 
 from project.constants import BACKGROUND, BACKGROUND_3, BUTTONSHEET, CURSOR, CURSOR_HOVER, GIT_LAB_LINK, HEIGHT,\
-    HOVER_SOUND, LOGO, PATH_BUTTONS, PATH_CURSORS, PATH_IMAGES, WIDTH
+    HOVER_SOUND, LOGO, PATH_BACKGROUNDS, PATH_BUTTONS, PATH_CURSORS, PATH_IMAGES, WIDTH
 from project.sprites.sheet import Sheet
 from project.ui.volume import get_volume
 
@@ -27,9 +27,9 @@ class Home:
 
         self.sheet = Sheet(str(PurePath(PATH_BUTTONS).joinpath(BUTTONSHEET)))
         if self.paused:
-            self.background = load(str(PurePath(PATH_IMAGES).joinpath(BACKGROUND_3))).convert_alpha()
+            self.background = load(str(PurePath(PATH_BACKGROUNDS).joinpath(BACKGROUND_3))).convert_alpha()
         else:
-            self.background = load(str(PurePath(PATH_IMAGES).joinpath(BACKGROUND))).convert_alpha()
+            self.background = load(str(PurePath(PATH_BACKGROUNDS).joinpath(BACKGROUND))).convert_alpha()
 
         self.buttons_hover_states = {"play": False, "options": False, "about": False, "exit": False, "gitlab": False}
         self.buttons_sprites = {
