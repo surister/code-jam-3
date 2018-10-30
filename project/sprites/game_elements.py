@@ -94,10 +94,10 @@ class Item(pg.sprite.Sprite):
     """Represents items such as drops
     red: + soft hp
     pink: + full hp
-    purple: temporal double shot x seconds
+    purple: temporary double shot x seconds
     blue: + max shield
-    yellow: temporal immunity
-    white: temporal extra fire rate
+    yellow: temporary immunity
+    white: temporary extra fire rate
     green: + armor
     white: permanent extra damage
     """
