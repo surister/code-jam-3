@@ -7,12 +7,12 @@ from project.constants import PATH_IMAGES
 
 class Background:
     """
-    Represents a parallax scroling background.
+    Represents a parallax scrolling background.
     """
 
     def __init__(self, image_name: str, game, speed: int):
         """
-        Constructur for the moving background.
+        Constructor for the moving background.
         """
         self.game = game
         self.screen = game.screen
