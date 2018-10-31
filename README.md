@@ -38,7 +38,25 @@ As usual, you should be using [Pipenv](https://pipenv.readthedocs.io/en/latest/)
 
 ## How to run
 
-`# TODO`
+You need Python and Git installed on your system.
+
+1. Install pipenv.
+![]("https://imgur.com/a/ORIe3vB")
+
+2. Copy the URL of the repository.
+![]("https://imgur.com/a/y0WXafW")
+
+3. Clone the repository locally.
+![]("https://imgur.com/a/9UO6Q3z")
+
+4. Enter the directory.
+![]("https://imgur.com/a/jY0HH5W")
+
+5. Install the dependencies.
+![]("https://imgur.com/a/Q1iNFmu")
+
+6. Run the game.
+![]("https://imgur.com/a/JlLKXaX")
 
 ## How to play
 
