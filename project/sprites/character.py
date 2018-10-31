@@ -36,8 +36,26 @@ class Character(Combat, Physics, pg.sprite.Sprite):
         self.game = game
         self.add(self.game.all_sprites)
 
-        self.image = Sheet(Character.path).get_image(200, 460, 310, 300, alpha=True)
-        self.image = pg.transform.scale(self.image, (60, 60))
+        self.image_code = 1
+
+        self.images = {1: pg.transform.scale(
+            Sheet(Character.path).get_image(200, 460, 310, 300, alpha=True), (60, 60)),    # red
+                       2: pg.transform.scale(
+            Sheet(Character.path).get_image(200, 760, 310, 300, alpha=True), (60, 60)),    # blue
+                       3: pg.transform.scale(
+            Sheet(Character.path).get_image(200, 1060, 310, 300, alpha=True), (60, 60)),    # green
+                       4: pg.transform.scale(
+            Sheet(Character.path).get_image(600, 760, 310, 300, alpha=True), (60, 60)),    # yellow
+                       5: pg.transform.scale(
+            Sheet(Character.path).get_image(600, 1060, 310, 300, alpha=True), (60, 60)),   # orange
+                       6: pg.transform.scale(
+            Sheet(Character.path).get_image(900, 760, 310, 300, alpha=True), (60, 60)),    # purple
+                       7: pg.transform.scale(
+            Sheet(Character.path).get_image(900, 1060, 310, 300, alpha=True), (60, 60)),   # pink
+                       8: pg.transform.scale(
+            Sheet(Character.path).get_image(1250, 1060, 310, 300, alpha=True), (60, 60))}  # black
+
+        self.image = self.images[1]
         self.image.set_colorkey(Color.black)
 
         self.player_acc = PLAYER_ACC
@@ -47,6 +65,7 @@ class Character(Combat, Physics, pg.sprite.Sprite):
         self.defense = defence
         self.projectiles = deque()
         self.type = 1
+
         self.fire_rate -= 20
         self.evil = False
         self.check_for_double_shot = False
@@ -138,6 +157,9 @@ class Character(Combat, Physics, pg.sprite.Sprite):
         Depending on the check flags we check for boosts duration.
         Key -> movement is also done here.
         """
+
+        self.image = self.images[self.image_code]
+
         if self.check_for_double_shot:
             now = pg.time.get_ticks()
             if now > self.double_shot_time + self.double_shot_duration * 1000:

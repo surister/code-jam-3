@@ -40,8 +40,8 @@ POWERUP_EFFECT = {
     'blue': None,    # Full shield - don't change
     'yellow': 15,   # immune - seconds
     'white': 15,    # permanent extra fire rate
-    'green': 5,     # +armor
-    'w_green': 1    # + attack
+    'green': 0.5,     # +armor
+    'w_green': 0.5    # + attack
 }
 
 
@@ -83,10 +83,12 @@ PROJECTILE_IMAGE_NAME = {0: 'blasters/b0.png',
                          6: 'blasters/b6.png'
                          }
 
-CHARACTER_IMAGE_NAME = 'ufo3.png'
-STRUCTURE_IMAGE_NAME = 'structure.png'
-FIGHTER_IMAGE_NAME = 'fighter.png'
-MINE_IMAGE_NAME = 'mine.png'
+
+CHARACTER_IMAGE_NAME = "ufo3.png"
+STRUCTURE_IMAGE_NAME = "structure.png"
+FIGHTER_IMAGE_NAME = "fighter.png"
+MINE_IMAGE_NAME = "minas-2.png"
+
 HEALTHBAR = 'healthbar.png'
 SHIELDBAR = 'shield.png'
 BUTTONSHEET = 'buttonsheet.png'

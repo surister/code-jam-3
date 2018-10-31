@@ -11,6 +11,7 @@ from project.ui.score import ScoreDisplay
 from project.ui.timer import Timer
 from project.wave_generator import WaveGenerator
 # from project.sprites.game_elements import Item
+# from project.sprites.mine import Mine
 
 
 class CustomGroup:
@@ -76,6 +77,7 @@ class Game:
         """
 
         self.all_sprites = pg.sprite.Group()
+        self.mines = pg.sprite.Group()
         self.enemy_sprites = pg.sprite.Group()
         self.powerups = pg.sprite.Group()
         self.others = pg.sprite.Group()
@@ -85,16 +87,13 @@ class Game:
 
         self.background = Background('stars2.png', self, 5)
 
-        """
         # Testing enemies
-        Structure(self, WIDTH - 250, pg.Vector2(1, 1), pg.Vector2(WIDTH, 500))
+        # Structure(self, WIDTH - 250, pg.Vector2(1, 1), pg.Vector2(WIDTH, 500))
 
-        Fighter(self, -0.02, pos=pg.Vector2(WIDTH, 500))
+        # Fighter(self, -0.02, pos=pg.Vector2(WIDTH, 500))
 
-        Mine(self, pg.Vector2(1.5, 1.5), pg.Vector2(WIDTH, 200))
-        """
+        # Mine(self, pg.Vector2(0, 0), pg.Vector2(800, 600))
 
-        # char_image = pg.image.load(str(PurePath(PATH_IMAGES).joinpath(CHARACTER_IMAGE_NAME)))
         self.devchar = Character(self, 100, 10, friction=-0.052, shield=50)
 
         self.timer = Timer(self, 600, WIDTH // 2 - 70, 25, DEFAULT_FONT_NAME, 50)
@@ -121,9 +120,6 @@ class Game:
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 self.running = self.playing = False
-            if event.type == pg.KEYUP:
-                if event.key == pg.K_ESCAPE:
-                    self._pause()
 
     def _update(self)-> None:
         """
@@ -151,6 +147,12 @@ class Game:
             for projectile in enemy_projectiles_hit_mask:
                 self.devchar.damage(projectile)
                 projectile.destroy()
+
+        mine_hit = pg.sprite.spritecollide(self.devchar, self.mines, False)
+        if mine_hit:
+            mine_hit_mask = pg.sprite.spritecollide(self.devchar, self.mines, True, pg.sprite.collide_mask)
+            if mine_hit_mask:
+                self.devchar.heal(-20)
 
     def _draw(self)-> None:
         """
@@ -211,18 +213,7 @@ class Game:
                 if event.type == pg.MOUSEBUTTONUP and self.homepage.buttons_hover_states['exit']:
                     self.running = self.playing = waiting = False
 
-    def _pause(self)-> None:
-        pause_buttom = Home(self.screen, True)
-        waiting = True
-        while waiting:
-            pause_buttom.draw()
-            pg.display.flip()
-            for event in pg.event.get():
-                if event.type == pg.KEYUP:
-                    if event.key == pg.K_ESCAPE:
-                        waiting = False
-
-    def _draw_text(self, text: str, size: int, color: Color, x: int, y: int)-> None:
+    def draw_text(self, text: str, size: int, color: Color, x: int, y: int)-> None:
         """
         Draws basic text in the screen
         """

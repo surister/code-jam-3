@@ -186,7 +186,7 @@ class Home:
     @staticmethod
     def _hovered(x: int, y: int, button: pg.Rect)-> bool:
         """
-        Wraper for collidepoint (checks if point is in pygame.Rect object).
+        Wrapper for collidepoint (checks if point is in pygame.Rect object).
         """
         return button.collidepoint(x, y)
 
