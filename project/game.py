@@ -1,6 +1,8 @@
+from pathlib import PurePath
+
 import pygame as pg
 
-from project.constants import Color, DEFAULT_FONT_NAME, FPS, HEIGHT, INVISIBLE, WIDTH
+from project.constants import Color, DEFAULT_FONT_NAME, FPS, HEIGHT, INVISIBLE, PATH_FX, WIDTH
 from project.gameplay.intro import Intro, json_load
 from project.sprites.character import Character
 from project.ui.about import About
@@ -9,6 +11,7 @@ from project.ui.main_menu import Home
 from project.ui.options import Options
 from project.ui.score import ScoreDisplay
 from project.ui.timer import Timer
+from project.ui.volume import get_volume
 from project.wave_generator import WaveGenerator
 # from project.sprites.game_elements import Item
 # from project.sprites.mine import Mine
@@ -50,6 +53,9 @@ class Game:
     def __init__(self):
         pg.init()
         pg.mixer.init()
+        pg.mixer.init()
+        pg.mixer.music.load(str(PurePath(PATH_FX).joinpath("song.mp3")))
+        pg.mixer.music.play()
         pg.display.set_caption('Game in development')
         pg.mouse.set_cursor(*INVISIBLE)
 
@@ -212,6 +218,7 @@ class Game:
                     self.homepage.open_gitlab()
                 if event.type == pg.MOUSEBUTTONUP and self.homepage.buttons_hover_states['exit']:
                     self.running = self.playing = waiting = False
+            pg.mixer.music.set_volume(get_volume())
 
     def draw_text(self, text: str, size: int, color: Color, x: int, y: int)-> None:
         """
