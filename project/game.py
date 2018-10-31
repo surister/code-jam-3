@@ -14,6 +14,7 @@ from project.ui.timer import Timer
 from project.ui.volume import get_volume
 from project.wave_generator import WaveGenerator
 
+
 class CustomGroup:
     """
     Imitates pg.sprite.Group(). It's main functionality is to handle every draw and update call for non
