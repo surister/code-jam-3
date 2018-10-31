@@ -148,7 +148,7 @@ class Options:
         """
         Extracting the intro state (on or off) from the data.json file.
         """
-        with open(str(PurePath(PATH_PROJECT).joinpath('ata.json'))) as f:
+        with open(str(PurePath(PATH_PROJECT).joinpath('data.json'))) as f:
             data = json.load(f)
             played = data['intro_played']
         return played
