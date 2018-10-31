@@ -1,4 +1,5 @@
 import logging
+import random
 
 import pygame as pg
 
@@ -79,7 +80,8 @@ class Combat:
         """
         Generates a power up
         """
-        Item(self.game)
+        if 0.1 + self.game.wave_generator.difficulty * 0.05 > random.uniform(0, 1):
+            Item(self.game)
 
     def _shot(self, angle: float=0, spawn_point: pg.Vector2=None) -> None:
         """
