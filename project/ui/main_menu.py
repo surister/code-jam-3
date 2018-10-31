@@ -5,7 +5,7 @@ import pygame as pg
 from pygame.image import load
 
 from project.constants import BACKGROUND, BACKGROUND_3, BUTTONSHEET, CURSOR, CURSOR_HOVER, GIT_LAB_LINK, HEIGHT,\
-    HOVER_SOUND, LOGO, PATH_BACKGROUNDS, PATH_BUTTONS, PATH_CURSORS, PATH_IMAGES, PATH_FX, WIDTH
+    HOVER_SOUND, LOGO, PATH_BACKGROUNDS, PATH_BUTTONS, PATH_CURSORS, PATH_IMAGES, WIDTH
 from project.ui.sheet import Sheet
 from project.ui.volume import get_volume
 
@@ -73,11 +73,6 @@ class Home:
 
         self.sound = HOVER_SOUND
         self.sound.set_volume(get_volume())
-
-        pg.mixer.init()
-        pg.mixer.music.load(str(PurePath(PATH_FX).joinpath("song.mp3")))
-        pg.mixer.music.set_volume(get_volume())
-        pg.mixer.music.play()
 
         self.cursor = load(str(PurePath(PATH_CURSORS).joinpath(CURSOR))).convert_alpha()
         self.cursor2 = load(str(PurePath(PATH_CURSORS).joinpath(CURSOR_HOVER))).convert_alpha()

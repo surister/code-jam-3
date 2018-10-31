@@ -86,6 +86,7 @@ class Options:
             self._pixels_to_volume()
             self._save_intro_state()
             pg.display.update()
+            pg.mixer.music.set_volume(get_volume())
         return running
 
     def draw(self):
