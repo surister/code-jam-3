@@ -106,7 +106,7 @@ class Item(pg.sprite.Sprite):
     yellow: temporary immunity
     white: temporary extra fire rate
     green: + armor
-    white: permanent extra damage
+    w_green: permanent extra damage
     """
     def __init__(self, game, color: str = None):
         super().__init__()
@@ -140,25 +140,31 @@ class Item(pg.sprite.Sprite):
         """
         Calls Character functions that handle the powerup effects
         :param character: pg.sprite.Sprite (Character)
-
         """
-
+        Timer(self.game, self.type, 5, 100, 100, DEFAULT_FONT_NAME, 25, True)
         if self.type in ['purple', 'yellow', 'white']:
+            Timer(self.game, self.type, POWERUP_EFFECT[self.type], 15, 20, DEFAULT_FONT_NAME, 25)
 
-            Timer(self.game, POWERUP_EFFECT[self.type], 15, 20, DEFAULT_FONT_NAME, 25)
         if self.type == 'red':
             character.heal(POWERUP_EFFECT[self.type])
+            character.image_code = 2
         if self.type == 'pink':
             character.heal(POWERUP_EFFECT[self.type])
+            character.image_code = 3
         if self.type == 'purple':
             character.double_shot(POWERUP_EFFECT[self.type])
+            character.image_code = 4
         if self.type == 'blue':
             character.heal_shield()
         if self.type == 'yellow':
             character.immune(POWERUP_EFFECT[self.type])
+            character.image_code = 5
         if self.type == 'white':
             character.fast_fire(POWERUP_EFFECT[self.type])
+            character.image_code = 6
         if self.type == 'green':
             character.armor += POWERUP_EFFECT[self.type]
+            character.image_code = 7
         if self.type == 'w_green':
             character.attack += POWERUP_EFFECT[self.type]
+            character.image_code = 9
