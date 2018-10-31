@@ -21,6 +21,7 @@ class Home:
         """
         Constructor for the main menu page.
         """
+
         self.screen = screen
         self.paused = paused
         # SCREEN: 1280x720px = WxH
