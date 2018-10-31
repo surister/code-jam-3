@@ -127,7 +127,11 @@ class Item(pg.sprite.Sprite):
                                'w_green': (385, 130, 130, 130)
                                }
         if self.color is None:
-            self.type = random.choice(['red', 'pink', 'purple', 'blue', 'yellow', 'white', 'green', 'w_green'])
+            self.type = random.choices(
+                ['red', 'pink', 'purple', 'blue', 'yellow', 'white', 'green', 'w_green'],
+                weights=[15, 5, 3, 7, 3, 3, 10, 10],
+                k=1
+            )[0]
         else:
             self.type = self.color
 
