@@ -51,8 +51,10 @@ class Projectile(Physics, pg.sprite.Sprite):
             self.image = Projectile.blasters['green']
         if self.owner.type == 5:
             self.image = Projectile.blasters['purple']
-        else:
-            self.image = Projectile.blasters['blue_marine']
+        if self.owner.type == 4:
+            self.image = Projectile.blasters['red']
+        if self.owner.type == 6:
+            self.image = Projectile.blasters['orange']
 
         self.image = pg.transform.scale(self.image, (round(self.owner.projectile_scale*90),
                                                      round(self.owner.projectile_scale*40)))
@@ -171,6 +173,8 @@ class Item(pg.sprite.Sprite):
             character.fast_fire(POWERUP_EFFECT[self.type])
             character.image_code = 6
         if self.type == 'green':
+            if character.armor >= 4:
+                return
             character.armor += POWERUP_EFFECT[self.type]
             character.image_code = 7
         if self.type == 'w_green':

@@ -198,3 +198,4 @@ class Character(Combat, Physics, pg.sprite.Sprite):
             self._shot()
 
         super().update()
+        print(self.armor)

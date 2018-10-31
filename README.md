@@ -30,12 +30,29 @@ As usual, you should be using [Pipenv](https://pipenv.readthedocs.io/en/latest/)
 
 # Project Information
 
-`# TODO`
+This is the misty hat's take on the Third Python Discord CodeJam: Game Development.
 
+The game is made in Python 3.7 using the `pygame` framework
+
+Misty Hats members:
+ * Grote        ` Team Leader` -> https://gitlab.com/JannesJ
+ * Skilldeliver  `Developer`   -> https://gitlab.com/skilldeliver
+ * Surister      `Developer`   -> https://gitlab.com/Surister
 ## Description
 
-`# TODO`
-
+`The game takes place in the space, where you a very angry alien will try to take on human forces, will you succeed?
+`
+The game counts with: 
+   * Figther enemy: A small spaceship that will follow you and try to take you down.
+   * Pythonic mines: The 363th Python Reich also known as the Global Human government mines that will damage you on
+   collision
+   * Defensive Structures: Semi-Stationary defensive structures that will shoot you on sight
+   * 8 differente powerups: Extra damage, armor, hp, shield, double shot.. and more! Everyone with its different
+   image.
+   * Timers: A ten minute timer and small timers for temporary power ups.
+   * Different size/color blaster projectiles
+   * Wave system
+   
 ## How to run
 
 You need Python and Git installed on your system.
@@ -66,4 +83,5 @@ You need Python and Git installed on your system.
 
 ## How to play
 
-`# TODO`
+`W A S D` to control the spaceship
+`SPACE`   to shoot

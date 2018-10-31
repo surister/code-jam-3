@@ -32,10 +32,10 @@ class Structure(Combat, pg.sprite.Sprite):
         self.game = game
         self.vel = vel
         self.pos = pos
-        self.type = 2
+        self.type = 6
         self.image = pg.image.load(str(PurePath(PATH_IMAGES).joinpath(STRUCTURE_IMAGE_NAME)))
         self.rect = self.image.get_rect()
-
+        self.attack = 1
         self.add(self.game.all_sprites, self.game.enemy_sprites)
 
         self.image.set_colorkey(Color.black)

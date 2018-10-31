@@ -40,8 +40,8 @@ POWERUP_EFFECT = {
     'blue': None,    # Full shield - don't change
     'yellow': 15,   # immune - seconds
     'white': 15,    # permanent extra fire rate
-    'green': 0.5,     # +armor
-    'w_green': 0.5    # + attack
+    'green': 1,     # +armor
+    'w_green': 1    # + attack
 }
 
 

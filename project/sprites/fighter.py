@@ -31,10 +31,10 @@ class Fighter(Combat, Physics, pg.sprite.Sprite):
         self.acc = pg.Vector2(0, 0)
         self.vel = pg.Vector2(0, 0)
         self.game = game
-        self.type = 2
+        self.type = 4
         self.projectile_scale = 0.5
         self.add(self.game.all_sprites, self.game.enemy_sprites)
-
+        self.attack = 1
         self.image = pg.image.load(str(PurePath(PATH_IMAGES).joinpath(FIGHTER_IMAGE_NAME)))
 
         self.base_image = self.image

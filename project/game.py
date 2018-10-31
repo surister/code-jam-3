@@ -10,9 +10,6 @@ from project.ui.options import Options
 from project.ui.score import ScoreDisplay
 from project.ui.timer import Timer
 from project.wave_generator import WaveGenerator
-# from project.sprites.game_elements import Item
-# from project.sprites.mine import Mine
-
 
 class CustomGroup:
     """
@@ -87,19 +84,11 @@ class Game:
 
         self.background = Background('stars2.png', self, 5)
 
-        # Testing enemies
-        # Structure(self, WIDTH - 250, pg.Vector2(1, 1), pg.Vector2(WIDTH, 500))
-
-        # Fighter(self, -0.02, pos=pg.Vector2(WIDTH, 500))
-
-        # Mine(self, pg.Vector2(0, 0), pg.Vector2(800, 600))
-
         self.devchar = Character(self, 100, 10, friction=-0.052, shield=50)
 
         self.timer = Timer(self, 600, WIDTH // 2 - 70, 25, DEFAULT_FONT_NAME, 50)
         self.score_display = ScoreDisplay(self, WIDTH - 160, 20, DEFAULT_FONT_NAME, 30)
-        # self.test = Item(self, 'green')
-        # self.second_test = Item(self, 'w_green')
+
         self.wave_generator = WaveGenerator(self)
 
         # TODO WITH SPREADSHEET IMAGE LOAD WON'T BE HERE, BUT IN EVERY SPRITE CLASS
@@ -125,6 +114,7 @@ class Game:
         """
         Every sprite's update will be registered here
         """
+
         self.all_sprites.update()
         self.nonsprite.update()
 
