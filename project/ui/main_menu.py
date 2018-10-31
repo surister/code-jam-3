@@ -1,5 +1,5 @@
+import webbrowser as wb
 from pathlib import PurePath
-from webbrowser import open
 
 import pygame as pg
 from pygame.image import load
@@ -11,9 +11,16 @@ from project.ui.volume import get_volume
 
 
 class Home:
+    """
+    Represents the main menu page.
 
-    def __init__(self, screen, paused: bool = False):
+    The main menu page contains buttons which lead to playing the game, about page, options page and exiting.
+    """
 
+    def __init__(self, screen: pg.Surface, paused: bool = False):
+        """
+        Constructor for the main menu page.
+        """
         self.screen = screen
         self.paused = paused
         # SCREEN: 1280x720px = WxH
@@ -31,14 +38,14 @@ class Home:
         else:
             self.background = load(str(PurePath(PATH_BACKGROUNDS).joinpath(BACKGROUND))).convert_alpha()
 
-        self.buttons_hover_states = {"play": False, "options": False, "about": False, "exit": False, "gitlab": False}
+        self.buttons_hover_states = {'play': False, 'options': False, 'about': False, 'exit': False, 'gitlab': False}
         self.buttons_sprites = {
-            "play": self.sheet.get_image(0, 0, 384, 70, True),
-            "options": self.sheet.get_image(0, 70, 320, 70, True),
-            "about": self.sheet.get_image(0, 140, 320, 70, True),
-            "exit": self.sheet.get_image(0, 210, 320, 70, True),
-            "gitlab": self.sheet.get_image(320, 70, 100, 100, True),
-            "gitlab_h": self.sheet.get_image(320, 170, 100, 100, True)}
+            'play': self.sheet.get_image(0, 0, 384, 70, True),
+            'options': self.sheet.get_image(0, 70, 320, 70, True),
+            'about': self.sheet.get_image(0, 140, 320, 70, True),
+            'exit': self.sheet.get_image(0, 210, 320, 70, True),
+            'gitlab': self.sheet.get_image(320, 70, 100, 100, True),
+            'gitlab_h': self.sheet.get_image(320, 170, 100, 100, True)}
 
         # LOGO: 768x360px
         # horizontal - logo takes 3 parts out of 5 - W/5 * 3 = 768px
@@ -61,7 +68,7 @@ class Home:
             pg.Rect(self.space, self.segment * 5, self.slice * 1.25, self.segment - (self.air * 2))
 
         self.gitlab_button_rect = pg.Rect(WIDTH - 100 - 20, HEIGHT - 100 - 20, 200, 200)
-        self.buttons_dict = {"options": 5, "about": 6, "exit": 7}
+        self.buttons_dict = {'options': 5, 'about': 6, 'exit': 7}
 
         self.sound = HOVER_SOUND
         self.sound.set_volume(get_volume())
@@ -71,6 +78,9 @@ class Home:
         self.once = True
 
     def draw(self)-> None:
+        """
+        Unifying drawing method - draws every element of the main menu.
+        """
         x, y = pg.mouse.get_pos()
 
         self._draw_background()
@@ -84,35 +94,53 @@ class Home:
 
         pg.display.update()
 
-    def _draw_background(self):
+    def _draw_background(self)->None:
+        """
+        Bliting the background image and the game logo on the screen.
+        """
         self.screen.blit(self.background, (0, 0))
         self.screen.blit(self.logo_image, self.logo_rect)
 
-    def _draw_cursor(self, x, y):
+    def _draw_cursor(self, x: int, y: int)->None:
+        """
+        Bliting the cursor on the screen.
+        Classical cursor and finger cursor (if any hoverable element is hovered).
+        """
         if any(self.buttons_hover_states.values()):
             self.screen.blit(self.cursor2, (x, y))
         else:
             self.screen.blit(self.cursor, (x, y))
 
-    def _draw_other_buttons(self, x, y):
-        for key in self.buttons_dict.keys():
-            self._draw_other_button(x, y, key)
-
     def _draw_play_button(self, x: int, y: int)-> None:
+        """
+        Bliting the play button on the screen.
+        Shifting to the right if it is hovered.
+        """
         self.play_button_rect.top = self.segment * 4
         self.play_button_rect.left = self.space
         hovered = self._hovered(x, y, self.play_button_rect)
 
         if hovered:
-            self.buttons_hover_states["play"] = True
+            self.buttons_hover_states['play'] = True
             self.play_button_rect.left = self.shift
-            self.screen.blit(self.buttons_sprites["play"], self.play_button_rect)
+            self.screen.blit(self.buttons_sprites['play'], self.play_button_rect)
         else:
-            self.buttons_hover_states["play"] = False
+            self.buttons_hover_states['play'] = False
             self.play_button_rect.left = self.space
-            self.screen.blit(self.buttons_sprites["play"], self.play_button_rect)
+            self.screen.blit(self.buttons_sprites['play'], self.play_button_rect)
+
+    def _draw_other_buttons(self, x, y):
+        """
+        Iterating through other buttons and bliting them on the screen.
+        """
+        for key in self.buttons_dict.keys():
+            self._draw_other_button(x, y, key)
 
     def _draw_other_button(self, x: int, y: int, button: str)-> None:
+        """
+        Bliting given button on the screen.
+        Shifting to the right if it is hovered.
+        """
         self.other_button_rect.top = self.segment * self.buttons_dict[button]
         hovered = self._hovered(x, y, self.other_button_rect)
 
@@ -126,16 +154,23 @@ class Home:
             self.screen.blit(self.buttons_sprites[button], self.other_button_rect)
 
     def _draw_gitlab_button(self, x: int, y: int)-> None:
+        """
+        Bliting the GitLab button (link).
+        Bliting hovered version of the button if it is hovered.
+        """
         hovered = self._hovered(x, y, self.gitlab_button_rect)
 
         if hovered:
-            self.buttons_hover_states["gitlab"] = True
-            self.screen.blit(self.buttons_sprites["gitlab_h"], self.gitlab_button_rect)
+            self.buttons_hover_states['gitlab'] = True
+            self.screen.blit(self.buttons_sprites['gitlab_h'], self.gitlab_button_rect)
         else:
-            self.buttons_hover_states["gitlab"] = False
-            self.screen.blit(self.buttons_sprites["gitlab"], self.gitlab_button_rect)
+            self.buttons_hover_states['gitlab'] = False
+            self.screen.blit(self.buttons_sprites['gitlab'], self.gitlab_button_rect)
 
     def _play_sound(self)-> None:
+        """
+        Playing the hover sound if any hoverable element is hovered.
+        """
         if not any(self.buttons_hover_states.values()):
             self.once = True
         elif self.once:
@@ -143,12 +178,21 @@ class Home:
             self.once = False
 
     def update_volume(self)->None:
+        """
+        Updating the power of the volume if needed.
+        """
         self.sound.set_volume(get_volume())
 
     @staticmethod
-    def _hovered(x: int, y: int, button: object)-> bool:
+    def _hovered(x: int, y: int, button: pg.Rect)-> bool:
+        """
+        Wraper for collidepoint (checks if point is in pygame.Rect object).
+        """
         return button.collidepoint(x, y)
 
     @staticmethod
     def open_gitlab()-> None:
-        open(GIT_LAB_LINK)
+        """
+        Opens the gitlab link in the browser.
+        """
+        wb.open(GIT_LAB_LINK)
