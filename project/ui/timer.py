@@ -9,16 +9,15 @@ class Timer:
     """
     Represent the text timer in the game.
 
-<<<<<<< HEAD
     def __init__(self, game, _type, time: int, x: int, y: int, font: str, font_size: int, text: bool= False):
-=======
+
     The timer counts down from given seconds.
     """
-    def __init__(self, game, time: int, x: int, y: int, font: str, font_size: int):
+    def __init__(self, game, time: int, x: int, y: int, font: str, font_size: int, text: bool=False, _type: str =None):
         """
         Constructor for the timer.
         """
->>>>>>> c946aab6835f1aba7338c56e515252f73d4c1551
+
         self.game = game
         self.screen = self.game.screen
         self.game.nonsprite.add(self)
@@ -28,6 +27,7 @@ class Timer:
 
         self.display_text = text
         self.type = _type
+
         self.font = pg.font.Font(str(PurePath(PATH_FONTS).joinpath(font)), font_size)
         self.time = time
         self.start = pg.time.get_ticks()
@@ -39,8 +39,6 @@ class Timer:
         """
         Bliting the timer on the screen.
         """
-<<<<<<< HEAD
-
         self.effect_dict =\
             {
                 'red': ' You got extra hp',
@@ -52,12 +50,11 @@ class Timer:
                 'green': 'More armor!',
                 'w_green': 'More damage!'
             }
-=======
+
         if not self.completed:
             self.current = (pg.time.get_ticks() - self.start) // 1000
             if self.current <= self.time:
                 self.text = self.font.render(self.min_sec(self.time - self.current), True, Color.white)
->>>>>>> c946aab6835f1aba7338c56e515252f73d4c1551
 
         if not self.display_text:
             if not self.completed:

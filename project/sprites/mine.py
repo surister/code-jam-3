@@ -2,9 +2,9 @@ from pathlib import PurePath
 
 import pygame as pg
 
-from project.ui.sheet import Sheet
 from project.constants import Color, MINE_IMAGE_NAME, PATH_IMAGES
 from project.sprites.combat import Combat
+from project.ui.sheet import Sheet
 
 
 class Mine(Combat, pg.sprite.Sprite):

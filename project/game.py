@@ -11,7 +11,7 @@ from project.ui.score import ScoreDisplay
 from project.ui.timer import Timer
 from project.wave_generator import WaveGenerator
 # from project.sprites.game_elements import Item
-from project.sprites.mine import Mine
+# from project.sprites.mine import Mine
 
 
 class CustomGroup:
@@ -96,7 +96,7 @@ class Game:
 
         self.devchar = Character(self, 100, 10, friction=-0.052, shield=50)
 
-        self.timer = Timer(self, None, 600, WIDTH // 2 - 70, 25, DEFAULT_FONT_NAME, 50)
+        self.timer = Timer(self, 600, WIDTH // 2 - 70, 25, DEFAULT_FONT_NAME, 50)
         self.score_display = ScoreDisplay(self, WIDTH - 160, 20, DEFAULT_FONT_NAME, 30)
         # self.test = Item(self, 'green')
         # self.second_test = Item(self, 'w_green')

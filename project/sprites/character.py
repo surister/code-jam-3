@@ -37,23 +37,23 @@ class Character(Combat, Physics, pg.sprite.Sprite):
         self.add(self.game.all_sprites)
 
         self.image_code = 1
-        self.images = {1: pg.transform.scale(Sheet(Character.path).
-                                        get_image(200, 460, 310, 300, alpha=True), (60, 60)),    # red
-                       2: pg.transform.scale(Sheet(Character.path).
-                                        get_image(200, 760, 310, 300, alpha=True), (60, 60)),    # blue
-                       3: pg.transform.scale(Sheet(Character.path).
-                                        get_image(200, 1060, 310, 300, alpha=True), (60, 60)),    # green
-                       4: pg.transform.scale(Sheet(Character.path).
-                                        get_image(600, 760, 310, 300, alpha=True), (60, 60)),    # yellow
-                       5: pg.transform.scale(Sheet(Character.path).
-                                        get_image(600, 1060, 310, 300, alpha=True), (60, 60)),   # orange
-                       6: pg.transform.scale(Sheet(Character.path).
-                                        get_image(900, 760, 310, 300, alpha=True), (60, 60)),    # purple
-                       7: pg.transform.scale(Sheet(Character.path).
-                                        get_image(900, 1060, 310, 300, alpha=True), (60, 60)),   # pink
-                       8: pg.transform.scale(Sheet(Character.path).
-                                        get_image(1250, 1060, 310, 300, alpha=True), (60, 60))  # black
-                       }
+
+        self.images = {1: pg.transform.scale(
+            Sheet(Character.path).get_image(200, 460, 310, 300, alpha=True), (60, 60)),    # red
+                       2: pg.transform.scale(
+            Sheet(Character.path).get_image(200, 760, 310, 300, alpha=True), (60, 60)),    # blue
+                       3: pg.transform.scale(
+            Sheet(Character.path).get_image(200, 1060, 310, 300, alpha=True), (60, 60)),    # green
+                       4: pg.transform.scale(
+            Sheet(Character.path).get_image(600, 760, 310, 300, alpha=True), (60, 60)),    # yellow
+                       5: pg.transform.scale(
+            Sheet(Character.path).get_image(600, 1060, 310, 300, alpha=True), (60, 60)),   # orange
+                       6: pg.transform.scale(
+            Sheet(Character.path).get_image(900, 760, 310, 300, alpha=True), (60, 60)),    # purple
+                       7: pg.transform.scale(
+            Sheet(Character.path).get_image(900, 1060, 310, 300, alpha=True), (60, 60)),   # pink
+                       8: pg.transform.scale(
+            Sheet(Character.path).get_image(1250, 1060, 310, 300, alpha=True), (60, 60))}  # black
 
         self.image = self.images[1]
         self.image.set_colorkey(Color.black)

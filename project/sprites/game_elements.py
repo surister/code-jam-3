@@ -145,9 +145,9 @@ class Item(pg.sprite.Sprite):
         Calls Character functions that handle the powerup effects
         :param character: pg.sprite.Sprite (Character)
         """
-        Timer(self.game, self.type, 5, 100, 100, DEFAULT_FONT_NAME, 25, True)
+        Timer(self.game, 5, 100, 100, DEFAULT_FONT_NAME, 25, True, _type=self.type)
         if self.type in ['purple', 'yellow', 'white']:
-            Timer(self.game, self.type, POWERUP_EFFECT[self.type], 15, 20, DEFAULT_FONT_NAME, 25)
+            Timer(self.game, POWERUP_EFFECT[self.type], 15, 20, DEFAULT_FONT_NAME, 25, _type=self.type)
 
         if self.type == 'red':
             character.heal(POWERUP_EFFECT[self.type])
@@ -171,4 +171,4 @@ class Item(pg.sprite.Sprite):
             character.image_code = 7
         if self.type == 'w_green':
             character.attack += POWERUP_EFFECT[self.type]
-            character.image_code = 9
+            character.image_code = 8

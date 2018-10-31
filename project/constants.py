@@ -83,17 +83,12 @@ PROJECTILE_IMAGE_NAME = {0: 'blasters/b0.png',
                          6: 'blasters/b6.png'
                          }
 
-<<<<<<< HEAD
+
 CHARACTER_IMAGE_NAME = "ufo3.png"
 STRUCTURE_IMAGE_NAME = "structure.png"
 FIGHTER_IMAGE_NAME = "fighter.png"
 MINE_IMAGE_NAME = "minas-2.png"
-=======
-CHARACTER_IMAGE_NAME = 'ufo3.png'
-STRUCTURE_IMAGE_NAME = 'structure.png'
-FIGHTER_IMAGE_NAME = 'fighter.png'
-MINE_IMAGE_NAME = 'mine.png'
->>>>>>> c946aab6835f1aba7338c56e515252f73d4c1551
+
 HEALTHBAR = 'healthbar.png'
 SHIELDBAR = 'shield.png'
 BUTTONSHEET = 'buttonsheet.png'
