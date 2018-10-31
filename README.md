@@ -41,22 +41,22 @@ As usual, you should be using [Pipenv](https://pipenv.readthedocs.io/en/latest/)
 You need Python and Git installed on your system.
 
 1. Install pipenv.
-![]("https://i.imgur.com/a/ORIe3vB")
+![]("project/assets/howto/howto1.png")
 
 2. Copy the URL of the repository.
-![]("https://i.imgur.com/a/y0WXafW")
+![]("project/assets/howto/howto2.png")
 
 3. Clone the repository locally.
-![]("https://i.imgur.com/a/9UO6Q3z")
+![]("project/assets/howto/howto3.png")
 
 4. Enter the directory.
-![]("https://i.imgur.com/a/jY0HH5W")
+![]("project/assets/howto/howto4.png")
 
 5. Install the dependencies.
-![]("https://i.imgur.com/a/Q1iNFmu")
+![]("project/assets/howto/howto5.png")
 
 6. Run the game.
-![]("https://i.imgur.com/a/JlLKXaX")
+![]("project/assets/howto/howto6.png")
 
 ## How to play
 
