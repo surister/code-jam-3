@@ -1,6 +1,10 @@
+import logging
+
 import pygame as pg
 
 from project.sprites.game_elements import Item, Projectile
+
+logger = logging.getLogger('last_judgment_logger')
 
 
 class Combat:
@@ -63,10 +67,11 @@ class Combat:
         """
         Destroys the Sprite
 
-        #Overwrite this in the sprite class if non-default behaviour is needed
+        Overwrite this in the sprite class if non-default behaviour is needed
         """
 
         self.game.score += self.points
+        logger.info(f'You now have {self.game.score} points')
         self._generate_drops()
         self.kill()
 
@@ -81,7 +86,7 @@ class Combat:
         Generates a projectile.
 
         Supports multi directional shooting
-        :param angle: float=0
+        :param angle: float=0 Represents the angle in radians
         :param spawn_point: pg.Vector2= None
         """
         now = pg.time.get_ticks()

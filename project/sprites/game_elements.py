@@ -1,3 +1,4 @@
+import logging
 import math
 import random
 from pathlib import PurePath
@@ -9,6 +10,8 @@ from project.constants import (Color, DEFAULT_FONT_NAME, HEIGHT, PATH_IMAGES, PO
 from project.sprites.sprite_internals import Physics
 from project.ui.sheet import Sheet
 from project.ui.timer import Timer
+
+logger = logging.getLogger('last_judgment_logger')
 
 
 class Projectile(Physics, pg.sprite.Sprite):
@@ -135,6 +138,7 @@ class Item(pg.sprite.Sprite):
 
         self.mask = pg.mask.from_surface(self.image)
         self.rect.center = (random.randint(200, 700), random.randint(200, 700))
+        logger.debug(f'Spawned a {self.type} powerup at {self.rect.center}')
 
     def apply_powerup(self, character: pg.sprite.Sprite):
         """
