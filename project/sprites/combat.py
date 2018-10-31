@@ -71,7 +71,7 @@ class Combat:
         """
 
         self.game.score += self.points
-        logger.info(f'You now have {self.game.score} points')
+        logger.debug(f'You now have {self.game.score} points')
         self._generate_drops()
         self.kill()
 
