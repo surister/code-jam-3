@@ -12,7 +12,7 @@ from project.ui.volume import get_volume
 
 class Home:
     """
-    Represents the about page.
+    Represents the main menu page.
 
     The main menu page contains buttons which lead to playing the game, about page, options page and exiting.
     """
