@@ -7,7 +7,7 @@ from project.constants import Color, PATH_FONTS
 
 class ScoreDisplay:
 
-    def __init__(self, game: 'Game', x: int, y: int, font: str, font_size: int):
+    def __init__(self, game, x: int, y: int, font: str, font_size: int):
         self.game = game
         self.screen = self.game.screen
         self.game.nonsprite.add(self)
