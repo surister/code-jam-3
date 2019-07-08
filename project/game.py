@@ -50,11 +50,8 @@ class Game:
 
     def __init__(self):
         pg.init()
-        pg.mixer.init()
-        pg.mixer.init()
         pg.mixer.music.load(str(PurePath(PATH_FX).joinpath("song.mp3")))
         pg.mixer.music.play()
-        pg.display.set_caption('Game in development')
         pg.mouse.set_cursor(*INVISIBLE)
 
         self.running = True
@@ -70,10 +67,8 @@ class Game:
 
         self.score = 0
 
-        pg.init()
-        pg.mixer.init()
+        
         pg.display.set_caption('LAST JUDGMENT')
-        pg.mouse.set_cursor(*INVISIBLE)
 
     def new(self):
         """
