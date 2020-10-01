@@ -83,5 +83,5 @@ You need Python and Git installed on your system.
 
 ## How to play
 
-`W A S D` to control the spaceship
-`SPACE`   to shoot
+`W A S D` to control the spaceship.
+`SPACE`   to shoot.
